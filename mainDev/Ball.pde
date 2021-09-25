@@ -1,39 +1,37 @@
 class Ball 
 {
   
-  final private float tokenRadius = 1*ratio;
+  final private float tokenRadius = 1.5*ratio;
   
   private float x,y;
 
   private color col;
   
-  public float targetX,targetY;
-  
  
-  Ball(color c) {
+  Ball(color c, float xx, float yy) {
     this.col = c;
-    this.targetX = width/2;
-    this.targetY = height/2;
+    this.x = xx;
+    this.y = yy;
   }
   
   
   public void drawBall() {
     fill(this.col);
-    strokeWeight(1);
+    strokeWeight(2);
     stroke(0);
     circle(this.x, this.y,tokenRadius);
   }
-  
-  public void moveBall(int x, int y) {
-    this.setX(x);
-    this.setY(y);
-  }  
   
   
   public boolean isInRange(float xx, float yy, float range) {
     if(this.x > xx - range*ratio && this.x < xx + range*ratio && this.y > yy - range*ratio && this.y < yy + range*ratio) {
       return true;
     }
+    return false;
+  }
+  
+  boolean overBall(float x, float y) {
+    if ( (x > this.x - (this.tokenRadius/2)) && (x < this.x + (this.tokenRadius/2)) && (y > this.y - (this.tokenRadius/2))  && (y < this.y + (this.tokenRadius/2)) )   return true;
     return false;
   }
   

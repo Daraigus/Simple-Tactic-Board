@@ -36,8 +36,10 @@ class Field {
     
     for(int i = 0; i < this.nbStripes; i++) {
       if (i%2 == 0){
+        stroke(brightStripeColor);
         fill(brightStripeColor);
       } else {
+        stroke(darkStripeColor);
         fill(darkStripeColor);
       }
       rect(this.x1 + (i*stripesWidth), this.y1, stripesWidth, stripesLength);

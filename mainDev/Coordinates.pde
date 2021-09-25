@@ -21,7 +21,7 @@ float rightGoalBottomPostX = fieldBottomRightCornerX;
 float rightGoalBottomPostY = (fieldTopLeftCornerY+fieldBottomRightCornerY)/2 + ((ratio*7.3)/2);
 
 
-void calculateCoordinates() {
+void computeCoordinates() {
   
   fieldTopLeftCornerX = (width - (ratio*largeurTerrain))/2;
   fieldTopLeftCornerY = (height - (ratio*hauteurTerrain))/2;

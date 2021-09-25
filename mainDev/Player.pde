@@ -1,7 +1,7 @@
 class Player 
 {
   
-  private final float ratio = 13;
+  private final float ratio = 35;
   final private float tokenRadius = 1.5*this.ratio;
   
   private float x,y;
@@ -9,15 +9,11 @@ class Player
   private String name;
   private color col;
   private int team;
-  private int number;
   
   private boolean hasBall;
   
-  private ArrayList<Player> teammates;
-  private ArrayList<Player> adversaries;
-  
    // name, team, number
-  Player(String na, int t, int n) {
+  Player(String na, int t, float xx, float yy) {
     
     if(t == 1)
       this.col = color(0,0,255);
@@ -26,17 +22,16 @@ class Player
     
     this.name = na;
     this.team = t;
-    this.number = n;
     
-    this.teammates = new ArrayList<Player>();
-    this.adversaries = new ArrayList<Player>();
+    this.x = xx;
+    this.y = yy;
   }
   
   
   public void drawPlayer() {
-    fill(this.col);
+    fill(255);
     stroke(this.col);
-    circle(this.x, this.y,tokenRadius);
+    circle(this.x, this.y, tokenRadius);
   }
   
   public void movePlayer(float x, float y) {
@@ -57,28 +52,11 @@ class Player
   }
   
   
-  public void initAI(ArrayList<Player> players){
-    
-    //print("\n------ " + this.name + " AI init starting\n");
-    
-    // Adding other players to teammates and adversaries lists
-    for(int i = 0; i < players.size(); i++) {
-      if (players.get(i).getTeam() == this.team) {
-        if(players.get(i).getName() != this.name) {
-          
-          this.teammates.add(players.get(i));
-        }
-      }
-      else {
-        if(players.get(i).getName() != this.name) {
-          this.adversaries.add(players.get(i));
-        }
-      }
-    }
-    
-    //print("\n------ " + this.name + " AI init ending\n\n");
-    
+  boolean overPlayer(float x, float y) {
+    if ( (x > this.x - (this.tokenRadius/2)) && (x < this.x + (this.tokenRadius/2)) && (y > this.y - (this.tokenRadius/2))  && (y < this.y + (this.tokenRadius/2)) )   return true;
+    return false;
   }
+  
   
   
   // GETTERS SETTERS
@@ -113,10 +91,6 @@ class Player
   
   public int getTeam() {
     return this.team;
-  }
-  
-  public int getNumber() {
-    return this.number;
   }
   
 }
