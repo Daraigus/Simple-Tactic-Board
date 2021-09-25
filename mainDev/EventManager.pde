@@ -8,18 +8,26 @@ boolean elementInFocusIsPlayerTeam1 = false;
 boolean elementInFocusIsPlayerTeam2 = false;
 boolean ballInFocus = false;
 
+boolean baseArrowLocked = false;
+float baseArrowX;
+float baseArrowY;
+Arrow arrow;
+
 void runEventManager() {
 
   // Souris sur canvas
   if(mouseOverCanvas()) {
     
     
-    
-    if (keyPressed && (key == 'z') && !mouseLocked) { // Suppression élément
+    /* 
+    SUPPRESSION D'ELEMENT
+    */
+    if (keyPressed && (key == 'z') && !mouseLocked) {
       if(mousePressed) {
         // Did we click on a player ?
         for(int i = 0; i < team1.size(); i++) {
           if(team1.get(i).overPlayer(mouseX, mouseY)) {
+            team1FreeJerseyNumbers.add(team1.get(i).getNumber());
             team1.remove(i);
             break;
           }
@@ -27,13 +35,29 @@ void runEventManager() {
   
         for(int i = 0; i < team2.size(); i++) {
           if(team2.get(i).overPlayer(mouseX, mouseY)) {
+            team2FreeJerseyNumbers.add(team2.get(i).getNumber());
             team2.remove(i);
             break;
           }
         }
         mouseLocked = true;
       }
-    } 
+    }   
+    
+    
+    /* 
+    CREATION FLECHE
+    */
+    else if (keyPressed && (key == 's') && !mouseLocked) {
+      if(mousePressed) {
+        baseArrowX = mouseX;
+        baseArrowY = mouseY;
+        Arrow arrow = new Arrow(baseArrowX, baseArrowY, mouseX, mouseY);
+        arrow.drawArrow();
+        
+        mouseLocked = true;
+      }
+    }
     
     
     /* 
@@ -95,7 +119,6 @@ void runEventManager() {
     }
     
     mouseLocked = false;
-    print(team1.size() + "   " + team2.size() + "\n");
   } 
   
     
@@ -113,11 +136,13 @@ void runEventManager() {
 
 void mouseReleased() {
   
+  boolean spotTaken = false;
+  
   /* 
   CREATION DE JOUEURS
   */
   if (keyPressed && (key == 'a')) { // Création joueur équipe 1
-    boolean spotTaken = false;
+    
     for(int i = 0; i < team1.size(); i++) {
       if(team1.get(i).overPlayer(mouseX, mouseY)) { // Si un joueur de la même équipe est déjà à ces coordonnées
         spotTaken = true;
@@ -125,24 +150,35 @@ void mouseReleased() {
     }
     
     if(!spotTaken) {
-      team1JerseyNumber++;
-      team1.add(new Player("nn", 1, mouseX, mouseY));
+      computeNextJerseyNumber(1);
+      team1.add(new Player("nn", 1, team1NextJerseyNumber, mouseX, mouseY));
+      team1JerseyNumbers.add(team1NextJerseyNumber);
       mouseLocked = true;
     }
   } else if (keyPressed && (key == 'e') && !mouseLocked) { // Création joueur équipe 2
   
-    boolean spotTaken = false;
     for(int i = 0; i < team2.size(); i++) {
       if(team2.get(i).overPlayer(mouseX, mouseY)) { // Si un joueur de la même équipe est déjà à ces coordonnées
         spotTaken = true;
       }
     }
     
-    if(!spotTaken) {
-      team2JerseyNumber++;
-      team2.add(new Player("nn", 2, mouseX, mouseY));
+    if(!spotTaken) {   
+      computeNextJerseyNumber(2);
+      team2.add(new Player("nn", 2, team2NextJerseyNumber, mouseX, mouseY));
+      team2JerseyNumbers.add(team2NextJerseyNumber);
       mouseLocked = true;
     }
+  }
+  
+  
+  /* 
+  DESSIN FLECHE
+  */
+  else if (keyPressed && (key == 's') && !mouseLocked) {
+    arrows.add(arrow);
+    
+    mouseLocked = true;
   }
   
   
@@ -157,5 +193,32 @@ void mouseReleased() {
   elementInFocusIsPlayerTeam2 = false;
   ballInFocus = false;
   
+  baseArrowLocked = false;
+  
+  /*
+  RECALCUL DES ID ET AUTRES NOMBRES
+  */
   elementInFocusID = -1;
+}
+
+void computeNextJerseyNumber(int team) {
+  
+  Collections.sort(team1FreeJerseyNumbers);
+  Collections.sort(team2FreeJerseyNumbers);
+  Collections.sort(team1JerseyNumbers);
+  Collections.sort(team2JerseyNumbers);
+  
+  switch (team) {
+    case 1:
+      if (team1JerseyNumbers.size() == 0) { team1NextJerseyNumber = 1; team1JerseyNumbers.add(team1NextJerseyNumber); }
+      else if (team1FreeJerseyNumbers.size() != 0) { team1NextJerseyNumber = team1FreeJerseyNumbers.get(0); team1FreeJerseyNumbers.remove(0);}
+      else { team1NextJerseyNumber = team1JerseyNumbers.get(team1JerseyNumbers.size()-1); team1NextJerseyNumber++;}
+      break;
+    case 2:
+      if (team2JerseyNumbers.size() == 0) { team2NextJerseyNumber = 1; team2JerseyNumbers.add(team2NextJerseyNumber); }
+      else if (team2FreeJerseyNumbers.size() != 0) { team2NextJerseyNumber = team2FreeJerseyNumbers.get(0); team2FreeJerseyNumbers.remove(0);}
+      else { team2NextJerseyNumber = team2JerseyNumbers.get(team2JerseyNumbers.size()-1); team2NextJerseyNumber++;}
+      break;
+  }
+  
 }

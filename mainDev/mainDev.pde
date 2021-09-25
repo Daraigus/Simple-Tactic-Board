@@ -1,11 +1,11 @@
 import java.util.Collections;
+import java.util.Random;
 
 final int ratio = 13;
 final float largeurTerrain = 105;
 final float hauteurTerrain = 68;
 
 final color BGCOLOR = color(28, 32, 36);
-final color ARROWCOLOR = color(45, 120, 255);
 final color PINGCOLOR = color(255,0,0);
 
 
@@ -14,11 +14,17 @@ Field field;
 boolean resetCheck = true;
 boolean drawGUICheck = false;
 
-int team1JerseyNumber;
-int team2JerseyNumber;
+int team1NextJerseyNumber;
+int team2NextJerseyNumber;
+ArrayList<Integer> team1JerseyNumbers;
+ArrayList<Integer> team2JerseyNumbers;
+ArrayList<Integer> team1FreeJerseyNumbers;
+ArrayList<Integer> team2FreeJerseyNumbers;
 
 ArrayList<Player> team1;
 ArrayList<Player> team2;
+
+ArrayList<Arrow> arrows;
 
 Ball ball;
 
@@ -34,11 +40,15 @@ void setup() {
   
   computeCoordinates();
   
-  team1JerseyNumber = 0;
-  team2JerseyNumber = 0;
-  
   team1 = new ArrayList<Player>();
   team2 = new ArrayList<Player>();
+  
+  team1JerseyNumbers = new ArrayList<Integer>();
+  team2JerseyNumbers = new ArrayList<Integer>();
+  team1FreeJerseyNumbers = new ArrayList<Integer>();
+  team2FreeJerseyNumbers = new ArrayList<Integer>();
+  
+  arrows = new ArrayList<Arrow>();
   
   ball = new Ball(255, width/2, height/2);
   
@@ -74,5 +84,11 @@ void drawPlayers() {
   
   for(int i = 0; i < team2.size(); i++) {
     team2.get(i).drawPlayer();
+  }
+}
+
+void drawArrows() {
+  for(int i = 0; i < arrows.size(); i++) {
+    arrows.get(i).drawArrow();
   }
 }
