@@ -7,7 +7,7 @@ class Field {
 
   private float fieldLength;
   private float fieldWidth;
-  
+
   private color brightStripeColor = color(86,110,72);
   private color darkStripeColor = color(93,120,78);
 
@@ -21,19 +21,21 @@ class Field {
 
   public void drawField() {
 
+		strokeWeight(4);
+
     this.drawStripes();
 
     this.drawFieldElements();
   }
 
   public void drawStripes() {
-    
+
     float stripesLength = this.y2 - this.y1;
     float stripesWidth = (this.x2 - this.x1)/this.nbStripes;
-    
+
     rectMode(CORNER);
     noStroke();
-    
+
     for(int i = 0; i < this.nbStripes; i++) {
       if (i%2 == 0){
         stroke(brightStripeColor);
@@ -44,7 +46,7 @@ class Field {
       }
       rect(this.x1 + (i*stripesWidth), this.y1, stripesWidth, stripesLength);
     }
-    
+
   }
 
   public void drawFieldElements() {
