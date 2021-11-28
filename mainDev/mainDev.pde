@@ -31,6 +31,9 @@ ArrayList<Line> lines;
 
 Ball ball;
 
+float[][] coor1 = new float[11][2];
+float[][] coor2 = new float[11][2];
+
 
 
 
@@ -59,6 +62,8 @@ void setup() {
 	ball = new Ball(255, width/2, height/2);
 
 	INPUTMODE = false;
+
+	initPlayerSetup();
 
 }
 
@@ -120,4 +125,93 @@ void drawLines() {
 			lines.get(i).drawLine();
 		}
 	}
+}
+
+void initPlayerSetup() {
+
+	initPlayerCoordinates();
+
+	for (int i=0; i < 11; i++) {
+		computeNextJerseyNumber(1);
+		team1.add(new Player("Joueur " + team1NextJerseyNumber, 1, team1NextJerseyNumber, coor1[i][0], coor1[i][1]));
+		team1JerseyNumbers.add(team1NextJerseyNumber);
+
+		computeNextJerseyNumber(2);
+		team2.add(new Player("Joueur " + team2NextJerseyNumber, 2, team2NextJerseyNumber, coor2[i][0], coor2[i][1]));
+		team2JerseyNumbers.add(team2NextJerseyNumber);
+	}
+}
+
+
+
+void initPlayerCoordinates() {
+
+	// TEAM 1 - 4231
+	coor1[0][0] = 330; // GK
+	coor1[0][1] = 540;
+
+	coor1[1][0] = 540; // 2
+	coor1[1][1] = 880;
+
+	coor1[2][0] = 500; // 3
+	coor1[2][1] = 670;
+
+	coor1[3][0] = 500; // 4
+	coor1[3][1] = 410;
+
+	coor1[4][0] = 540; // 5
+	coor1[4][1] = 200;
+
+	coor1[5][0] = 810; // 6
+	coor1[5][1] = 390;
+
+	coor1[6][0] = 1200; // 7
+	coor1[6][1] = 250;
+
+	coor1[7][0] = 810; // 8
+	coor1[7][1] = 690;
+
+	coor1[8][0] = 1400; // 9
+	coor1[8][1] = 540;
+
+	coor1[9][0] = 1200; // 10
+	coor1[9][1] = 540;
+
+	coor1[10][0] = 1200; // 11
+	coor1[10][1] = 830;
+
+	// TEAM 2 - 433
+	coor2[0][0] = 1590; // GK
+	coor2[0][1] = 540;
+
+	coor2[1][0] = 1380; // 2
+	coor2[1][1] = 200;
+
+	coor2[2][0] = 1420; // 3
+	coor2[2][1] = 410;
+
+	coor2[3][0] = 1420; // 4
+	coor2[3][1] = 670;
+
+	coor2[4][0] = 1380; // 5
+	coor2[4][1] = 880;
+
+	coor2[5][0] = 1060; // 6
+	coor2[5][1] = 540;
+
+	coor2[6][0] = 910; // 7
+	coor2[6][1] = 680;
+
+	coor2[7][0] = 910; // 8
+	coor2[7][1] = 400;
+
+	coor2[8][0] = 550; // 9
+	coor2[8][1] = 540;
+
+	coor2[9][0] = 600; // 10
+	coor2[9][1] = 250;
+
+	coor2[10][0] = 600; // 11
+	coor2[10][1] = 830;
+
 }
