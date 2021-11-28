@@ -20,7 +20,7 @@ class Line
 
 	void drawLine(){
 		stroke(this.col);
-		strokeWeight(13);
+		strokeWeight(8);
 		line(this.x1, this.y1, this.x2, this.y2);
 	}
 

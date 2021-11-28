@@ -32,6 +32,7 @@ class Player
 
   public void drawPlayer() {
     fill(255);
+    strokeWeight(4);
     stroke(this.col);
     circle(this.x, this.y, tokenRadius);
     fill(this.col);

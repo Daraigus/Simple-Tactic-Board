@@ -74,10 +74,10 @@ void draw() {
 	reset();
 	field.drawField();
 
-	drawPlayers();
-	ball.drawBall();
 	drawArrows();
 	drawLines();
+  drawPlayers();
+  ball.drawBall();
 
 
 	if(INPUTMODE) {
