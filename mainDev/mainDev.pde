@@ -27,6 +27,7 @@ ArrayList<Player> team1;
 ArrayList<Player> team2;
 
 ArrayList<Arrow> arrows;
+ArrayList<Line> lines;
 
 Ball ball;
 
@@ -53,6 +54,7 @@ void setup() {
 	team2FreeJerseyNumbers = new ArrayList<Integer>();
 
 	arrows = new ArrayList<Arrow>();
+	lines = new ArrayList<Line>();
 
 	ball = new Ball(255, width/2, height/2);
 
@@ -70,6 +72,7 @@ void draw() {
 	drawPlayers();
 	ball.drawBall();
 	drawArrows();
+	drawLines();
 
 
 	if(INPUTMODE) {
@@ -107,6 +110,14 @@ void drawArrows() {
 	if(!arrows.isEmpty()) {
 		for(int i = 0; i < arrows.size(); i++) {
 			arrows.get(i).drawArrow();
+		}
+	}
+}
+
+void drawLines() {
+	if(!lines.isEmpty()) {
+		for(int i = 0; i < lines.size(); i++) {
+			lines.get(i).drawLine();
 		}
 	}
 }

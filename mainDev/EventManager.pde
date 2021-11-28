@@ -13,6 +13,11 @@ float baseArrowX;
 float baseArrowY;
 Arrow arrow;
 
+boolean baseLineLocked = false;
+float baseLineX;
+float baseLineY;
+Line line;
+
 int teamInWhichPlayerIsBeingAdded;
 
 void runEventManager() 
@@ -54,6 +59,14 @@ void runEventManager()
                         }
                     }
 
+                    // Did we click on an line ?
+                    for(int i = 0; i < lines.size(); i++) {
+                        if(lines.get(i).overLine(mouseX, mouseY)) {
+                            lines.remove(i);
+                            break;
+                        }
+                    }
+
 
 
                     mouseLocked = true;
@@ -78,6 +91,26 @@ void runEventManager()
                     mouseLocked = true;
                 }
             }
+
+
+            /*
+            CREATION LIGNE
+            */
+            else if (keyPressed && (key == 'q') && !mouseLocked) {
+                if(mousePressed) {
+                    if(!baseLineLocked) {
+                        baseLineX = mouseX;
+                        baseLineY = mouseY;
+                    }
+
+                    baseLineLocked = true;
+                    Line line = new Line(baseLineX, baseLineY, mouseX, mouseY);
+                    line.drawLine();
+
+                    mouseLocked = true;
+                }
+            }
+
 
 
             /*
@@ -215,6 +248,16 @@ void mouseReleased() {
         }
 
 
+        /*
+        DESSIN LIGNE
+        */
+        else if (keyPressed && (key == 'q') && !mouseLocked) {
+            lines.add(new Line(baseLineX, baseLineY, mouseX, mouseY));
+
+            mouseLocked = true;
+        }
+
+
 
 
         /*
@@ -227,6 +270,7 @@ void mouseReleased() {
         ballInFocus = false;
 
         baseArrowLocked = false;
+        baseLineLocked = false;
 
         /*
         RECALCUL DES ID ET AUTRES NOMBRES
