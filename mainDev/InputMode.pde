@@ -27,9 +27,11 @@ void keyPressed() {
 	    typing = "";
 
 			if(teamInWhichPlayerIsBeingAdded == 1) {
-				team1.get(team1.size() - 1).setName(saved);
+				computeNextJerseyNumber(1);
+				team1.get(playerToEdit).setName(saved);
 			} else if(teamInWhichPlayerIsBeingAdded == 2) {
-				team2.get(team2.size() - 1).setName(saved);
+				computeNextJerseyNumber(2);
+				team2.get(playerToEdit).setName(saved);
 			}
 
 			teamInWhichPlayerIsBeingAdded = -1;

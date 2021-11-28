@@ -73,6 +73,36 @@ void runEventManager()
                 }
             }
 
+            /*
+            RENOMME JOUEUR
+            */
+            else if (keyPressed && (key == 'r') && !mouseLocked) {
+                if(mousePressed) {
+                    // Did we click on a player ?
+                    for(int i = 0; i < team1.size(); i++) {
+                        if(team1.get(i).overPlayer(mouseX, mouseY)) {
+                            mouseLocked = true;
+                            teamInWhichPlayerIsBeingAdded = 1;
+                            saved = "Joueur " + team1.get(i).getNumber();
+                            playerToEdit = team1.get(i).getNumber()-1;
+                            INPUTMODE = true;
+                            break;
+                        }
+                    }
+
+                    for(int i = 0; i < team2.size(); i++) {
+                        if(team2.get(i).overPlayer(mouseX, mouseY)) {
+                            mouseLocked = true;
+                            teamInWhichPlayerIsBeingAdded = 2;
+                            saved = "Joueur " + team2.get(i).getNumber();
+                            playerToEdit = team2.get(i).getNumber()-1;
+                            INPUTMODE = true;
+                            break;
+                        }
+                    }
+                }
+            }
+
 
             /*
             CREATION FLECHE
@@ -116,7 +146,7 @@ void runEventManager()
             /*
             DEPLACEMENT DE JOUEUR OU DU BALLON
             */
-            else if(mousePressed  && !mouseLocked) { //Si on ne fait que cliquer
+            else if(mousePressed && !mouseLocked) { //Si on ne fait que cliquer
 
                 // Did we click on a player ?
                 if(noElementInFocus || elementInFocusIsPlayerTeam1) { // Pas d'élément focus ou team1
@@ -216,6 +246,7 @@ void mouseReleased() {
                 mouseLocked = true;
                 teamInWhichPlayerIsBeingAdded = 1;
                 saved = "Joueur " + team1NextJerseyNumber;
+                playerToEdit = team1NextJerseyNumber;
                 INPUTMODE = true;
             }
         } else if (keyPressed && (key == 'e') && !mouseLocked) { // Création joueur équipe 2
@@ -233,6 +264,7 @@ void mouseReleased() {
                 mouseLocked = true;
                 teamInWhichPlayerIsBeingAdded = 2;
                 saved = "Joueur " + team2NextJerseyNumber;
+                playerToEdit = team2NextJerseyNumber;
                 INPUTMODE = true;
             }
         }
@@ -284,6 +316,8 @@ void mouseReleased() {
 
 void computeNextJerseyNumber(int team) {
 
+    print("Team : " + team);
+
 	Collections.sort(team1FreeJerseyNumbers);
 	Collections.sort(team2FreeJerseyNumbers);
 	Collections.sort(team1JerseyNumbers);
@@ -291,7 +325,7 @@ void computeNextJerseyNumber(int team) {
 
 	switch (team) {
 		case 1:
-		if (team1JerseyNumbers.size() == 0) { team1NextJerseyNumber = 1; team1JerseyNumbers.add(team1NextJerseyNumber); }
+		if (team1JerseyNumbers.size() == 0) { team1NextJerseyNumber = 1; team1JerseyNumbers.add(team1NextJerseyNumber);}
 		else if (team1FreeJerseyNumbers.size() != 0) { team1NextJerseyNumber = team1FreeJerseyNumbers.get(0); team1FreeJerseyNumbers.remove(0);}
 		else { team1NextJerseyNumber = team1JerseyNumbers.get(team1JerseyNumbers.size()-1); team1NextJerseyNumber++;}
 		break;
@@ -301,5 +335,7 @@ void computeNextJerseyNumber(int team) {
 		else { team2NextJerseyNumber = team2JerseyNumbers.get(team2JerseyNumbers.size()-1); team2NextJerseyNumber++;}
 		break;
 	}
+
+    print(" - Num : " + team1NextJerseyNumber + " - Edit : " + playerToEdit + "\n");
 
 }
