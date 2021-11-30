@@ -1,8 +1,10 @@
-
 améliorer over "lines"
 
+v1.2.1
+FIXED - bug quand hookline pas entre joueurs
+
 v1.2.0
-DONE - pointillets
+DONE - pointillés
 
 v1.1.0
 DONE - zones influence (rectangles)

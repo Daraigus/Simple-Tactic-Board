@@ -358,7 +358,9 @@ void mouseReleased() {
             hookLineBase1 = playerHovered(baseLineX, baseLineY);
             hookLineBase2 = playerHovered(mouseX, mouseY);
             
-            lines.add(new HookLine(hookLineBase1, hookLineBase2));
+            if(hookLineBase1 != null && hookLineBase2 != null) {
+                lines.add(new HookLine(hookLineBase1, hookLineBase2));
+            }
 
             mouseLocked = true;
         }
