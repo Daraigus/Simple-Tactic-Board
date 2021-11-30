@@ -8,6 +8,7 @@ class Player
 
   private String name;
   private color col;
+  private color col2;
   private int team;
   private int number;
 
@@ -16,10 +17,13 @@ class Player
    // name, team, number
   Player(String na, int t, int n, float xx, float yy) {
 
-    if(t == 1)
+    if(t == 1) {
       this.col = color(0,0,255);
-    else
+      this.col2 = color(225);
+    } else {
       this.col = color(255,0,0);
+      this.col2 = color(225);
+    }
 
     this.name = na;
     this.team = t;
@@ -31,13 +35,13 @@ class Player
 
 
   public void drawPlayer() {
-    fill(255);
-    strokeWeight(4);
+    fill(this.col2);
+    strokeWeight(3);
     stroke(this.col);
     circle(this.x, this.y, tokenRadius);
     fill(this.col);
     textAlign(CENTER);
-    textSize(30);
+    textSize(25);
     text(this.name, this.x, this.y + tokenRadius);
     textSize(40);
     text(this.number, this.x, this.y+15);

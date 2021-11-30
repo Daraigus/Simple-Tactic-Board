@@ -1,12 +1,12 @@
 class Line
 {
 
-	private final float ratio = 35;
-	final private float tokenRadius = 1.5*this.ratio;
+	protected final float ratio = 35;
+	final protected float tokenRadius = 1.5*this.ratio;
 
-	private float x1,y1,x2,y2;
+	protected float x1,y1,x2,y2;
 
-	private color col;
+	protected color col;
 
 
 	Line(float x, float y, float xx, float yy) {

@@ -20,31 +20,30 @@ void keyPressed() {
 
 	if(INPUTMODE) {
 		// If the return key is pressed, save the String and clear it
-	  if (key == '\n' ) {
-			if (typing != "") {
-				saved = typing;
-			}
-	    typing = "";
+		if (key == '\n' ) {
+				if (typing != "") {
+					saved = typing;
+				}
+				typing = "";
 
-			if(teamInWhichPlayerIsBeingAdded == 1) {
-				computeNextJerseyNumber(1);
-				team1.get(playerToEdit).setName(saved);
-			} else if(teamInWhichPlayerIsBeingAdded == 2) {
-				computeNextJerseyNumber(2);
-				team2.get(playerToEdit).setName(saved);
-			}
+				if(teamInWhichPlayerIsBeingAdded == 1) {
+					team1.get(playerToSetNameID).setName(saved);
+				} else if(teamInWhichPlayerIsBeingAdded == 2) {
+					team2.get(playerToSetNameID).setName(saved);
+				}
 
-			teamInWhichPlayerIsBeingAdded = -1;
-			saved = "";
-			INPUTMODE = false;
-	  } else if (key == BACKSPACE) {
-			if (typing.length()>0) typing = typing.substring(0,typing.length()-1);
-			else typing = saved;
-		} else if (key == CODED) { // Ignore shift/control/tab
-			typing = typing;
-		} else {
-	    typing = typing + key;
-	  }
+				teamInWhichPlayerIsBeingAdded = -1;
+				saved = "";
+				edition = false;
+				INPUTMODE = false;
+		} else if (key == BACKSPACE) {
+				if (typing.length()>0) typing = typing.substring(0,typing.length()-1);
+				else typing = saved;
+			} else if (key == CODED) { // Ignore shift/control/tab
+				typing = typing;
+			} else {
+			typing = typing + key;
+		}
 	}
 
 }

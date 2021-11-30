@@ -28,13 +28,12 @@ ArrayList<Player> team2;
 
 ArrayList<Arrow> arrows;
 ArrayList<Line> lines;
+ArrayList<Rect> rects;
 
 Ball ball;
 
 float[][] coor1 = new float[11][2];
 float[][] coor2 = new float[11][2];
-
-int playerToEdit;
 
 
 
@@ -42,7 +41,7 @@ int playerToEdit;
 void setup() {
 	frameRate(60);
 
-	fullScreen(1);
+	fullScreen(2);
 	background(255);
 	fill(0);
 
@@ -60,6 +59,7 @@ void setup() {
 
 	arrows = new ArrayList<Arrow>();
 	lines = new ArrayList<Line>();
+	rects = new ArrayList<Rect>();
 
 	ball = new Ball(255, width/2, height/2);
 
@@ -76,10 +76,11 @@ void draw() {
 	reset();
 	field.drawField();
 
+	drawRects();
 	drawArrows();
 	drawLines();
-  drawPlayers();
-  ball.drawBall();
+	drawPlayers();
+	ball.drawBall();
 
 
 	if(INPUTMODE) {
@@ -87,9 +88,6 @@ void draw() {
 	} else {
 		runEventManager();
 	}
-
-
-
 
 }
 
@@ -125,6 +123,14 @@ void drawLines() {
 	if(!lines.isEmpty()) {
 		for(int i = 0; i < lines.size(); i++) {
 			lines.get(i).drawLine();
+		}
+	}
+}
+
+void drawRects() {
+	if(!rects.isEmpty()) {
+		for(int i = 0; i < rects.size(); i++) {
+			rects.get(i).drawRect();
 		}
 	}
 }

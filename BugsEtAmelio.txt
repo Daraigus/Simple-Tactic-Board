@@ -1,5 +1,13 @@
 pointillets
-zones influence (rectangles)
+améliorer over "lines"
 
-bug ajout joueur 12
-bug renommage joueur 6 (pas que là mais pour comprendre)
+
+
+v1.1.0
+DONE - zones influence (rectangles)
+DONE - trait qui s'accroche au joueur
+
+v1.0.1
+FIXED - bug ajout joueur 12
+FIXED - bug renommage joueur 6 (pas que là mais pour comprendre)
+FIXED - bug nommage après suppression : joueur supp prend nom
