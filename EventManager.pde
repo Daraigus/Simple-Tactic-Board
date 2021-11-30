@@ -177,6 +177,25 @@ void runEventManager()
 
 
         /*
+        CREATION DASHLINE
+        */
+        else if (keyPressed && (key == 'x') && !mouseLocked) {
+            if(mousePressed) {
+                if(!baseLineLocked) {
+                    baseLineX = mouseX;
+                    baseLineY = mouseY;
+                }
+
+                baseLineLocked = true;
+                DashLine dashLine = new DashLine(baseLineX, baseLineY, mouseX, mouseY);
+                dashLine.drawLine();
+
+                mouseLocked = true;
+            }
+        }
+
+
+        /*
         CREATION RECT
         */
         else if (keyPressed && (key == 'd') && !mouseLocked) {
@@ -340,6 +359,16 @@ void mouseReleased() {
             hookLineBase2 = playerHovered(mouseX, mouseY);
             
             lines.add(new HookLine(hookLineBase1, hookLineBase2));
+
+            mouseLocked = true;
+        }
+
+
+        /*
+        SAVE DASHLINE
+        */
+        else if (keyPressed && (key == 'x') && !mouseLocked) {
+            lines.add(new DashLine(baseLineX, baseLineY, mouseX, mouseY));
 
             mouseLocked = true;
         }

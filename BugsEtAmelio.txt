@@ -1,7 +1,8 @@
-pointillets
+
 améliorer over "lines"
 
-
+v1.2.0
+DONE - pointillets
 
 v1.1.0
 DONE - zones influence (rectangles)

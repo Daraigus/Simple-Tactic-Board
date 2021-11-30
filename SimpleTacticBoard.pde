@@ -1,5 +1,6 @@
 import java.util.Collections;
 import java.util.Random;
+import garciadelcastillo.dashedlines.*;
 
 final int ratio = 13;
 final float largeurTerrain = 105;
@@ -7,6 +8,8 @@ final float hauteurTerrain = 68;
 
 final color BGCOLOR = color(28, 32, 36);
 final color PINGCOLOR = color(255,0,0);
+
+DashedLines dash;
 
 boolean INPUTMODE;
 
@@ -40,8 +43,10 @@ float[][] coor2 = new float[11][2];
 
 void setup() {
 	frameRate(60);
+	fullScreen(1);
 
-	fullScreen(2);
+	dash = new DashedLines(this);
+
 	background(255);
 	fill(0);
 
