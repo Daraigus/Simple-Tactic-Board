@@ -1,4 +1,6 @@
 améliorer over "lines"
+couleurs objets
+texte dans rectangles
 
 v1.2.1
 FIXED - bug quand hookline pas entre joueurs
