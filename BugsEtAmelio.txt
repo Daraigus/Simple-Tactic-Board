@@ -1,0 +1,5 @@
+pointillets
+zones influence (rectangles)
+
+bug ajout joueur 12
+bug renommage joueur 6 (pas que là mais pour comprendre)
