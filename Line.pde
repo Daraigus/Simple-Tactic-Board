@@ -53,13 +53,8 @@ class Line
 			}
 		} else { // Si ni horizontal, ni vertical
 			println("autre");
-			int top = yy2 - yy1;
-			int bot = xx2 - xx1;
-			println(top);
-			float mtmp = top/bot;
-			println(mtmp);
-			int m = (int) mtmp;
-			int b;
+			float m = (yy2 - yy1) / (xx2 - xx1);
+			float b;
 			if(m != 0) {
 				b = yy1/(m*xx1);
 			} else {
