@@ -35,8 +35,8 @@ ArrayList<Rect> rects;
 
 Ball ball;
 
-float[][] coor1 = new float[11][2];
-float[][] coor2 = new float[11][2];
+int[][] coor1 = new int[11][2];
+int[][] coor2 = new int[11][2];
 
 
 

@@ -1,4 +1,9 @@
-
+// APPROX EQUAL
+boolean approximatelyEqual(float desiredValue, float actualValue, float tolerancePercentage) {
+    float diff = Math.abs(desiredValue - actualValue);         //  1000 - 950  = 50
+    float tolerance = tolerancePercentage/100 * desiredValue;  //  20/100*1000 = 200
+    return diff < tolerance;                                   //  50<200      = true
+}
 
 // FORMES GEOMETRIQUES
 void polygon(float x, float y, float radius, int npoints) {

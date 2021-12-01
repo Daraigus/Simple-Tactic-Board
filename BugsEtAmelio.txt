@@ -1,4 +1,5 @@
-améliorer over "lines"
+DOING - améliorer over "lines"
+DONE - empecher lignes/fleches trop petites
 couleurs objets
 texte dans rectangles
 

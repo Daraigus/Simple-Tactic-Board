@@ -1,7 +1,7 @@
 class DashLine extends Line
 {
 
-	DashLine(float x, float y, float xx, float yy) {
+	DashLine(int x, int y, int xx, int yy) {
 		super(x,y,xx,yy);
 	}
 

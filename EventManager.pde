@@ -9,18 +9,18 @@ boolean elementInFocusIsPlayerTeam2 = false;
 boolean ballInFocus = false;
 
 boolean baseArrowLocked = false;
-float baseArrowX;
-float baseArrowY;
+int baseArrowX;
+int baseArrowY;
 Arrow arrow;
 
 boolean baseLineLocked = false;
-float baseLineX;
-float baseLineY;
+int baseLineX;
+int baseLineY;
 Line line;
 
 boolean baseRectLocked = false;
-float baseRectX;
-float baseRectY;
+int baseRectX;
+int baseRectY;
 Rect rect;
 
 int teamInWhichPlayerIsBeingAdded;
@@ -335,9 +335,11 @@ void mouseReleased() {
         SAVE ARROW
         */
         else if (keyPressed && (key == 's') && !mouseLocked) {
-            arrows.add(new Arrow(baseArrowX, baseArrowY, mouseX, mouseY));
+            if(Math.abs(baseArrowX-mouseX) > 20 || Math.abs(baseArrowY-mouseY) > 20) {
+                arrows.add(new Arrow(baseArrowX, baseArrowY, mouseX, mouseY));
 
-            mouseLocked = true;
+                mouseLocked = true;
+            }
         }
 
 
@@ -345,9 +347,11 @@ void mouseReleased() {
         SAVE LINE
         */
         else if (keyPressed && (key == 'q') && !mouseLocked) {
-            lines.add(new Line(baseLineX, baseLineY, mouseX, mouseY));
+            if(Math.abs(baseLineX-mouseX) > 20 || Math.abs(baseLineY-mouseY) > 20) {
+                lines.add(new Line(baseLineX, baseLineY, mouseX, mouseY));
 
-            mouseLocked = true;
+                mouseLocked = true;
+            }
         }
 
 
@@ -370,9 +374,11 @@ void mouseReleased() {
         SAVE DASHLINE
         */
         else if (keyPressed && (key == 'x') && !mouseLocked) {
-            lines.add(new DashLine(baseLineX, baseLineY, mouseX, mouseY));
+            if(Math.abs(baseLineX-mouseX) > 20 || Math.abs(baseLineY-mouseY) > 20) {
+                lines.add(new DashLine(baseLineX, baseLineY, mouseX, mouseY));
 
-            mouseLocked = true;
+                mouseLocked = true;
+            }
         }
 
 
@@ -411,7 +417,7 @@ void mouseReleased() {
 	
 }
 
-Player playerHovered(float x, float y) {
+Player playerHovered(int x, int y) {
     for(int i = 0; i < team1.size(); i++) {
         if(team1.get(i).overPlayer(x, y)) {
             return team1.get(i);

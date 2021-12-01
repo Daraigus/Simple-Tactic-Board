@@ -4,7 +4,7 @@ class Player
   private final float ratio = 35;
   final private float tokenRadius = 1.5*this.ratio;
 
-  private float x,y;
+  private int x,y;
 
   private String name;
   private color col;
@@ -15,7 +15,7 @@ class Player
   private boolean hasBall;
 
    // name, team, number
-  Player(String na, int t, int n, float xx, float yy) {
+  Player(String na, int t, int n, int xx, int yy) {
 
     if(t == 1) {
       this.col = color(0,0,255);
@@ -47,7 +47,7 @@ class Player
     text(this.number, this.x, this.y+15);
   }
 
-  public void movePlayer(float x, float y) {
+  public void movePlayer(int x, int y) {
     this.setX(x);
     this.setY(y);
   }
@@ -65,7 +65,7 @@ class Player
   }
 
 
-  boolean overPlayer(float x, float y) {
+  boolean overPlayer(int x, int y) {
     if ( (x > this.x - (this.tokenRadius/2)) && (x < this.x + (this.tokenRadius/2)) && (y > this.y - (this.tokenRadius/2))  && (y < this.y + (this.tokenRadius/2)) )   return true;
     return false;
   }
@@ -73,19 +73,19 @@ class Player
 
 
   // GETTERS SETTERS
-  public float getX() {
+  public int getX() {
     return this.x;
   }
 
-  public float getY() {
+  public int getY() {
     return this.y;
   }
 
-  public void setX(float xx) {
+  public void setX(int xx) {
     this.x = xx;
   }
 
-  public void setY(float yy) {
+  public void setY(int yy) {
     this.y = yy;
   }
 
