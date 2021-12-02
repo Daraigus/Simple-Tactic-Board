@@ -2,6 +2,7 @@ DOING - améliorer over "lines"
 DONE - empecher lignes/fleches trop petites
 couleurs objets
 texte dans rectangles
+DONE preset éditable noms joueurs
 
 v1.2.1
 FIXED - bug quand hookline pas entre joueurs

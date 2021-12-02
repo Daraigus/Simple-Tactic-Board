@@ -37,6 +37,7 @@ Ball ball;
 
 int[][] coor1 = new int[11][2];
 int[][] coor2 = new int[11][2];
+String[] names;
 
 
 
@@ -69,6 +70,8 @@ void setup() {
 	ball = new Ball(255, width/2, height/2);
 
 	INPUTMODE = false;
+
+	names = loadStrings("initNames.txt");
 
 	initPlayerSetup();
 
@@ -146,11 +149,11 @@ void initPlayerSetup() {
 
 	for (int i=0; i < 11; i++) {
 		computeNextJerseyNumber(1);
-		team1.add(new Player("Joueur " + team1NextJerseyNumber, 1, team1NextJerseyNumber, coor1[i][0], coor1[i][1]));
+		team1.add(new Player(names[i], 1, team1NextJerseyNumber, coor1[i][0], coor1[i][1]));
 		team1JerseyNumbers.add(team1NextJerseyNumber);
 
 		computeNextJerseyNumber(2);
-		team2.add(new Player("Joueur " + team2NextJerseyNumber, 2, team2NextJerseyNumber, coor2[i][0], coor2[i][1]));
+		team2.add(new Player(names[i+11], 2, team2NextJerseyNumber, coor2[i][0], coor2[i][1]));
 		team2JerseyNumbers.add(team2NextJerseyNumber);
 	}
 }
