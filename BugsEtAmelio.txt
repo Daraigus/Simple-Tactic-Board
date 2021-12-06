@@ -3,6 +3,8 @@ DONE - empecher lignes/fleches trop petites
 couleurs objets
 texte dans rectangles
 DONE preset éditable noms joueurs
+DOING - modifier tailles éléments
+DOING - bouger tous éléments
 
 v1.2.1
 FIXED - bug quand hookline pas entre joueurs

@@ -8,6 +8,13 @@ boolean elementInFocusIsPlayerTeam1 = false;
 boolean elementInFocusIsPlayerTeam2 = false;
 boolean ballInFocus = false;
 
+// Moving Lines
+int lineInFocusID = -1;
+int memoryX1 = -1;
+int memoryY1 = -1;
+int memoryX2 = -1;
+int memoryY2 = -1;
+
 boolean baseArrowLocked = false;
 int baseArrowX;
 int baseArrowY;
@@ -220,56 +227,86 @@ void runEventManager()
         */
         else if(mousePressed && !mouseLocked) { //Si on ne fait que cliquer
 
+            // Did we click on the ball ?
+            if(noElementInFocus || ballInFocus) { // Pas d'élément focus ou ballon
+                if(ballInFocus) { // If the ball is already in focus
+                    ball.setX(mouseX);
+                    ball.setY(mouseY);
+                }
+                if(ball.overBall(mouseX, mouseY)) {
+                    ball.setX(mouseX);
+                    ball.setY(mouseY);
+                    noElementInFocus = false;
+                    ballInFocus = true;
+                }
+            }
+
             // Did we click on a player ?
             if(noElementInFocus || elementInFocusIsPlayerTeam1) { // Pas d'élément focus ou team1
-            if(elementInFocusIsPlayerTeam1) { // si team 1
-                team1.get(elementInFocusID).setX(mouseX);
-                team1.get(elementInFocusID).setY(mouseY);
-            } else { // si rien de focus
-                for(int i = 0; i < team1.size(); i++) {
-                    if(team1.get(i).overPlayer(mouseX, mouseY)) {
-                        team1.get(i).setX(mouseX);
-                        team1.get(i).setY(mouseY);
-                        noElementInFocus = false;
-                        elementInFocusIsPlayerTeam1 = true;
-                        elementInFocusID = i;
+                if(elementInFocusIsPlayerTeam1) { // si team 1
+                    team1.get(elementInFocusID).setX(mouseX);
+                    team1.get(elementInFocusID).setY(mouseY);
+                } else { // si rien de focus
+                    for(int i = 0; i < team1.size(); i++) {
+                        if(team1.get(i).overPlayer(mouseX, mouseY)) {
+                            team1.get(i).setX(mouseX);
+                            team1.get(i).setY(mouseY);
+                            noElementInFocus = false;
+                            elementInFocusIsPlayerTeam1 = true;
+                            elementInFocusID = i;
+                        }
+                    }
+                }
+            } 
+            if(noElementInFocus || elementInFocusIsPlayerTeam2) { // Pas d'élément focus ou team2
+                if(elementInFocusIsPlayerTeam2) { // si team 2
+                    team2.get(elementInFocusID).setX(mouseX);
+                    team2.get(elementInFocusID).setY(mouseY);
+                } else {
+                    for(int i = 0; i < team2.size(); i++) {
+                        if(team2.get(i).overPlayer(mouseX, mouseY)) {
+                            team2.get(i).setX(mouseX);
+                            team2.get(i).setY(mouseY);
+                            noElementInFocus = false;
+                            elementInFocusIsPlayerTeam2 = true;
+                            elementInFocusID = i;
+                        }
                     }
                 }
             }
-        } 
-        if(noElementInFocus || elementInFocusIsPlayerTeam2) { // Pas d'élément focus ou team2
-            if(elementInFocusIsPlayerTeam2) { // si team 2
-                team2.get(elementInFocusID).setX(mouseX);
-                team2.get(elementInFocusID).setY(mouseY);
-            } else {
-                for(int i = 0; i < team2.size(); i++) {
-                    if(team2.get(i).overPlayer(mouseX, mouseY)) {
-                        team2.get(i).setX(mouseX);
-                        team2.get(i).setY(mouseY);
-                        noElementInFocus = false;
-                        elementInFocusIsPlayerTeam2 = true;
-                        elementInFocusID = i;
+
+            // Did we click on a line ?
+            if(noElementInFocus || lineInFocusID != -1) { // Pas d'élément focus ou ligne
+                if(lineInFocusID != -1) { // If the line is already in focus
+                    // CALCUL DE DEPLACEMENT
+                } else {
+                    for(int i = 0; i < lines.getSize(); i++) {
+                        if (lines.get(i).overLine() && !(lines.get(i) instanceOf HookLine)) {
+                            lineInFocusID = i;
+                            lines.get(lineInFocusID).setX(mouseX);
+                            lines.get(lineInFocusID).setY(mouseY);
+                        }
                     }
                 }
             }
-        }
 
-
-        // Did we click on the ball ?
-        if(noElementInFocus || ballInFocus) { // Pas d'élément focus ou ballon
-            if(ballInFocus) { // If the ball is already in focus
-                ball.setX(mouseX);
-                ball.setY(mouseY);
+            // Did we click on a rect ?
+            if(noElementInFocus || lineInFocusID != -1) { // Pas d'élément focus ou rect
+                if(lineInFocusID != -1) { // If the rect is already in focus
+                    lines.get(lineInFocusID).setX(mouseX);
+                    lines.get(lineInFocusID).setY(mouseY);
+                } else {
+                    for(int i = 0; i < lines.getSize(); i++) {
+                        if (lines.get(i).overLine()) {
+                            lineInFocusID = i;
+                            lines.get(lineInFocusID).setX(mouseX);
+                            lines.get(lineInFocusID).setY(mouseY);
+                        }
+                    }
+                }
             }
-            if(ball.overBall(mouseX, mouseY)) {
-                ball.setX(mouseX);
-                ball.setY(mouseY);
-                noElementInFocus = false;
-                ballInFocus = true;
-            }
-        }
 
-        mouseLocked = true;
+            mouseLocked = true;
         }
 
         mouseLocked = false;
@@ -402,6 +439,12 @@ void mouseReleased() {
         elementInFocusIsPlayerTeam1 = false;
         elementInFocusIsPlayerTeam2 = false;
         ballInFocus = false;
+        
+        lineInFocusID = -1;
+        memoryX1 = -1;
+        memoryY1 = -1;
+        memoryX2 = -1;
+        memoryY2 = -1;
 
         baseArrowLocked = false;
         baseLineLocked = false;

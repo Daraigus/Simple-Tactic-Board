@@ -2,7 +2,7 @@ class Player
 {
 
   private final float ratio = 35;
-  final private float tokenRadius = 1.5*this.ratio;
+  final private float tokenRadius = 1.2*this.ratio;
 
   private int x,y;
 
@@ -43,8 +43,8 @@ class Player
     textAlign(CENTER);
     textSize(25);
     text(this.name, this.x, this.y + tokenRadius);
-    textSize(40);
-    text(this.number, this.x, this.y+15);
+    textSize(30);
+    text(this.number, this.x, this.y+10);
   }
 
   public void movePlayer(int x, int y) {
