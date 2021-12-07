@@ -1,13 +1,19 @@
-DOING - améliorer over "lines"
-DONE - empecher lignes/fleches trop petites
 couleurs objets
 texte dans rectangles
-DONE preset éditable noms joueurs
+
+DOING - améliorer over "lines"
 DOING - modifier tailles éléments
 DOING - bouger tous éléments
+    DONE - bouger flèches
     DONE - bouger lignes
-        TODO - Exception hookline
-    DOING - bouger rect
+        DONE - Exception hookline
+    DONE - bouger rect
+
+DONE - Opti perfs accession objet déplacement
+DONE - empecher lignes/fleches trop petites
+DONE preset éditable noms joueurs
+
+
 
 v1.2.1
 FIXED - bug quand hookline pas entre joueurs
