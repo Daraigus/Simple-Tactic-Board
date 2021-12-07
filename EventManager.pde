@@ -286,12 +286,14 @@ void runEventManager()
                     lines.get(lineInFocusID).setY2(lines.get(lineInFocusID).getY2() + (mouseY - memoryMouseY));
                     memoryMouseX = mouseX;
                     memoryMouseY = mouseY;
+                    noElementInFocus = false;
                 } else {
                     for(int i = 0; i < lines.size(); i++) {
                         if (lines.get(i).overLine(mouseX, mouseY) /*&& !(lines.get(i) instanceOf HookLine)*/) {
                             lineInFocusID = i;
                             memoryMouseX = mouseX;
                             memoryMouseY = mouseY;
+                            noElementInFocus = false;
                         }
                     }
                 }
