@@ -5,6 +5,9 @@ texte dans rectangles
 DONE preset éditable noms joueurs
 DOING - modifier tailles éléments
 DOING - bouger tous éléments
+    DONE - bouger lignes
+        TODO - Exception hookline
+    DOING - bouger rect
 
 v1.2.1
 FIXED - bug quand hookline pas entre joueurs

@@ -14,6 +14,8 @@ int memoryX1 = -1;
 int memoryY1 = -1;
 int memoryX2 = -1;
 int memoryY2 = -1;
+int memoryMouseX = -1;
+int memoryMouseY = -1;
 
 boolean baseArrowLocked = false;
 int baseArrowX;
@@ -278,33 +280,38 @@ void runEventManager()
             // Did we click on a line ?
             if(noElementInFocus || lineInFocusID != -1) { // Pas d'élément focus ou ligne
                 if(lineInFocusID != -1) { // If the line is already in focus
-                    // CALCUL DE DEPLACEMENT
+                    lines.get(lineInFocusID).setX1(lines.get(lineInFocusID).getX1() + (mouseX - memoryMouseX));
+                    lines.get(lineInFocusID).setY1(lines.get(lineInFocusID).getY1() + (mouseY - memoryMouseY));
+                    lines.get(lineInFocusID).setX2(lines.get(lineInFocusID).getX2() + (mouseX - memoryMouseX));
+                    lines.get(lineInFocusID).setY2(lines.get(lineInFocusID).getY2() + (mouseY - memoryMouseY));
+                    memoryMouseX = mouseX;
+                    memoryMouseY = mouseY;
                 } else {
-                    for(int i = 0; i < lines.getSize(); i++) {
-                        if (lines.get(i).overLine() && !(lines.get(i) instanceOf HookLine)) {
+                    for(int i = 0; i < lines.size(); i++) {
+                        if (lines.get(i).overLine(mouseX, mouseY) /*&& !(lines.get(i) instanceOf HookLine)*/) {
                             lineInFocusID = i;
-                            lines.get(lineInFocusID).setX(mouseX);
-                            lines.get(lineInFocusID).setY(mouseY);
+                            memoryMouseX = mouseX;
+                            memoryMouseY = mouseY;
                         }
                     }
                 }
             }
 
             // Did we click on a rect ?
-            if(noElementInFocus || lineInFocusID != -1) { // Pas d'élément focus ou rect
-                if(lineInFocusID != -1) { // If the rect is already in focus
-                    lines.get(lineInFocusID).setX(mouseX);
-                    lines.get(lineInFocusID).setY(mouseY);
-                } else {
-                    for(int i = 0; i < lines.getSize(); i++) {
-                        if (lines.get(i).overLine()) {
-                            lineInFocusID = i;
-                            lines.get(lineInFocusID).setX(mouseX);
-                            lines.get(lineInFocusID).setY(mouseY);
-                        }
-                    }
-                }
-            }
+            // if(noElementInFocus || lineInFocusID != -1) { // Pas d'élément focus ou rect
+            //     if(lineInFocusID != -1) { // If the rect is already in focus
+            //         lines.get(lineInFocusID).setX(mouseX);
+            //         lines.get(lineInFocusID).setY(mouseY);
+            //     } else {
+            //         for(int i = 0; i < lines.getSize(); i++) {
+            //             if (lines.get(i).overLine()) {
+            //                 lineInFocusID = i;
+            //                 lines.get(lineInFocusID).setX(mouseX);
+            //                 lines.get(lineInFocusID).setY(mouseY);
+            //             }
+            //         }
+            //     }
+            // }
 
             mouseLocked = true;
         }
@@ -445,6 +452,8 @@ void mouseReleased() {
         memoryY1 = -1;
         memoryX2 = -1;
         memoryY2 = -1;
+        memoryMouseX = -1;
+        memoryMouseX = -1;
 
         baseArrowLocked = false;
         baseLineLocked = false;
