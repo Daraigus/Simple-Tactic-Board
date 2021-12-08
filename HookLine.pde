@@ -11,7 +11,7 @@ class HookLine extends Line
 
     void drawLine(){
 		stroke(this.col);
-		strokeWeight(8);
+		strokeWeight(this.strokeWeight);
         updateHookCoordinates();
 		line(this.x1, this.y1, this.x2, this.y2);
 	}

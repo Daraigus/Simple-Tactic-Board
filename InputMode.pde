@@ -13,7 +13,12 @@ void runInputMode() {
   fill(255);
 
   // Display everything
-  text("Nom du joueur: \n" + typing,width/2, height/2);
+  if(INPUTPLAYER) {
+	  text("Nom du joueur : \n" + typing,width/2, height/2);
+  } else if (INPUTTEXT) {
+	  text("Texte libre : \n" + typing,width/2, height/2);
+  }
+  
 }
 
 void keyPressed() {
@@ -26,16 +31,23 @@ void keyPressed() {
 				}
 				typing = "";
 
-				if(teamInWhichPlayerIsBeingAdded == 1) {
-					team1.get(playerToSetNameID).setName(saved);
-				} else if(teamInWhichPlayerIsBeingAdded == 2) {
-					team2.get(playerToSetNameID).setName(saved);
+				if(INPUTPLAYER) {
+					if(teamInWhichPlayerIsBeingAdded == 1) {
+						team1.get(playerToSetNameID).setName(saved);
+					} else if(teamInWhichPlayerIsBeingAdded == 2) {
+						team2.get(playerToSetNameID).setName(saved);
+					}
+				} else if (INPUTTEXT) {
+					texts.get(textToEditID).setTxt(saved);
 				}
+				
 
 				teamInWhichPlayerIsBeingAdded = -1;
 				saved = "";
 				edition = false;
 				INPUTMODE = false;
+				INPUTPLAYER = false;
+				INPUTTEXT = false;
 		} else if (key == BACKSPACE) {
 				if (typing.length()>0) typing = typing.substring(0,typing.length()-1);
 				else typing = saved;

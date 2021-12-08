@@ -12,6 +12,8 @@ final color PINGCOLOR = color(255,0,0);
 DashedLines dash;
 
 boolean INPUTMODE;
+boolean INPUTPLAYER;
+boolean INPUTTEXT;
 
 
 Field field;
@@ -29,9 +31,9 @@ ArrayList<Integer> team2FreeJerseyNumbers;
 ArrayList<Player> team1;
 ArrayList<Player> team2;
 
-ArrayList<Arrow> arrows;
 ArrayList<Line> lines;
 ArrayList<Rect> rects;
+ArrayList<Text> texts;
 
 Ball ball;
 
@@ -44,7 +46,7 @@ String[] names;
 
 void setup() {
 	frameRate(60);
-	fullScreen(1);
+	fullScreen();
 
 	dash = new DashedLines(this);
 
@@ -63,13 +65,15 @@ void setup() {
 	team1FreeJerseyNumbers = new ArrayList<Integer>();
 	team2FreeJerseyNumbers = new ArrayList<Integer>();
 
-	arrows = new ArrayList<Arrow>();
 	lines = new ArrayList<Line>();
 	rects = new ArrayList<Rect>();
+	texts = new ArrayList<Text>();
 
 	ball = new Ball(255, width/2, height/2);
 
 	INPUTMODE = false;
+	INPUTPLAYER = false;
+	INPUTTEXT = false;
 
 	names = loadStrings("initNames.txt");
 
@@ -85,10 +89,10 @@ void draw() {
 	field.drawField();
 
 	drawRects();
-	drawArrows();
 	drawLines();
 	drawPlayers();
 	ball.drawBall();
+	drawTexts();
 
 
 	if(INPUTMODE) {
@@ -119,14 +123,6 @@ void drawPlayers() {
 	}
 }
 
-void drawArrows() {
-	if(!arrows.isEmpty()) {
-		for(int i = 0; i < arrows.size(); i++) {
-			arrows.get(i).drawArrow();
-		}
-	}
-}
-
 void drawLines() {
 	if(!lines.isEmpty()) {
 		for(int i = 0; i < lines.size(); i++) {
@@ -139,6 +135,14 @@ void drawRects() {
 	if(!rects.isEmpty()) {
 		for(int i = 0; i < rects.size(); i++) {
 			rects.get(i).drawRect();
+		}
+	}
+}
+
+void drawTexts() {
+	if(!texts.isEmpty()) {
+		for(int i = 0; i < texts.size(); i++) {
+			texts.get(i).drawText();
 		}
 	}
 }

@@ -1,7 +1,7 @@
 class Line
 {
 
-	protected final int strokeWeight = 8;
+	protected int strokeWeight = 6;
 
 	protected int x1,y1,x2,y2;
 
@@ -23,57 +23,53 @@ class Line
 		line(this.x1, this.y1, this.x2, this.y2);
 	}
 
-	boolean overLine(float xx, float yy) {
-		// if ( x >= this.x1 && x <= this.x2 && y >= this.y1 && y <= this.y2 )   { return true; } // Trait vers bas droite
-		// if ( x >= this.x1 && x <= this.x2 && y <= this.y1 && y >= this.y2 )   { return true; } // Trait vers haut droite
-		// if ( x <= this.x1 && x >= this.x2 && y >= this.y1 && y <= this.y2 )   { return true; } // Trait vers bas gauche
-		// if ( x <= this.x1 && x >= this.x2 && y <= this.y1 && y >= this.y2 )   { return true; } // Trait vers haut gauche
-		// return false;
+	boolean overLine(int xx, int yy)
+	{
+		int tolerance = 5;
 
-		println("x1 = " + this.x1 + " y1 = " + this.y1);
-		println("x2 = " + this.x2 + " y2 = " + this.y2);
-		println("xx = " + xx + " yy = " + yy);
+		double minX = min(this.x1, this.x2) - tolerance;
+		double maxX = max(this.x1, this.x2) + tolerance;
+		double minY = min(this.y1, this.y2) - tolerance;
+		double maxY = max(this.y1, this.y2) + tolerance;
 
-		int xx1 = this.x1;
-		int xx2 = this.x2;
-		int yy1 = this.y1;
-		int yy2 = this.y2;
-
-		if(approximatelyEqual(xx1, xx2, 1)) { // Si vertical
-			if(yy1 > yy2) {
-				return (approximatelyEqual(xx1, xx, 1) && (yy-5 <= yy1) && (yy+5 >= yy2)); // Trait vers le haut
-			} else {
-				return (approximatelyEqual(xx1, xx, 1) && (yy-5 <= yy2) && (yy+5 >= yy1)); // Trait vers le bas
-			}
-		} else if (approximatelyEqual(yy1, yy2, 2)) { // Si horizontal
-			if(xx1 > xx2) {
-				return (approximatelyEqual(yy1, yy, 1) && (xx-5 <= xx1) && (xx+5 >= xx2)); // Trait vers la gauche
-			} else {
-				return (approximatelyEqual(yy1, yy, 1) && (xx-5 <= xx2) && (xx+5 >= xx1)); // Trait vers la droite
-			}
-		} else { // Si ni horizontal, ni vertical
-			println("autre");
-			float m = (yy2 - yy1) / (xx2 - xx1);
-			float b;
-			if(m != 0) {
-				b = yy1/(m*xx1);
-			} else {
-				b = yy1;
-			}
-				
-
-			println("y = " + m + "x + " + b);
-			println("------------------------------");
-
-			if(yy < (m*xx)+b + 5 && yy > (m*xx)+b - 5 && xx < (yy-b)/m + 5 && xx > (yy-b)/m - 5) {
-			// if(approximatelyEqual((m*xx)+b,yy,10)) {
-				println("true");
-				return true;
-			}
+		//Check C is within the bounds of the line
+		if (xx >= maxX || xx <= minX || yy <= minY || yy >= maxY)
+		{
+			return false;
 		}
-		
 
-		return false;
+		// Check for when AB is vertical
+		if (this.x1 == this.x2)
+		{
+			if (abs(this.x1 - xx) >= tolerance)
+			{
+				return false;
+			}
+			return true;
+		}
+
+		// Check for when AB is horizontal
+		if (this.y1 == this.y2)
+		{
+			if (abs(this.y1 - yy) >= tolerance)
+			{
+				return false;
+			}
+			return true;
+		}
+
+
+		// Check istance of the point form the line
+		double distFromLine = abs(((this.x2 - this.x1)*(this.y1 - yy))-((this.x1 - xx)*(this.y2 - this.y1))) / sqrt((this.x2 - this.x1) * (this.x2 - this.x1) + (this.y2 - this.y1) * (this.y2 - this.y1));
+
+		if (distFromLine >= tolerance)
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
 	}
 
 

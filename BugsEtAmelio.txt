@@ -1,19 +1,21 @@
+interface à boutons
 couleurs objets
-texte dans rectangles
 
-DOING - améliorer over "lines"
-DOING - modifier tailles éléments
-DOING - bouger tous éléments
+
+v2.0.0
+DONE - free text
+DONE - empêcher suppression rectangle quand suppression couche supérieure
+DONE - améliorer over "lines"
+DONE - modifier tailles éléments UX
+DONE - arrows are special lines
+DONE - bouger tous éléments
     DONE - bouger flèches
     DONE - bouger lignes
         DONE - Exception hookline
     DONE - bouger rect
-
 DONE - Opti perfs accession objet déplacement
 DONE - empecher lignes/fleches trop petites
 DONE preset éditable noms joueurs
-
-
 
 v1.2.1
 FIXED - bug quand hookline pas entre joueurs

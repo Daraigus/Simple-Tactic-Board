@@ -8,21 +8,16 @@ boolean elementInFocusIsPlayerTeam1 = false;
 boolean elementInFocusIsPlayerTeam2 = false;
 boolean ballInFocus = false;
 
-// Moving Lines & rects & arrows
+// Moving elements
 int lineInFocusID = -1;
 int rectInFocusID = -1;
-int arrowInFocusID = -1;
+int textInFocusID = -1;
 int memoryX1 = -1;
 int memoryY1 = -1;
 int memoryX2 = -1;
 int memoryY2 = -1;
 int memoryMouseX = -1;
 int memoryMouseY = -1;
-
-boolean baseArrowLocked = false;
-int baseArrowX;
-int baseArrowY;
-Arrow arrow;
 
 boolean baseLineLocked = false;
 int baseLineX;
@@ -38,7 +33,11 @@ int teamInWhichPlayerIsBeingAdded;
 boolean edition = false;
 int playerToSetNameID;
 
+int textToEditID;
+
 Player hookLineBase1, hookLineBase2;
+
+boolean blockRectDeletion = false;
 
 void runEventManager() 
 {
@@ -55,6 +54,7 @@ void runEventManager()
                     if(team1.get(i).overPlayer(mouseX, mouseY)) {
                         team1FreeJerseyNumbers.add(team1.get(i).getNumber());
                         team1.remove(i);
+                        blockRectDeletion = true;
                         break;
                     }
                 }
@@ -63,15 +63,7 @@ void runEventManager()
                     if(team2.get(i).overPlayer(mouseX, mouseY)) {
                         team2FreeJerseyNumbers.add(team2.get(i).getNumber());
                         team2.remove(i);
-                        break;
-                    }
-                }
-
-
-                // Did we click on an arrow ?
-                for(int i = 0; i < arrows.size(); i++) {
-                    if(arrows.get(i).overArrow(mouseX, mouseY)) {
-                        arrows.remove(i);
+                        blockRectDeletion = true;
                         break;
                     }
                 }
@@ -80,49 +72,61 @@ void runEventManager()
                 for(int i = 0; i < lines.size(); i++) {
                     if(lines.get(i).overLine(mouseX, mouseY)) {
                         lines.remove(i);
+                        blockRectDeletion = true;
+                        break;
+                    }
+                }
+
+                // Did we click on an text ?
+                for(int i = 0; i < texts.size(); i++) {
+                    if(texts.get(i).overText(mouseX, mouseY)) {
+                        texts.remove(i);
+                        blockRectDeletion = true;
                         break;
                     }
                 }
 
                 // Did we click on an rect ?
-                for(int i = 0; i < rects.size(); i++) {
-                    if(rects.get(i).overRect(mouseX, mouseY)) {
-                        rects.remove(i);
-                        break;
+                if(!blockRectDeletion) {
+                    for(int i = 0; i < rects.size(); i++) {
+                        if(rects.get(i).overRect(mouseX, mouseY)) {
+                            rects.remove(i);
+                            break;
+                        }
                     }
                 }
-
-
 
                 mouseLocked = true;
             }
         }
 
         /*
-        RENOMME JOUEUR
+        RENOMME JOUEUR OU FREE TEXT
         */
         else if (keyPressed && (key == 'r') && !mouseLocked) {
             if(mousePressed) {
                 // Did we click on a player ?
-                for(int i = 0; i < team1.size(); i++) {
+                for(int i = 0; i < team1.size(); i++) { // Renomme équipe 1
                     if(team1.get(i).overPlayer(mouseX, mouseY)) {
                         mouseLocked = true;
                         teamInWhichPlayerIsBeingAdded = 1;
                         saved = "Joueur " + team1.get(i).getNumber();
                         edition = true;
                         playerToSetNameID = i;
+                        INPUTPLAYER = true;
                         INPUTMODE = true;
                         break;
                     }
                 }
 
-                for(int i = 0; i < team2.size(); i++) {
+                for(int i = 0; i < team2.size(); i++) { // Renomme équipe 2
                     if(team2.get(i).overPlayer(mouseX, mouseY)) {
                         mouseLocked = true;
                         teamInWhichPlayerIsBeingAdded = 2;
                         saved = "Joueur " + team2.get(i).getNumber();
                         edition = true;
                         playerToSetNameID = i;
+                        INPUTPLAYER = true;
                         INPUTMODE = true;
                         break;
                     }
@@ -136,14 +140,14 @@ void runEventManager()
         */
         else if (keyPressed && (key == 's') && !mouseLocked) {
             if(mousePressed) {
-                if(!baseArrowLocked) {
-                    baseArrowX = mouseX;
-                    baseArrowY = mouseY;
+                if(!baseLineLocked) {
+                    baseLineX = mouseX;
+                    baseLineY = mouseY;
                 }
 
-                baseArrowLocked = true;
-                Arrow arrow = new Arrow(baseArrowX, baseArrowY, mouseX, mouseY);
-                arrow.drawArrow();
+                baseLineLocked = true;
+                Arrow arrow = new Arrow(baseLineX, baseLineY, mouseX, mouseY);
+                arrow.drawLine();
 
                 mouseLocked = true;
             }
@@ -227,8 +231,9 @@ void runEventManager()
 
 
         /*
-        DEPLACEMENT DE JOUEUR OU DU BALLON
+        DEPLACEMENT éléments
         */
+        // Did we click on players or the ball ?
         else if(mousePressed && !mouseLocked) { //Si on ne fait que cliquer
 
             // Did we click on the ball ?
@@ -307,22 +312,18 @@ void runEventManager()
                 }
             }
 
-            // Did we click on an arrow ?
-            if(noElementInFocus || arrowInFocusID != -1) { // Pas d'élément focus ou flèche
-                if(arrowInFocusID != -1) { // If the arrow is already in focus
-                    Arrow arrow = arrows.get(arrowInFocusID);
-                    arrow.setX1(arrow.getX1() + (mouseX - memoryMouseX));
-                    arrow.setY1(arrow.getY1() + (mouseY - memoryMouseY));
-                    arrow.setX2(arrow.getX2() + (mouseX - memoryMouseX));
-                    arrow.setY2(arrow.getY2() + (mouseY - memoryMouseY));
+            // Did we click on a text ?
+            if(noElementInFocus || textInFocusID != -1) { // Pas d'élément focus ou text
+                if(textInFocusID != -1) { // If the text is already in focus
+                    texts.get(textInFocusID).setX(texts.get(textInFocusID).getX() + (mouseX - memoryMouseX));
+                    texts.get(textInFocusID).setY(texts.get(textInFocusID).getY() + (mouseY - memoryMouseY));
                     memoryMouseX = mouseX;
                     memoryMouseY = mouseY;
                     noElementInFocus = false;
                 } else {
-                    for(int i = 0; i < arrows.size(); i++) {
-                        Arrow arrow = arrows.get(i);
-                        if (arrow.overArrow(mouseX, mouseY)) {
-                            arrowInFocusID = i;
+                    for(int i = 0; i < texts.size(); i++) {
+                        if (texts.get(i).overText(mouseX, mouseY)) {
+                            textInFocusID = i;
                             memoryMouseX = mouseX;
                             memoryMouseY = mouseY;
                             noElementInFocus = false;
@@ -392,6 +393,7 @@ void mouseReleased() {
                 teamInWhichPlayerIsBeingAdded = 1;
                 saved = "Joueur " + team1NextJerseyNumber;
                 playerToSetNameID = team1.size() - 1;
+                INPUTPLAYER = true;
                 INPUTMODE = true;
             }
         } else if (keyPressed && (key == 'e') && !mouseLocked) { // Création joueur équipe 2
@@ -410,8 +412,21 @@ void mouseReleased() {
                 teamInWhichPlayerIsBeingAdded = 2;
                 saved = "Joueur " + team2NextJerseyNumber;
                 playerToSetNameID = team2.size() - 1;
+                INPUTPLAYER = true;
                 INPUTMODE = true;
             }
+        }
+
+        /*
+        CREATION TEXTE LIBRE
+        */
+        if (keyPressed && (key == 'f')) {
+            texts.add(new Text(mouseX, mouseY, ""));
+            textToEditID = texts.size() - 1;
+            mouseLocked = true;
+            saved = "";
+            INPUTTEXT = true;
+            INPUTMODE = true;
         }
 
 
@@ -419,8 +434,8 @@ void mouseReleased() {
         SAVE ARROW
         */
         else if (keyPressed && (key == 's') && !mouseLocked) {
-            if(Math.abs(baseArrowX-mouseX) > 20 || Math.abs(baseArrowY-mouseY) > 20) {
-                arrows.add(new Arrow(baseArrowX, baseArrowY, mouseX, mouseY));
+            if(Math.abs(baseLineX-mouseX) > 20 || Math.abs(baseLineY-mouseY) > 20) {
+                lines.add(new Arrow(baseLineX, baseLineY, mouseX, mouseY));
 
                 mouseLocked = true;
             }
@@ -489,7 +504,7 @@ void mouseReleased() {
         
         lineInFocusID = -1;
         rectInFocusID = -1;
-        arrowInFocusID = -1;
+        textInFocusID = -1;
         memoryX1 = -1;
         memoryY1 = -1;
         memoryX2 = -1;
@@ -497,9 +512,10 @@ void mouseReleased() {
         memoryMouseX = -1;
         memoryMouseX = -1;
 
-        baseArrowLocked = false;
         baseLineLocked = false;
         baseRectLocked = false;
+        
+        blockRectDeletion = false;
 
         /*
         RECALCUL DES ID ET AUTRES NOMBRES
@@ -550,7 +566,5 @@ void computeNextJerseyNumber(int team) {
             break;
         }
     }
-
-    // print(" - Num : " + team1NextJerseyNumber + edition + playerToSetNameID + "\n");
 
 }

@@ -46,3 +46,7 @@ float[] getRectCenter(float x, float y, float rectWidth, float rectHeight){
   res[1] = (y + y+rectHeight)/2;
   return res;
 }
+
+double distance(int x1, int y1, int x2, int y2) {
+  return Math.sqrt(((float)x1 - (float)x2)  + ((float)y1 - (float)y2));
+}
