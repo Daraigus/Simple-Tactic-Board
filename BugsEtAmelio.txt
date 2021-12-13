@@ -15,7 +15,7 @@ DONE - bouger tous éléments
     DONE - bouger rect
 DONE - Opti perfs accession objet déplacement
 DONE - empecher lignes/fleches trop petites
-DONE preset éditable noms joueurs
+DONE - preset éditable noms joueurs
 
 v1.2.1
 FIXED - bug quand hookline pas entre joueurs
