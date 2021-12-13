@@ -1,6 +1,9 @@
 interface à boutons
 couleurs objets
 
+DOING - Globalisation couleurs + définition palette
+    DOING - structure de données pour couleurs (enum ? dico ?)
+    DONE - palette v1
 
 v2.0.0
 DONE - free text

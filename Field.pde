@@ -8,8 +8,8 @@ class Field {
   private float fieldLength;
   private float fieldWidth;
 
-  private color brightStripeColor = color(86,110,72);
-  private color darkStripeColor = color(93,120,78);
+  private color brightStripeColor = BRIGHTSTRIPECOLOR;
+  private color darkStripeColor = DARKSTRIPECOLOR;
 
   private int nbStripes;
 

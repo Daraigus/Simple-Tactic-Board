@@ -6,9 +6,6 @@ final int ratio = 13;
 final float largeurTerrain = 105;
 final float hauteurTerrain = 68;
 
-final color BGCOLOR = color(28, 32, 36);
-final color PINGCOLOR = color(255,0,0);
-
 DashedLines dash;
 
 boolean INPUTMODE;
