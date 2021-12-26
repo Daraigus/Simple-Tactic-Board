@@ -3,12 +3,21 @@ class Button {
     protected int x,y;
     protected int w, h;
     protected color strokeCol = color(255);
+    protected color fillCol;
 
     Button(int xx, int yy, int ww, int hh){
         this.x = xx;
         this.y = yy;
         this.w = ww;
         this.h = hh;
+    }
+
+    void drawButton() {
+        rectMode(CENTER);
+        stroke(this.strokeCol);
+        fill(this.fillCol);
+        strokeWeight(2);
+        rect(this.x, this.y, this.w, this.h);
     }
 
 

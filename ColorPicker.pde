@@ -1,34 +1,42 @@
-class ColorPicker extends Button {
 
-    final color BGCOLOR = color(28,32,36);
-    final color PINGCOLOR = color(255,0,0);
-    final color BRIGHTSTRIPECOLOR = color(86,110,72);
-    final color DARKSTRIPECOLOR = color(93,120,78);
-    final color _RED = color(255,89,94);
-    final color _BLUE = color(0,124,190);
-    final color _YELLOW = color(255,214,57);
-    final color _MAUVE = color(224,123,224);
-    final color _LAVENDER = color(220,204,255);
-    final color _EGG = color(250,243,221);
-    final color _KHAKI = color(195,169,149);
+class ColorPicker {
+
+    color BGCOLOR = color(28,32,36);
+    color PINGCOLOR = color(255,0,0);
+    color BRIGHTSTRIPECOLOR = color(86,110,72);
+    color DARKSTRIPECOLOR = color(93,120,78);
+    color RED = color(255,89,94);
+    color BLUE = color(0,124,190);
+    color YELLOW = color(255,214,57);
+    color MAUVE = color(224,123,224);
+    color LAVENDER = color(220,204,255);
+    color EGG = color(250,243,221);
+    color KHAKI = color(195,169,149);
 
     private int currentID;
     private color currentColor;
     private color[] colorPicker;
+    private color strokeCol = color(255);
+
+    private int x,y,w,h;
 
     ColorPicker(){
-        super(width/2,height-65,75,50);
         this.currentID = 0;
-        this.currentColor = _RED;
+        this.currentColor = RED;
         this.colorPicker = new color[] {
-            _RED,
-            _BLUE,
-            _YELLOW,
-            _MAUVE,
-            _LAVENDER,
-            _EGG,
-            _KHAKI
+            RED,
+            BLUE,
+            YELLOW,
+            MAUVE,
+            LAVENDER,
+            EGG,
+            KHAKI
         };
+
+        this.x = width/2;
+        this.y = height-65;
+        this.w = 75;
+        this.h = 50;
     }
 
     public color getCurrentColor() {
@@ -41,7 +49,7 @@ class ColorPicker extends Button {
         this.currentColor = this.colorPicker[this.currentID];
     }
 
-    void drawButton() {
+    void drawColorPicker() {
         rectMode(CENTER);
         stroke(this.strokeCol);
         fill(this.currentColor);

@@ -18,10 +18,10 @@ class Player
   Player(String na, int t, int n, int xx, int yy) {
 
     if(t == 1) {
-      this.col = CP._BLUE;
+      this.col = CP.BLUE;
       this.col2 = color(225);
     } else {
-      this.col = CP._RED;
+      this.col = CP.RED;
       this.col2 = color(225);
     }
 
