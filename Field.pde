@@ -8,8 +8,8 @@ class Field {
   private float fieldLength;
   private float fieldWidth;
 
-  private color brightStripeColor = BRIGHTSTRIPECOLOR;
-  private color darkStripeColor = DARKSTRIPECOLOR;
+  private color brightStripeColor = CM.BRIGHTSTRIPECOLOR;
+  private color darkStripeColor = CM.DARKSTRIPECOLOR;
 
   private int nbStripes;
 

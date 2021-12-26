@@ -38,7 +38,7 @@ int[][] coor1 = new int[11][2];
 int[][] coor2 = new int[11][2];
 String[] names;
 
-
+ColorManager CM;
 
 
 void setup() {
@@ -46,6 +46,7 @@ void setup() {
 	fullScreen();
 
 	dash = new DashedLines(this);
+	CM = new ColorManager();
 
 	background(255);
 	fill(0);
@@ -90,6 +91,7 @@ void draw() {
 	drawPlayers();
 	ball.drawBall();
 	drawTexts();
+	CM.drawColorPicker();
 
 
 	if(INPUTMODE) {
@@ -103,7 +105,7 @@ void draw() {
 
 
 void reset() {
-	background(BGCOLOR); // Background de reset
+	background(CM.BGCOLOR); // Background de reset
 }
 
 void drawPlayers() {
