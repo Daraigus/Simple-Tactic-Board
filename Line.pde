@@ -13,7 +13,7 @@ class Line
 		this.y1 = y;
 		this.x2 = xx;
 		this.y2 = yy;
-		this.col = color(214, 200, 45);
+		this.col = CP.currentColor;
 	}
 
 

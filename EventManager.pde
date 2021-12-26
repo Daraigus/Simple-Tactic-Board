@@ -8,6 +8,8 @@ boolean elementInFocusIsPlayerTeam1 = false;
 boolean elementInFocusIsPlayerTeam2 = false;
 boolean ballInFocus = false;
 
+boolean HOOK = false;
+
 // Moving elements
 int lineInFocusID = -1;
 int rectInFocusID = -1;
@@ -526,6 +528,21 @@ void mouseReleased() {
 
 	
 }
+
+
+void keyReleased() {
+    if(!INPUTMODE) {
+
+        /*
+        CHANGE CURRENT COLOR
+        */
+        if(key == ' ') {
+            CP.computeNextColor();
+        }
+
+    }
+}
+
 
 Player playerHovered(int x, int y) {
     for(int i = 0; i < team1.size(); i++) {

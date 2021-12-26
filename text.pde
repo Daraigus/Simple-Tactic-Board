@@ -9,7 +9,7 @@ class Text
         this.x = xx;
         this.y = yy;
         this.txt = t;
-        this.col = color(255);
+        this.col = CP.getCurrentColor();
     }
 
     public void drawText() {

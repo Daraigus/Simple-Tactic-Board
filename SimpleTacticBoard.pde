@@ -38,7 +38,8 @@ int[][] coor1 = new int[11][2];
 int[][] coor2 = new int[11][2];
 String[] names;
 
-ColorManager CM;
+ColorPicker CP;
+ArrayList<Button> IF;
 
 
 void setup() {
@@ -46,7 +47,6 @@ void setup() {
 	fullScreen();
 
 	dash = new DashedLines(this);
-	CM = new ColorManager();
 
 	background(255);
 	fill(0);
@@ -75,6 +75,10 @@ void setup() {
 
 	names = loadStrings("initNames.txt");
 
+	CP = new ColorPicker();
+	IF = new ArrayList<Button>();
+	IF.add(CP);
+
 	initPlayerSetup();
 
 }
@@ -91,7 +95,7 @@ void draw() {
 	drawPlayers();
 	ball.drawBall();
 	drawTexts();
-	CM.drawColorPicker();
+	drawInterface();
 
 
 	if(INPUTMODE) {
@@ -105,7 +109,15 @@ void draw() {
 
 
 void reset() {
-	background(CM.BGCOLOR); // Background de reset
+	background(CP.BGCOLOR); // Background de reset
+}
+
+void drawInterface() {
+	if(!IF.isEmpty()) {
+		for(int i = 0; i < IF.size(); i++) {
+			IF.get(i).drawButton();
+		}
+	}
 }
 
 void drawPlayers() {

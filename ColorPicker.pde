@@ -1,4 +1,4 @@
-class ColorManager {
+class ColorPicker extends Button {
 
     final color BGCOLOR = color(28,32,36);
     final color PINGCOLOR = color(255,0,0);
@@ -15,10 +15,9 @@ class ColorManager {
     private int currentID;
     private color currentColor;
     private color[] colorPicker;
-    private int x,y;
-    private int width, height;
 
-    ColorManager(){
+    ColorPicker(){
+        super(width/2,height-65,75,50);
         this.currentID = 0;
         this.currentColor = _RED;
         this.colorPicker = new color[] {
@@ -30,11 +29,6 @@ class ColorManager {
             _EGG,
             _KHAKI
         };
-
-        this.x = width/2;
-        this.y = height/2;
-        this.width = 75;
-        this.height = 75;
     }
 
     public color getCurrentColor() {
@@ -47,21 +41,13 @@ class ColorManager {
         this.currentColor = this.colorPicker[this.currentID];
     }
 
-    void drawColorPicker() {
+    void drawButton() {
         rectMode(CENTER);
-        stroke(255);
-        fill(this.currentColor, 128);
+        stroke(this.strokeCol);
+        fill(this.currentColor);
 		strokeWeight(2);
-		rect(this.x, this.y, this.width, this.height);
+		rect(this.x, this.y, this.w, this.h);
     }
-
-
-	boolean overColorPicker(float xx, float yy) {
-		if ( xx >= this.x - this.width && xx <= this.x + this.width && yy >= this.y - this.height && yy <= this.y + this.width )   { return true; } 
-		return false;
-	}
-
-
 
 }
 

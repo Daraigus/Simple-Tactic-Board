@@ -15,8 +15,8 @@ class Rect
 		this.y1 = y;
 		this.x2 = xx;
 		this.y2 = yy;
-		this.col = color(232, 14, 18);
-        this.col2 = color(199, 62, 64);
+		this.col = CP.getCurrentColor();
+        this.col2 = this.col-25;
 	}
 
 
