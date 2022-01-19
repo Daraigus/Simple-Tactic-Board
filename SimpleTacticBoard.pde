@@ -42,7 +42,7 @@ int[][] coor2 = new int[11][2];
 String[] names;
 
 ColorPicker CP = new ColorPicker();
-ArrayList<Button> IF;
+UI ui;
 
 
 void setup() {
@@ -78,9 +78,10 @@ void setup() {
 
 	names = loadStrings("initNames.txt");
 
-	IF = new ArrayList<Button>();
+	ui = new UI();
 
 	initPlayerSetup();
+	initUI();
 
 }
 
@@ -96,7 +97,7 @@ void draw() {
 	drawPlayers();
 	ball.drawBall();
 	drawTexts();
-	drawInterface();
+	drawUI();
 
 
 	if(INPUTMODE) {
@@ -112,13 +113,9 @@ void reset() {
 	background(CP.BGCOLOR); // Background de reset
 }
 
-void drawInterface() {
+void drawUI() {
 	CP.drawColorPicker();
-	if(!IF.isEmpty()) {
-		for(int i = 0; i < IF.size(); i++) {
-			IF.get(i).drawButton();
-		}
-	}
+	ui.drawUI();
 }
 
 void drawPlayers() {
@@ -157,6 +154,17 @@ void drawTexts() {
 			texts.get(i).drawText();
 		}
 	}
+}
+
+void initUI() {
+	int spaceBetweenElements = 70;
+	ui.addToUI(new ButtonM(300, height-65, "Move"));
+	ui.addToUI(new ButtonM(300 + spaceBetweenElements, height-65, "Move"));
+	ui.addToUI(new ButtonM(300 + spaceBetweenElements*2, height-65, "Move"));
+	ui.addToUI(new ButtonM(300 + spaceBetweenElements*3, height-65, "Move"));
+	ui.addToUI(new ButtonM(300 + spaceBetweenElements*4, height-65, "Move"));
+	ui.addToUI(new ButtonM(300 + spaceBetweenElements*5, height-65, "Move"));
+	ui.addToUI(new ButtonM(300 + spaceBetweenElements*6, height-65, "Move"));
 }
 
 void initPlayerSetup() {

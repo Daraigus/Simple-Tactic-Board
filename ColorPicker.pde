@@ -49,6 +49,11 @@ class ColorPicker {
         this.currentColor = this.colorPicker[this.currentID];
     }
 
+    public boolean overColorPicker(int xx, int yy) {
+		if ( xx >= this.x - this.w && xx <= this.x + this.w && yy >= this.y - this.h && yy <= this.y + this.h ) return true;
+		return false;
+    }
+
     void drawColorPicker() {
         rectMode(CENTER);
         stroke(this.strokeCol);

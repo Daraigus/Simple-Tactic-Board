@@ -1,15 +1,18 @@
-DOING - interface à boutons
-    TODO - hook toggle
-    DOING - abstract
-        DOING - button
-            DOING - buttonB
-            DOING - buttonM
-            DOING - buttonS
 
 nouvel outil : pipette
 
+DOING - interface à boutons
+    DONE - abstract
+        DONE - button
+            DONE - buttonB
+            DONE - buttonM
+            DONE - buttonS
+    DOING - UI
+        DOING - hook toggle
 
-DOING - couleurs objets/color picker
+
+
+DONE - couleurs objets/color picker
 
 DONE - Globalisation couleurs + définition palette
     DONE - structure de données pour couleurs (enum ? dico ?)

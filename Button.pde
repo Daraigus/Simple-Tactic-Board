@@ -3,26 +3,42 @@ class Button {
     protected int x,y;
     protected int w, h;
     protected color strokeCol = color(255);
-    protected color fillCol;
+    protected color fillCol = color(200);
+    protected String label;
+    protected boolean toggled;
+    protected boolean hover;
 
-    Button(int xx, int yy, int ww, int hh){
+    Button(int xx, int yy, int ww, int hh, String l){
         this.x = xx;
         this.y = yy;
         this.w = ww;
         this.h = hh;
+        this.label = l;
+        this.toggled = false;
+        this.hover = false;
     }
 
     void drawButton() {
         rectMode(CENTER);
         stroke(this.strokeCol);
-        fill(this.fillCol);
+        if(toggled) fill(this.fillCol-50);
+        else if(hover) fill(this.fillCol-50);
+        else fill(this.fillCol);
         strokeWeight(2);
         rect(this.x, this.y, this.w, this.h);
+        fill(0);
+        textAlign(CENTER);
+        textSize(20);
+        text(this.label, this.x, this.y + 10);
     }
 
 
 	boolean overButton(float xx, float yy) {
-		if ( xx >= this.x - this.w && xx <= this.x + this.w && yy >= this.y - this.h && yy <= this.y + this.h )   { return true; } 
+		if ( xx >= this.x - this.w && xx <= this.x + this.w && yy >= this.y - this.h && yy <= this.y + this.h ) { 
+            this.hover = true;
+            return true; 
+        } 
+        this.hover = false;
 		return false;
 	}
 
@@ -49,6 +65,14 @@ class Button {
 
     public void setH(int hh) {
         this.h = hh;
+    }
+
+    public String getLabel() {
+        return this.label;
+    }
+
+    public boolean isToggled() {
+        return this.toggled;
     }
 
 
