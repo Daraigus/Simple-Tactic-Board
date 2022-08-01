@@ -4,6 +4,10 @@ class ButtonS extends Button {
         super(xx,yy,25,25,l);
     }
 
+    ButtonS(int xx, int yy, String l, PShape ic) {
+        super(xx,yy,25,25, l, ic);
+    }
+
 
 }
 

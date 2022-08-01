@@ -8,6 +8,8 @@ class Button {
     protected boolean toggled;
     protected boolean hover;
 
+    protected PShape icon = null;
+
     Button(int xx, int yy, int ww, int hh, String l){
         this.x = xx;
         this.y = yy;
@@ -18,6 +20,17 @@ class Button {
         this.hover = false;
     }
 
+    Button(int xx, int yy, int ww, int hh, String l, PShape ic){
+        this.x = xx;
+        this.y = yy;
+        this.w = ww;
+        this.h = hh;
+        this.label = l;
+        this.toggled = false;
+        this.hover = false;
+        this.icon = ic;
+    }
+
     void drawButton() {
         rectMode(CENTER);
         stroke(this.strokeCol);
@@ -26,10 +39,18 @@ class Button {
         else fill(this.fillCol);
         strokeWeight(2);
         rect(this.x, this.y, this.w, this.h);
-        fill(0);
-        textAlign(CENTER);
-        textSize(20);
-        text(this.label, this.x, this.y + 10);
+        fill(0); // ?
+
+        if (this.icon != null) {
+            // Affichage icône
+            shape(this.icon, this.x-20, this.y-20, 40,40);
+        } else {
+            // Affichage texte
+            textAlign(CENTER);
+            textSize(20);
+            text(this.label, this.x, this.y + 10);
+        }
+        
     }
 
 
@@ -41,6 +62,10 @@ class Button {
         this.hover = false;
 		return false;
 	}
+
+    void onClick() {
+
+    }
 
 
     public int getX() {
@@ -77,4 +102,3 @@ class Button {
 
 
 }
-

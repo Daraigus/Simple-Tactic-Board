@@ -1,5 +1,4 @@
-
-nouvel outil : pipette
+https://trello.com/b/2THP8rFv/stb
 
 DOING - interface à boutons
     DONE - abstract

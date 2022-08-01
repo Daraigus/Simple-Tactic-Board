@@ -16,7 +16,7 @@ class Text
         fill(this.col);
         textAlign(CENTER);
         textSize(25);
-        text(this.txt, this.x, this.y);
+        text(this.txt.toUpperCase(), this.x, this.y);
     }
 
     public boolean overText(int xx, int yy) {

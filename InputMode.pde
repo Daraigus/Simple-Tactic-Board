@@ -10,14 +10,24 @@ int indent = 25;
 
 void runInputMode() {
 
-  fill(255);
+	fill(255);
 
-  // Display everything
-  if(INPUTPLAYER) {
-	  text("Nom du joueur : \n" + typing,width/2, height/2);
-  } else if (INPUTTEXT) {
-	  text("Texte libre : \n" + typing,width/2, height/2);
-  }
+	// Display everything
+	if(INPUTPLAYER) {
+		if(teamInWhichPlayerIsBeingAdded == 1) {
+			text("Nom du joueur : \n" + typing.toUpperCase(), 
+			team1.get(playerToSetNameID).getX(), 
+			team1.get(playerToSetNameID).getY()-team1.get(playerToSetNameID).getTokenRadius()/1.5);
+		} else if(teamInWhichPlayerIsBeingAdded == 2) {
+			text("Nom du joueur : \n" + typing.toUpperCase(), 
+			team2.get(playerToSetNameID).getX(), 
+			team2.get(playerToSetNameID).getY()-team2.get(playerToSetNameID).getTokenRadius()/1.5);
+		}
+  	} else if (INPUTTEXT) {
+	  	text("Texte libre : \n" + typing.toUpperCase(), 
+		texts.get(textToEditID).getX(), 
+		texts.get(textToEditID).getY()-indent);
+  	}
   
 }
 
@@ -33,9 +43,9 @@ void keyPressed() {
 
 				if(INPUTPLAYER) {
 					if(teamInWhichPlayerIsBeingAdded == 1) {
-						team1.get(playerToSetNameID).setName(saved);
+						team1.get(playerToSetNameID).setName(saved.toUpperCase());
 					} else if(teamInWhichPlayerIsBeingAdded == 2) {
-						team2.get(playerToSetNameID).setName(saved);
+						team2.get(playerToSetNameID).setName(saved.toUpperCase());
 					}
 				} else if (INPUTTEXT) {
 					texts.get(textToEditID).setTxt(saved);
@@ -52,7 +62,7 @@ void keyPressed() {
 				if (typing.length()>0) typing = typing.substring(0,typing.length()-1);
 				else typing = saved;
 			} else if (key == CODED) { // Ignore shift/control/tab
-				typing = typing;
+				typing = typing.toUpperCase();
 			} else {
 			typing = typing + key;
 		}

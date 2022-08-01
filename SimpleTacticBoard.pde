@@ -44,10 +44,17 @@ String[] names;
 ColorPicker CP = new ColorPicker();
 UI ui;
 
+PShape moveSVG, undoSVG, redoSVG;
+PShape freeTextSVG, lineSVG, dashLineSVG, arrowSVG, circleSVG, squareSVG, eraserSVG;
+PShape team1SVG, team2SVG, renameSVG;
+PShape cleanSVG, quitSVG;
+
 
 void setup() {
 	frameRate(60);
 	fullScreen();
+
+	initData(); // Init les SVG du dossier data
 
 	dash = new DashedLines(this);
 
@@ -94,7 +101,7 @@ void draw() {
 
 	drawRects();
 	drawLines();
-	drawPlayers();
+	drawPlayers(CP);
 	ball.drawBall();
 	drawTexts();
 	drawUI();
@@ -118,16 +125,16 @@ void drawUI() {
 	ui.drawUI();
 }
 
-void drawPlayers() {
+void drawPlayers(ColorPicker CP) {
 	if(!team1.isEmpty()) {
 		for(int i = 0; i < team1.size(); i++) {
-			team1.get(i).drawPlayer();
+			team1.get(i).drawPlayer(CP);
 		}
 	}
 
 	if(!team2.isEmpty()) {
 		for(int i = 0; i < team2.size(); i++) {
-			team2.get(i).drawPlayer();
+			team2.get(i).drawPlayer(CP);
 		}
 	}
 }
@@ -158,13 +165,56 @@ void drawTexts() {
 
 void initUI() {
 	int spaceBetweenElements = 70;
-	ui.addToUI(new ButtonM(300, height-65, "Move"));
-	ui.addToUI(new ButtonM(300 + spaceBetweenElements, height-65, "Move"));
-	ui.addToUI(new ButtonM(300 + spaceBetweenElements*2, height-65, "Move"));
-	ui.addToUI(new ButtonM(300 + spaceBetweenElements*3, height-65, "Move"));
-	ui.addToUI(new ButtonM(300 + spaceBetweenElements*4, height-65, "Move"));
-	ui.addToUI(new ButtonM(300 + spaceBetweenElements*5, height-65, "Move"));
-	ui.addToUI(new ButtonM(300 + spaceBetweenElements*6, height-65, "Move"));
+	int leftX = 295;
+
+	ui.addToUI(new ButtonM(leftX, height-65, "Move", moveSVG));
+
+	ui.addToUI(new ButtonM(leftX + spaceBetweenElements*2, height-65, "Undo", undoSVG));
+	ui.addToUI(new ButtonM(leftX + spaceBetweenElements*3, height-65, "Redo", redoSVG));
+
+	ui.addToUI(new ButtonM(leftX + spaceBetweenElements*5, height-65, "Text", freeTextSVG));
+	ui.addToUI(new ButtonM(leftX + spaceBetweenElements*6, height-65, "Line", lineSVG));
+	ui.addToUI(new ButtonM(leftX + spaceBetweenElements*7, height-65, "Dash", dashLineSVG));
+	ui.addToUI(new ButtonM(leftX + spaceBetweenElements*8, height-65, "Arrow", arrowSVG));
+	ui.addToUI(new ButtonM(leftX + spaceBetweenElements*9, height-65, "Circle", circleSVG));
+	ui.addToUI(new ButtonM(leftX + spaceBetweenElements*10, height-65, "Square", squareSVG));
+	ui.addToUI(new ButtonM(leftX + spaceBetweenElements*11, height-65, "Eraser", eraserSVG));
+
+	// Color Picker
+	CP.setX(leftX + spaceBetweenElements*12); CP.setY(height-65); CP.setH(50); CP.setW(50);
+
+
+	ui.addToUI(new ButtonM(leftX + spaceBetweenElements*14, height-65, "Team1", team1SVG));
+	ui.addToUI(new ButtonM(leftX + spaceBetweenElements*15, height-65, "Team2", team2SVG));
+	ui.addToUI(new ButtonM(leftX + spaceBetweenElements*16, height-65, "Rename", renameSVG));
+	ui.addToUI(new ButtonM(leftX + spaceBetweenElements*19, height-65, "Clean", cleanSVG));
+
+	ui.addToUI(new ButtonM(width-26, 25, "X"));
+}
+
+void initData(){
+
+	moveSVG = loadShape("move.svg");
+
+	undoSVG = loadShape("undo.svg");
+	redoSVG = loadShape("redo.svg");
+
+	freeTextSVG = loadShape("freeText.svg");
+	lineSVG = loadShape("line.svg");
+	dashLineSVG = loadShape("dashLine.svg");
+	arrowSVG = loadShape("arrow.svg");
+	circleSVG = loadShape("circle.svg");
+	squareSVG = loadShape("square.svg");
+	eraserSVG = loadShape("eraser.svg");
+
+	team1SVG = loadShape("team1.svg");
+	team2SVG = loadShape("team2.svg");
+	renameSVG = loadShape("rename.svg");
+
+	cleanSVG = loadShape("clean.svg");
+
+	// quitSVG = loadShape("quit.svg");
+	
 }
 
 void initPlayerSetup() {

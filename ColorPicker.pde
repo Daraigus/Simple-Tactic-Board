@@ -13,6 +13,9 @@ class ColorPicker {
     color EGG = color(250,243,221);
     color KHAKI = color(195,169,149);
 
+    color WHITE = color(255);
+    color BLACK = color(0);
+
     private int currentID;
     private color currentColor;
     private color[] colorPicker;
@@ -32,11 +35,6 @@ class ColorPicker {
             EGG,
             KHAKI
         };
-
-        this.x = width/2;
-        this.y = height-65;
-        this.w = 75;
-        this.h = 50;
     }
 
     public color getCurrentColor() {
@@ -60,6 +58,23 @@ class ColorPicker {
         fill(this.currentColor);
 		strokeWeight(2);
 		rect(this.x, this.y, this.w, this.h);
+    }
+
+
+    void setX(int xx) {
+        this.x = xx;
+    }
+
+    void setY(int yy) {
+        this.y = yy;
+    }
+
+    void setH(int hh) {
+        this.h = hh;
+    }
+
+    void setW(int ww) {
+        this.w = ww;
     }
 
 }

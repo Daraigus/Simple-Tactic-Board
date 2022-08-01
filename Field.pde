@@ -51,7 +51,7 @@ class Field {
 
   public void drawFieldElements() {
     noFill();
-    strokeWeight(6);
+    strokeWeight(3);
     stroke(255);
 
     rect(this.x1, this.y1, ratio*largeurTerrain, ratio*hauteurTerrain); // Play area
@@ -61,7 +61,7 @@ class Field {
     //line(this.x1, (this.y1+this.y2)/2, this.x2, (this.y1+this.y2)/2); // TEMP LINE
     //stroke(255);
 
-    strokeWeight(5);
+    strokeWeight(3);
     circle((this.x1 + this.x2)/2, (this.y1 + this.y2)/2, ratio*(9.15*2)); // Middle Circle
 
     rect(this.x1, (this.y1+this.y2)/2 - (ratio*40.3)/2, ratio*16.5, ratio*40.3); // Left penalty area

@@ -8,7 +8,6 @@ class Player
 
   private String name;
   private color col;
-  private color col2;
   private int team;
   private int number;
 
@@ -19,10 +18,8 @@ class Player
 
     if(t == 1) {
       this.col = CP.BLUE;
-      this.col2 = color(225);
     } else {
       this.col = CP.RED;
-      this.col2 = color(225);
     }
 
     this.name = na;
@@ -34,15 +31,22 @@ class Player
   }
 
 
-  public void drawPlayer() {
-    fill(this.col2);
+  public void drawPlayer(ColorPicker CP) {
+
+    // Contour blanc et noir
+    fill(CP.WHITE);
     strokeWeight(3);
     stroke(this.col);
     circle(this.x, this.y, tokenRadius);
-    fill(this.col);
+
+    // Player Name
+    fill(CP.WHITE);
     textAlign(CENTER);
     textSize(25);
-    text(this.name, this.x, this.y + tokenRadius);
+    text(this.name.toUpperCase(), this.x, this.y + tokenRadius);
+
+    // Jersey Number
+    fill(this.col);
     textSize(30);
     text(this.number, this.x, this.y+10);
   }
@@ -87,6 +91,10 @@ class Player
 
   public void setY(int yy) {
     this.y = yy;
+  }
+
+  public float getTokenRadius() {
+    return this.tokenRadius;
   }
 
 
