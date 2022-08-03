@@ -750,11 +750,14 @@ void mouseReleased() {
         SAVE CIRCLE
         */
         else if (ui.getButtons().get(7).isToggled() && !ui.overUI(mouseX, mouseY)) {
-            circles.add(new Circle(baseCircleX, baseCircleY, mouseX, mouseY));
-            if (!lockHisto) {
-                Action a = new Action("Circle", circles.get(circles.size()-1));
-                histo.add(a);
-                lockHisto = true;
+
+            if(Math.abs(baseCircleX-mouseX) > 100 && Math.abs(baseCircleY - mouseY) > 100) {
+                circles.add(new Circle(baseCircleX, baseCircleY, mouseX, mouseY));
+                if (!lockHisto) {
+                    Action a = new Action("Circle", circles.get(circles.size()-1));
+                    histo.add(a);
+                    lockHisto = true;
+                }
             }
 
             mouseLocked = true;
@@ -765,13 +768,17 @@ void mouseReleased() {
         SAVE RECT
         */
         else if (ui.getButtons().get(8).isToggled() && !ui.overUI(mouseX, mouseY)) {
-            Rect tmp = new Rect(baseRectX, baseRectY, mouseX, mouseY);
-            rects.add(tmp);
-            if (!lockHisto) {
-                Action a = new Action("Rect", tmp);
-                histo.add(a);
-                lockHisto = true;
+
+            if(Math.abs(baseRectX-mouseX) > 100 && Math.abs(baseRectY - mouseY) > 100) {
+                Rect tmp = new Rect(baseRectX, baseRectY, mouseX, mouseY);
+                rects.add(tmp);
+                if (!lockHisto) {
+                    Action a = new Action("Rect", tmp);
+                    histo.add(a);
+                    lockHisto = true;
+                }
             }
+            
 
             mouseLocked = true;
         }
