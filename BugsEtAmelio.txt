@@ -1,13 +1,13 @@
 https://trello.com/b/2THP8rFv/stb
 
-DOING - interface à boutons
+DONE - interface à boutons
     DONE - abstract
         DONE - button
             DONE - buttonB
             DONE - buttonM
             DONE - buttonS
-    DOING - UI
-        DOING - hook toggle
+    DONE - UI
+        DONE - hook toggle
 
 
 

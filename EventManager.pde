@@ -69,8 +69,8 @@ void runEventManager()
             while(i < ui.size && !found) {
                 if (i != 1 && i != 2 && i!= 13 && i != 14) {
                     if (ui.getButtons().get(i).overButton(mouseX,mouseY) && toggledButtonID != i) {
-                        ui.getButtons().get(i).toggle();
-                        ui.getButtons().get(toggledButtonID).toggle();
+                        ui.getButtons().get(i).toggle(); // Toggle button ON
+                        ui.getButtons().get(toggledButtonID).toggle(); // Toggle previous button OFF
                         toggledButtonID = i;
                         found = true;
                     }
@@ -836,13 +836,16 @@ void mouseReleased() {
 void keyReleased() {
     if(!INPUTMODE) {
 
-        /*
-        CHANGE CURRENT COLOR
-        */
         if(key == ' ') {
             CP.computeNextColor();
-        }
+        } 
 
+    }
+
+    if (keyCode == CONTROL) {
+        controlDown = false;
+    } if (keyCode == SHIFT) {
+        shiftDown = false;
     }
 }
 
