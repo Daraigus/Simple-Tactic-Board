@@ -5,6 +5,7 @@ class Circle
 	final private float tokenRadius = 1.5*this.ratio;
 
 	private float x1,y1,x2,y2;
+	private float xCenter, yCenter;
 
 	private color col;
     private color col2;
@@ -15,6 +16,7 @@ class Circle
 		this.y1 = y;
 		this.x2 = xx;
 		this.y2 = yy;
+		this.findCenter();
 		this.col = CP.getCurrentColor();
         this.col2 = this.col-25;
 	}
@@ -24,28 +26,36 @@ class Circle
 		this.y1 = r.getY1();
 		this.x2 = r.getX2();
 		this.y2 = r.getY2();
+		this.xCenter = r.getXCenter();
+		this.yCenter = r.getYCenter();
 		this.col = r.getColor();
         this.col2 = r.getColor()-25;
 	}
 
 
 	void drawCircle(){
+		this.findCenter();
         ellipseMode(CORNERS);
 		stroke(this.col);
         fill(this.col2, 128);
 		strokeWeight(4);
 		ellipse(this.x1, this.y1, this.x2, this.y2);
+		ellipseMode(CENTER);
+		ellipse(this.xCenter, this.yCenter, 20, 20);
 	}
 
 	boolean overCircle(float x, float y) {
-		if ( x >= this.x1 && x <= this.x2 && y >= this.y1 && y <= this.y2 )   { return true; } // Circle vers bas droite
-		if ( x >= this.x1 && x <= this.x2 && y <= this.y1 && y >= this.y2 )   { return true; } // Circle vers haut droite
-		if ( x <= this.x1 && x >= this.x2 && y >= this.y1 && y <= this.y2 )   { return true; } // Circle vers bas gauche
-		if ( x <= this.x1 && x >= this.x2 && y <= this.y1 && y >= this.y2 )   { return true; } // Circle vers haut gauche
+		if (dist(x, y, this.xCenter, this.yCenter) <= Math.abs((x2-x1)/2)) return true;
 		return false;
 	}
 
 
+	private void findCenter() {
+		if(this.x1 <= this.x2) this.xCenter = ((this.x2-this.x1)/2)+this.x1;
+		else this.xCenter = ((this.x1-this.x2)/2)-this.x1;
+		if(this.y1 <= this.y2) this.yCenter = ((this.y2-this.y1)/2)+this.y1;
+		else this.yCenter = ((this.y1-this.y2)/2)-this.y1;
+	}
 
 	// GETTERS SETTERS
 	public float getX1() {
@@ -78,6 +88,14 @@ class Circle
 
 	public void setY2(float yy) {
 		this.y2 = yy;
+	}
+
+	public float getXCenter() {
+		return this.xCenter;
+	}
+
+	public float getYCenter() {
+		return this.yCenter;
 	}
 
 

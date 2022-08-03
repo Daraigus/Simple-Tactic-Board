@@ -344,5 +344,5 @@ void reset() {
 
 	initPlayerSetup();
 
-	histo = new Histo();
+	histo.clear();
 }

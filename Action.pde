@@ -97,6 +97,12 @@ class Action {
         }
     }
 
+    // Free text
+    Action(Text t) {
+        this.action = "Text";
+        this.text = t;
+    }
+
     // Erase - VOID is there to differentiate between multiple overcharges of the function (ye ye ik should've used inheritance)
     Action(Object o, int VOID) {
         this.action = "Erase";
@@ -125,12 +131,6 @@ class Action {
         }
     }
 
-    // Free text
-    Action(Text t) {
-        this.action = "Text";
-        this.text = t;
-    }
-
     // Player
     Action(Player p) {
         this.action = "Player";
@@ -144,26 +144,28 @@ class Action {
         this.player = p;
     }
 
+    public void print() {
+        System.out.print(this.action + " ---------------------------\n");
+        System.out.print(this.x + "X " + this.y + "Y" + "\n");
+        System.out.print(this.x2 + "X2 " + this.y2 + "Y2" + "\n");
+        if(this.player != null) System.out.print(this.player + "\n");
+        if(this.ball != null) System.out.print(this.ball.getX() + "\n");
+        if(this.line != null) System.out.print(this.line + "\n");
+        if(this.dashLine != null) System.out.print(this.dashLine + "\n");
+        if(this.arrow != null) System.out.print(this.arrow + "\n");
+        if(this.hookLine != null) System.out.print(this.hookLine + "\n");
+        if(this.rect != null) System.out.print(this.rect + "\n");
+        if(this.circle != null) System.out.print(this.circle + "\n");
+        if(this.text != null) System.out.print(this.text + "\n");
+        if(this.player2 != null) System.out.print(this.player2 + "\n");
 
-    // public Object getObject() {
-    //     if (player != null) {
-    //         return this.player;
-    //     } else if (ball != null) {
-    //         return this.ball;
-    //     } else if (text != null) {
-    //         return this.text;
-    //     } else if (line != null) {
-    //         return this.line;
-    //     } else if (dashLine != null) {
-    //         return this.dashLine;
-    //     } else if (arrow != null) {
-    //         return this.arrow;
-    //     } else if (rect != null) {
-    //         return this.rect;
-    //     } else {
-    //         return this.circle;
-    //     }
-    // }
+        System.out.print(this.type + "\n");
+        System.out.print(this.content + "\n");
+
+        System.out.print(this.col + "\n");
+        System.out.print("======================================\n\n");
+
+    }
 
     public String getAction() {
 		return this.action;

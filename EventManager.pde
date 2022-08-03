@@ -424,7 +424,7 @@ void runEventManager()
                 }
 
                 baseCircleLocked = true;
-                Circle circle = new Circle(baseCircleX, baseCircleY, mouseX, mouseY);
+                Circle circle = new Circle(mouseX, mouseY, baseCircleX, baseCircleY);
                 circle.drawCircle();
 
                 mouseLocked = true;
@@ -453,13 +453,13 @@ void runEventManager()
         ERASE
         */
         if(mousePressed && ui.getButtons().get(9).isToggled() && !ui.overUI(mouseX, mouseY)) {
+
             // Did we click on a player ?
-            for(int i = 0; i < team1.size(); i++) {
+            for(int i = 0; i < team1.size(); i++) { // Team 1
                 if(team1.get(i).overPlayer(mouseX, mouseY)) {
                     if (!lockHisto) {
                         Action a = new Action(team1.get(i), 5);
                         histo.add(a);
-                        lockHisto = true;
                     }
                     team1FreeJerseyNumbers.add(team1.get(i).getNumber());
                     team1.remove(i);
@@ -469,12 +469,11 @@ void runEventManager()
                 }
             }
 
-            for(int i = 0; i < team2.size(); i++) {
+            for(int i = 0; i < team2.size(); i++) { // Team 2
                 if(team2.get(i).overPlayer(mouseX, mouseY)) {
                     if (!lockHisto) {
                         Action a = new Action(team2.get(i), 5);
                         histo.add(a);
-                        lockHisto = true;
                     }
                     team2FreeJerseyNumbers.add(team2.get(i).getNumber());
                     team2.remove(i);
@@ -490,7 +489,6 @@ void runEventManager()
                     if (!lockHisto) {
                         Action a = new Action(lines.get(i), 5);
                         histo.add(a);
-                        lockHisto = true;
                     }
                     lines.remove(i);
                     blockRectDeletion = true;
@@ -505,7 +503,6 @@ void runEventManager()
                     if (!lockHisto) {
                         Action a = new Action(texts.get(i), 5);
                         histo.add(a);
-                        lockHisto = true;
                     }
                     texts.remove(i);
                     blockRectDeletion = true;
@@ -521,7 +518,6 @@ void runEventManager()
                         if (!lockHisto) {
                             Action a = new Action(circles.get(i), 5);
                             histo.add(a);
-                            lockHisto = true;
                         }
                         circles.remove(i);
                         break;
@@ -536,7 +532,6 @@ void runEventManager()
                         if (!lockHisto) {
                             Action a = new Action(rects.get(i), 5);
                             histo.add(a);
-                            lockHisto = true;
                         }
                         rects.remove(i);
                         break;
@@ -794,6 +789,7 @@ void mouseReleased() {
         ballInFocus = false;
 
         baseLineLocked = false;
+        baseCircleLocked = false;
         baseRectLocked = false;
         
         blockRectDeletion = false;
@@ -810,6 +806,7 @@ void mouseReleased() {
         */
         elementInFocusID = -1;
         lineInFocusID = -1;
+        circleInFocusID = -1;
         rectInFocusID = -1;
         textInFocusID = -1;
         memoryX1 = -1;
