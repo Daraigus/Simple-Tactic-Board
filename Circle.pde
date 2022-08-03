@@ -11,25 +11,30 @@ class Circle
 
 
 	Circle(float x, float y, float xx, float yy) {
-		// this.x1 = x;
-		// this.y1 = y;
-		// this.x2 = xx;
-		// this.y2 = yy;
-		// this.col = CP.getCurrentColor();
-        // this.col2 = this.col-25;
+		this.x1 = x;
+		this.y1 = y;
+		this.x2 = xx;
+		this.y2 = yy;
+		this.col = CP.getCurrentColor();
+        this.col2 = this.col-25;
 	}
 
-    Circle(Circle c) {
-        
-    }
+	Circle(Circle r) {
+		this.x1 = r.getX1();
+		this.y1 = r.getY1();
+		this.x2 = r.getX2();
+		this.y2 = r.getY2();
+		this.col = r.getColor();
+        this.col2 = r.getColor()-25;
+	}
 
 
 	void drawCircle(){
-        // CircleMode(CORNERS);
-		// stroke(this.col);
-        // fill(this.col2, 128);
-		// strokeWeight(4);
-		// Circle(this.x1, this.y1, this.x2, this.y2);
+        ellipseMode(CORNERS);
+		stroke(this.col);
+        fill(this.col2, 128);
+		strokeWeight(4);
+		ellipse(this.x1, this.y1, this.x2, this.y2);
 	}
 
 	boolean overCircle(float x, float y) {

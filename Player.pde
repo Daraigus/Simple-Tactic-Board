@@ -45,6 +45,7 @@ class Player
   public void drawPlayer(ColorPicker CP) {
 
     // Contour blanc et noir
+    ellipseMode(CENTER);
     fill(CP.WHITE);
     strokeWeight(3);
     stroke(this.col);

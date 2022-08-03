@@ -77,6 +77,7 @@ void setup() {
 
 	lines = new ArrayList<Line>();
 	rects = new ArrayList<Rect>();
+	circles = new ArrayList<Circle>();
 	texts = new ArrayList<Text>();
 
 	ball = new Ball(255, width/2, height/2);
@@ -107,6 +108,7 @@ void draw() {
 	drawUI();
 
 	drawRects();
+	drawCircles();
 	drawLines();
 	drawPlayers(CP);
 	ball.drawBall();
@@ -158,6 +160,14 @@ void drawRects() {
 	if(!rects.isEmpty()) {
 		for(int i = 0; i < rects.size(); i++) {
 			rects.get(i).drawRect();
+		}
+	}
+}
+
+void drawCircles() {
+	if(!circles.isEmpty()) {
+		for(int i = 0; i < circles.size(); i++) {
+			circles.get(i).drawCircle();
 		}
 	}
 }
@@ -314,34 +324,25 @@ void initPlayerCoordinates() {
 }
 
 void reset() {
-	// computeCoordinates();
 
-	// team1 = new ArrayList<Player>();
-	// team2 = new ArrayList<Player>();
+	team1 = new ArrayList<Player>();
+	team2 = new ArrayList<Player>();
 
-	// team1JerseyNumbers = new ArrayList<Integer>();
-	// team2JerseyNumbers = new ArrayList<Integer>();
-	// team1FreeJerseyNumbers = new ArrayList<Integer>();
-	// team2FreeJerseyNumbers = new ArrayList<Integer>();
+	team1JerseyNumbers = new ArrayList<Integer>();
+	team2JerseyNumbers = new ArrayList<Integer>();
+	team1FreeJerseyNumbers = new ArrayList<Integer>();
+	team2FreeJerseyNumbers = new ArrayList<Integer>();
 
-	// lines = new ArrayList<Line>();
-	// rects = new ArrayList<Rect>();
-	// texts = new ArrayList<Text>();
+	lines = new ArrayList<Line>();
+	rects = new ArrayList<Rect>();
+	circles = new ArrayList<Circle>();
+	texts = new ArrayList<Text>();
 
-	// ball = new Ball(255, width/2, height/2);
+	INPUTMODE = false;
+	INPUTPLAYER = false;
+	INPUTTEXT = false;
 
-	// INPUTMODE = false;
-	// INPUTPLAYER = false;
-	// INPUTTEXT = false;
+	initPlayerSetup();
 
-	// names = loadStrings("initNames.txt");
-
-	// ui = new UI();
-
-	// initPlayerSetup();
-	// initUI();
-
-	// ui.first().toggle();
-
-	// histo = new Histo();
+	histo = new Histo();
 }

@@ -11,6 +11,7 @@ boolean ballInFocus = false;
 
 // Moving elements
 int lineInFocusID = -1;
+int circleInFocusID = -1;
 int rectInFocusID = -1;
 int textInFocusID = -1;
 int memoryX1 = -1;
@@ -24,6 +25,11 @@ boolean baseLineLocked = false;
 int baseLineX;
 int baseLineY;
 Line line;
+
+boolean baseCircleLocked = false;
+int baseCircleX;
+int baseCircleY;
+Circle circle;
 
 boolean baseRectLocked = false;
 int baseRectX;
@@ -40,6 +46,7 @@ int textToEditID;
 boolean hook = false;
 Player hookLineBase1, hookLineBase2;
 
+boolean blockCircleDeletion = false;
 boolean blockRectDeletion = false;
 
 int toggledButtonID = 0;
@@ -257,39 +264,39 @@ void runEventManager()
                 }
             }
 
-            // Did we click on a circle ? TODO
-            // if(noElementInFocus || rectInFocusID != -1) { // Pas d'élément focus ou rect
-            //     if(rectInFocusID != -1) { // If the rect is already in focus
-            //         if (!lockHisto) {
-            //             Action a = new Action((int)rects.get(rectInFocusID).getX1(), (int)rects.get(rectInFocusID).getY1(),
-            //                                 (int)rects.get(rectInFocusID).getX2(), (int)rects.get(rectInFocusID).getY2(), "Rect", rects.get(rectInFocusID));
-            //             histo.add(a);
-            //             lockHisto = true;
-            //         }
-            //         rects.get(rectInFocusID).setX1(rects.get(rectInFocusID).getX1() + (mouseX - memoryMouseX));
-            //         rects.get(rectInFocusID).setY1(rects.get(rectInFocusID).getY1() + (mouseY - memoryMouseY));
-            //         rects.get(rectInFocusID).setX2(rects.get(rectInFocusID).getX2() + (mouseX - memoryMouseX));
-            //         rects.get(rectInFocusID).setY2(rects.get(rectInFocusID).getY2() + (mouseY - memoryMouseY));
-            //         memoryMouseX = mouseX;
-            //         memoryMouseY = mouseY;
-            //         noElementInFocus = false;
-            //     } else {
-            //         for(int i = 0; i < rects.size(); i++) {
-            //             if (rects.get(i).overRect(mouseX, mouseY)) {
-            //                 if (!lockHisto) {
-            //                     Action a = new Action((int)rects.get(i).getX1(), (int)rects.get(i).getY1(),
-            //                                         (int)rects.get(i).getX2(), (int)rects.get(i).getY2(), "Rect", rects.get(i));
-            //                     histo.add(a);
-            //                     lockHisto = true;
-            //                 }
-            //                 rectInFocusID = i;
-            //                 memoryMouseX = mouseX;
-            //                 memoryMouseY = mouseY;
-            //                 noElementInFocus = false;
-            //             }
-            //         }
-            //     }
-            // }
+            // Did we click on a circle ?
+            if(noElementInFocus || circleInFocusID != -1) { // No focused element or circle
+                if(circleInFocusID != -1) { // If the circle is already in focus
+                    if (!lockHisto) {
+                        Action a = new Action((int)circles.get(circleInFocusID).getX1(), (int)circles.get(circleInFocusID).getY1(),
+                                            (int)circles.get(circleInFocusID).getX2(), (int)circles.get(circleInFocusID).getY2(), "Circle", circles.get(circleInFocusID));
+                        histo.add(a);
+                        lockHisto = true;
+                    }
+                    circles.get(circleInFocusID).setX1(circles.get(circleInFocusID).getX1() + (mouseX - memoryMouseX));
+                    circles.get(circleInFocusID).setY1(circles.get(circleInFocusID).getY1() + (mouseY - memoryMouseY));
+                    circles.get(circleInFocusID).setX2(circles.get(circleInFocusID).getX2() + (mouseX - memoryMouseX));
+                    circles.get(circleInFocusID).setY2(circles.get(circleInFocusID).getY2() + (mouseY - memoryMouseY));
+                    memoryMouseX = mouseX;
+                    memoryMouseY = mouseY;
+                    noElementInFocus = false;
+                } else {
+                    for(int i = 0; i < circles.size(); i++) {
+                        if (circles.get(i).overCircle(mouseX, mouseY)) {
+                            if (!lockHisto) {
+                                Action a = new Action((int)circles.get(i).getX1(), (int)circles.get(i).getY1(),
+                                                    (int)circles.get(i).getX2(), (int)circles.get(i).getY2(), "Circle", circles.get(i));
+                                histo.add(a);
+                                lockHisto = true;
+                            }
+                            circleInFocusID = i;
+                            memoryMouseX = mouseX;
+                            memoryMouseY = mouseY;
+                            noElementInFocus = false;
+                        }
+                    }
+                }
+            }
             
         }
 
@@ -409,20 +416,20 @@ void runEventManager()
         /*
         CIRCLE
         */
-        // else if (mousePressed && ui.getButtons().get(7).isToggled() && !ui.overUI(mouseX, mouseY)) {
-        //     if(mousePressed) {
-        //         if(!baseRectLocked) {
-        //             baseRectX = mouseX;
-        //             baseRectY = mouseY;
-        //         }
+        else if (mousePressed && ui.getButtons().get(7).isToggled() && !ui.overUI(mouseX, mouseY)) {
+            if(mousePressed) {
+                if(!baseCircleLocked) {
+                    baseCircleX = mouseX;
+                    baseCircleY = mouseY;
+                }
 
-        //         baseRectLocked = true;
-        //         Rect rect = new Rect(baseRectX, baseRectY, mouseX, mouseY);
-        //         rect.drawRect();
+                baseCircleLocked = true;
+                Circle circle = new Circle(baseCircleX, baseCircleY, mouseX, mouseY);
+                circle.drawCircle();
 
-        //         mouseLocked = true;
-        //     }
-        // }
+                mouseLocked = true;
+            }
+        }
 
 
         /*
@@ -457,6 +464,7 @@ void runEventManager()
                     team1FreeJerseyNumbers.add(team1.get(i).getNumber());
                     team1.remove(i);
                     blockRectDeletion = true;
+                    blockCircleDeletion = true;
                     break;
                 }
             }
@@ -471,6 +479,7 @@ void runEventManager()
                     team2FreeJerseyNumbers.add(team2.get(i).getNumber());
                     team2.remove(i);
                     blockRectDeletion = true;
+                    blockCircleDeletion = true;
                     break;
                 }
             }
@@ -485,6 +494,7 @@ void runEventManager()
                     }
                     lines.remove(i);
                     blockRectDeletion = true;
+                    blockCircleDeletion = true;
                     break;
                 }
             }
@@ -499,7 +509,23 @@ void runEventManager()
                     }
                     texts.remove(i);
                     blockRectDeletion = true;
+                    blockCircleDeletion = true;
                     break;
+                }
+            }
+
+            // Did we click on an circle ?
+            if(!blockCircleDeletion) {
+                for(int i = 0; i < circles.size(); i++) {
+                    if(circles.get(i).overCircle(mouseX, mouseY)) {
+                        if (!lockHisto) {
+                            Action a = new Action(circles.get(i), 5);
+                            histo.add(a);
+                            lockHisto = true;
+                        }
+                        circles.remove(i);
+                        break;
+                    }
                 }
             }
 
@@ -690,21 +716,6 @@ void mouseReleased() {
 
 
         /*
-        SAVE HOOKLINE
-        */
-        // else if (ui.getButtons().get(4).isToggled() && !ui.overUI(mouseX, mouseY)) {
-        //     hookLineBase1 = playerHovered(baseLineX, baseLineY);
-        //     hookLineBase2 = playerHovered(mouseX, mouseY);
-            
-        //     if(hookLineBase1 != null && hookLineBase2 != null) {
-        //         lines.add(new HookLine(hookLineBase1, hookLineBase2));
-        //     }
-
-        //     mouseLocked = true;
-        // }
-
-
-        /*
         SAVE DASHLINE
         */
         else if (ui.getButtons().get(5).isToggled() && !ui.overUI(mouseX, mouseY)) {
@@ -741,18 +752,18 @@ void mouseReleased() {
 
 
         /*
-        SAVE CIRCLE TODO
+        SAVE CIRCLE
         */
-        // else if (ui.getButtons().get(7).isToggled() && !ui.overUI(mouseX, mouseY)) {
-        //     rects.add(new Rect(baseRectX, baseRectY, mouseX, mouseY));
-        //     if (!lockHisto) {
-        //         Action a = new Action("Rect", rects.get(rects.size()-1));
-        //         histo.add(a);
-        //         lockHisto = true;
-        //     }
+        else if (ui.getButtons().get(7).isToggled() && !ui.overUI(mouseX, mouseY)) {
+            circles.add(new Circle(baseCircleX, baseCircleY, mouseX, mouseY));
+            if (!lockHisto) {
+                Action a = new Action("Circle", circles.get(circles.size()-1));
+                histo.add(a);
+                lockHisto = true;
+            }
 
-        //     mouseLocked = true;
-        // }
+            mouseLocked = true;
+        }
 
 
         /*

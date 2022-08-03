@@ -59,6 +59,7 @@ void keyPressed() {
 				teamInWhichPlayerIsBeingAdded = -1;
 				saved = "";
 				edition = false;
+				mouseLocked = false;
 				INPUTMODE = false;
 				INPUTPLAYER = false;
 				INPUTTEXT = false;
