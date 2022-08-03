@@ -30,6 +30,17 @@ class Player
     this.y = yy;
   }
 
+  Player(Player p) {
+    this.col = p.getColor();
+
+    this.name = p.getName();
+    this.team = p.getName();
+    this.number = p.getNumber();
+
+    this.x = p.getX();
+    this.y = p.getY();
+  }
+
 
   public void drawPlayer(ColorPicker CP) {
 

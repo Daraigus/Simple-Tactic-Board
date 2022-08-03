@@ -12,6 +12,13 @@ class Text
         this.col = CP.getCurrentColor();
     }
 
+    Text(Text t) {
+        this.x = t.getX();
+        this.y = t.getY();
+        this.txt = t.getTxt();
+        this.col = t.getColor();
+    }
+
     public void drawText() {
         fill(this.col);
         textAlign(CENTER);

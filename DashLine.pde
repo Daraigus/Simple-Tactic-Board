@@ -6,6 +6,11 @@ class DashLine extends Line
 		this.strokeWeight = 4;
 	}
 
+	DashLine(DashLine dl) {
+		super(dl.getX1(), dl.getY1(), dl.getX2(), dl.getY2());
+		this.strokeWeight = 4;
+	}
+
     void drawLine(){
 		stroke(this.col);
 		strokeWeight(this.strokeWeight);

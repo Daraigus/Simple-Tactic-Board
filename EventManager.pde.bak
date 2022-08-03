@@ -47,143 +47,6 @@ void runEventManager()
     if(!INPUTMODE) 
     {
 
-        switch(ui.getToggledElement()) {
-            case "Move":
-                if(mousePressed && !mouseLocked) { //Si on ne fait que cliquer
-
-                    // Did we click on the ball ?
-                    if(noElementInFocus || ballInFocus) { // Pas d'élément focus ou ballon
-                        if(ballInFocus) { // If the ball is already in focus
-                            ball.setX(mouseX);
-                            ball.setY(mouseY);
-                        }
-                        if(ball.overBall(mouseX, mouseY)) {
-                            ball.setX(mouseX);
-                            ball.setY(mouseY);
-                            noElementInFocus = false;
-                            ballInFocus = true;
-                        }
-                    }
-
-                    // Did we click on a player ?
-                    if(noElementInFocus || elementInFocusIsPlayerTeam1) { // Pas d'élément focus ou team1
-                        if(elementInFocusIsPlayerTeam1) { // si team 1
-                            Player p = team1.get(elementInFocusID);
-                            p.setX(mouseX);
-                            p.setY(mouseY);
-                        } else { // si rien de focus
-                            for(int i = 0; i < team1.size(); i++) {
-                                Player p = team1.get(i);
-                                if(p.overPlayer(mouseX, mouseY)) {
-                                    p.setX(mouseX);
-                                    p.setY(mouseY);
-                                    noElementInFocus = false;
-                                    elementInFocusIsPlayerTeam1 = true;
-                                    elementInFocusID = i;
-                                }
-                            }
-                        }
-                    } 
-                    if(noElementInFocus || elementInFocusIsPlayerTeam2) { // Pas d'élément focus ou team2
-                        if(elementInFocusIsPlayerTeam2) { // si team 2
-                            Player p = team2.get(elementInFocusID);
-                            p.setX(mouseX);
-                            p.setY(mouseY);
-                        } else {
-                            for(int i = 0; i < team2.size(); i++) {
-                                Player p = team2.get(i);
-                                if(p.overPlayer(mouseX, mouseY)) {
-                                    p.setX(mouseX);
-                                    p.setY(mouseY);
-                                    noElementInFocus = false;
-                                    elementInFocusIsPlayerTeam2 = true;
-                                    elementInFocusID = i;
-                                }
-                            }
-                        }
-                    }
-
-                    // Did we click on a line ?
-                    if(noElementInFocus || lineInFocusID != -1) { // Pas d'élément focus ou ligne
-                        if(lineInFocusID != -1) { // If the line is already in focus
-                            Line line = lines.get(lineInFocusID);
-                            line.setX1(line.getX1() + (mouseX - memoryMouseX));
-                            line.setY1(line.getY1() + (mouseY - memoryMouseY));
-                            line.setX2(line.getX2() + (mouseX - memoryMouseX));
-                            line.setY2(line.getY2() + (mouseY - memoryMouseY));
-                            memoryMouseX = mouseX;
-                            memoryMouseY = mouseY;
-                            noElementInFocus = false;
-                        } else {
-                            for(int i = 0; i < lines.size(); i++) {
-                                Line line = lines.get(i);
-                                if (line.overLine(mouseX, mouseY) && !(line instanceof HookLine)) {
-                                    lineInFocusID = i;
-                                    memoryMouseX = mouseX;
-                                    memoryMouseY = mouseY;
-                                    noElementInFocus = false;
-                                }
-                            }
-                        }
-                    }
-
-                    // Did we click on a text ?
-                    if(noElementInFocus || textInFocusID != -1) { // Pas d'élément focus ou text
-                        if(textInFocusID != -1) { // If the text is already in focus
-                            texts.get(textInFocusID).setX(texts.get(textInFocusID).getX() + (mouseX - memoryMouseX));
-                            texts.get(textInFocusID).setY(texts.get(textInFocusID).getY() + (mouseY - memoryMouseY));
-                            memoryMouseX = mouseX;
-                            memoryMouseY = mouseY;
-                            noElementInFocus = false;
-                        } else {
-                            for(int i = 0; i < texts.size(); i++) {
-                                if (texts.get(i).overText(mouseX, mouseY)) {
-                                    textInFocusID = i;
-                                    memoryMouseX = mouseX;
-                                    memoryMouseY = mouseY;
-                                    noElementInFocus = false;
-                                }
-                            }
-                        }
-                    }
-
-                    // Did we click on a rect ?
-                    if(noElementInFocus || rectInFocusID != -1) { // Pas d'élément focus ou rect
-                        if(rectInFocusID != -1) { // If the rect is already in focus
-                            rects.get(rectInFocusID).setX1(rects.get(rectInFocusID).getX1() + (mouseX - memoryMouseX));
-                            rects.get(rectInFocusID).setY1(rects.get(rectInFocusID).getY1() + (mouseY - memoryMouseY));
-                            rects.get(rectInFocusID).setX2(rects.get(rectInFocusID).getX2() + (mouseX - memoryMouseX));
-                            rects.get(rectInFocusID).setY2(rects.get(rectInFocusID).getY2() + (mouseY - memoryMouseY));
-                            memoryMouseX = mouseX;
-                            memoryMouseY = mouseY;
-                            noElementInFocus = false;
-                        } else {
-                            for(int i = 0; i < rects.size(); i++) {
-                                if (rects.get(i).overRect(mouseX, mouseY)) {
-                                    rectInFocusID = i;
-                                    memoryMouseX = mouseX;
-                                    memoryMouseY = mouseY;
-                                    noElementInFocus = false;
-                                }
-                            }
-                        }
-                    }
-
-                    mouseLocked = true;
-                }
-                break;
-            case "Move":
-                break;
-            case "Move":
-                break;
-            case "Move":
-                break;
-            case "Move":
-                break;
-            case "Move":
-                break;
-        }
-
         /*
         SUPPRESSION D'ELEMENT
         */
@@ -366,6 +229,135 @@ void runEventManager()
 
                 mouseLocked = true;
             }
+        }
+
+
+
+        /*
+        DEPLACEMENT éléments
+        */
+        // Did we click on players or the ball ?
+        else if(mousePressed && !mouseLocked) { //Si on ne fait que cliquer
+
+            // Did we click on the ball ?
+            if(noElementInFocus || ballInFocus) { // Pas d'élément focus ou ballon
+                if(ballInFocus) { // If the ball is already in focus
+                    ball.setX(mouseX);
+                    ball.setY(mouseY);
+                }
+                if(ball.overBall(mouseX, mouseY)) {
+                    ball.setX(mouseX);
+                    ball.setY(mouseY);
+                    noElementInFocus = false;
+                    ballInFocus = true;
+                }
+            }
+
+            // Did we click on a player ?
+            if(noElementInFocus || elementInFocusIsPlayerTeam1) { // Pas d'élément focus ou team1
+                if(elementInFocusIsPlayerTeam1) { // si team 1
+                    Player p = team1.get(elementInFocusID);
+                    p.setX(mouseX);
+                    p.setY(mouseY);
+                } else { // si rien de focus
+                    for(int i = 0; i < team1.size(); i++) {
+                        Player p = team1.get(i);
+                        if(p.overPlayer(mouseX, mouseY)) {
+                            p.setX(mouseX);
+                            p.setY(mouseY);
+                            noElementInFocus = false;
+                            elementInFocusIsPlayerTeam1 = true;
+                            elementInFocusID = i;
+                        }
+                    }
+                }
+            } 
+            if(noElementInFocus || elementInFocusIsPlayerTeam2) { // Pas d'élément focus ou team2
+                if(elementInFocusIsPlayerTeam2) { // si team 2
+                    Player p = team2.get(elementInFocusID);
+                    p.setX(mouseX);
+                    p.setY(mouseY);
+                } else {
+                    for(int i = 0; i < team2.size(); i++) {
+                        Player p = team2.get(i);
+                        if(p.overPlayer(mouseX, mouseY)) {
+                            p.setX(mouseX);
+                            p.setY(mouseY);
+                            noElementInFocus = false;
+                            elementInFocusIsPlayerTeam2 = true;
+                            elementInFocusID = i;
+                        }
+                    }
+                }
+            }
+
+            // Did we click on a line ?
+            if(noElementInFocus || lineInFocusID != -1) { // Pas d'élément focus ou ligne
+                if(lineInFocusID != -1) { // If the line is already in focus
+                    Line line = lines.get(lineInFocusID);
+                    line.setX1(line.getX1() + (mouseX - memoryMouseX));
+                    line.setY1(line.getY1() + (mouseY - memoryMouseY));
+                    line.setX2(line.getX2() + (mouseX - memoryMouseX));
+                    line.setY2(line.getY2() + (mouseY - memoryMouseY));
+                    memoryMouseX = mouseX;
+                    memoryMouseY = mouseY;
+                    noElementInFocus = false;
+                } else {
+                    for(int i = 0; i < lines.size(); i++) {
+                        Line line = lines.get(i);
+                        if (line.overLine(mouseX, mouseY) && !(line instanceof HookLine)) {
+                            lineInFocusID = i;
+                            memoryMouseX = mouseX;
+                            memoryMouseY = mouseY;
+                            noElementInFocus = false;
+                        }
+                    }
+                }
+            }
+
+            // Did we click on a text ?
+            if(noElementInFocus || textInFocusID != -1) { // Pas d'élément focus ou text
+                if(textInFocusID != -1) { // If the text is already in focus
+                    texts.get(textInFocusID).setX(texts.get(textInFocusID).getX() + (mouseX - memoryMouseX));
+                    texts.get(textInFocusID).setY(texts.get(textInFocusID).getY() + (mouseY - memoryMouseY));
+                    memoryMouseX = mouseX;
+                    memoryMouseY = mouseY;
+                    noElementInFocus = false;
+                } else {
+                    for(int i = 0; i < texts.size(); i++) {
+                        if (texts.get(i).overText(mouseX, mouseY)) {
+                            textInFocusID = i;
+                            memoryMouseX = mouseX;
+                            memoryMouseY = mouseY;
+                            noElementInFocus = false;
+                        }
+                    }
+                }
+            }
+
+            // Did we click on a rect ?
+            if(noElementInFocus || rectInFocusID != -1) { // Pas d'élément focus ou rect
+                if(rectInFocusID != -1) { // If the rect is already in focus
+                    rects.get(rectInFocusID).setX1(rects.get(rectInFocusID).getX1() + (mouseX - memoryMouseX));
+                    rects.get(rectInFocusID).setY1(rects.get(rectInFocusID).getY1() + (mouseY - memoryMouseY));
+                    rects.get(rectInFocusID).setX2(rects.get(rectInFocusID).getX2() + (mouseX - memoryMouseX));
+                    rects.get(rectInFocusID).setY2(rects.get(rectInFocusID).getY2() + (mouseY - memoryMouseY));
+                    memoryMouseX = mouseX;
+                    memoryMouseY = mouseY;
+                    noElementInFocus = false;
+                } else {
+                    for(int i = 0; i < rects.size(); i++) {
+                        if (rects.get(i).overRect(mouseX, mouseY)) {
+                            rectInFocusID = i;
+                            memoryMouseX = mouseX;
+                            memoryMouseY = mouseY;
+                            noElementInFocus = false;
+                        }
+                    }
+                }
+            }
+
+            mouseLocked = true;
         }
 
         mouseLocked = false;

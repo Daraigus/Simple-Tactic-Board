@@ -1,18 +1,18 @@
 class UI {
 
-    private ArrayList<Button> boutons;
+    private ArrayList<Button> buttons;
 
     private int activeButtonID;
 
     UI(){
-        this.boutons = new ArrayList<Button>();
+        this.buttons = new ArrayList<Button>();
         
         this.activeButtonID = 0;
     }
 
     public boolean overUI(int xx, int yy) {
-        for(int i = 0; i < boutons.size(); i++) {
-            if (boutons.get(i).overButton(xx,yy)) return true;
+        for(int i = 0; i < buttons.size(); i++) {
+            if (buttons.get(i).overButton(xx,yy)) return true;
         }
         return false;
     }
@@ -22,20 +22,28 @@ class UI {
     }
 
     public String getToggledElement() {
-        for(int i = 0; i < boutons.size(); i++) {
-            if (boutons.get(i).isToggled()) return boutons.get(i).getLabel();
+        for(int i = 0; i < buttons.size(); i++) {
+            if (buttons.get(i).isToggled()) return buttons.get(i).getLabel();
         }
         return "";
     }
 
     public void drawUI() {
-        for(int i = 0; i < boutons.size(); i++) {
-            boutons.get(i).drawButton();
+        for(int i = 0; i < buttons.size(); i++) {
+            buttons.get(i).drawButton();
         }
     }
 
     public void addToUI(Button b) {
-        this.boutons.add(b);
+        this.buttons.add(b);
+    }
+
+    public Button get(int i) {
+        return this.buttons.get(i);
+    }
+
+    public Button first() {
+        return this.buttons.get(0);
     }
 
 }

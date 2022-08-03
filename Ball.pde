@@ -13,6 +13,12 @@ class Ball
     this.x = xx;
     this.y = yy;
   }
+
+  Ball(Ball b) {
+		this.col = b.getColor();
+    this.x = b.getX();
+    this.y = b.getY();
+	}
   
   
   public void drawBall() {

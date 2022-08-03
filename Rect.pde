@@ -19,6 +19,15 @@ class Rect
         this.col2 = this.col-25;
 	}
 
+	Rect(Rect r) {
+		this.x1 = r.getX1();
+		this.y1 = r.getY1();
+		this.x2 = r.getX2();
+		this.y2 = r.getY2();
+		this.col = r.getColor();
+        this.col2 = r.getColor()-25;
+	}
+
 
 	void drawRect(){
         rectMode(CORNERS);

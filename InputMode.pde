@@ -15,11 +15,11 @@ void runInputMode() {
 	// Display everything
 	if(INPUTPLAYER) {
 		if(teamInWhichPlayerIsBeingAdded == 1) {
-			text("Nom du joueur : \n" + typing.toUpperCase(), 
+			text("Nom du joueur : \n\n" + typing.toUpperCase(), 
 			team1.get(playerToSetNameID).getX(), 
 			team1.get(playerToSetNameID).getY()-team1.get(playerToSetNameID).getTokenRadius()/1.5);
 		} else if(teamInWhichPlayerIsBeingAdded == 2) {
-			text("Nom du joueur : \n" + typing.toUpperCase(), 
+			text("Nom du joueur : \n\n" + typing.toUpperCase(), 
 			team2.get(playerToSetNameID).getX(), 
 			team2.get(playerToSetNameID).getY()-team2.get(playerToSetNameID).getTokenRadius()/1.5);
 		}

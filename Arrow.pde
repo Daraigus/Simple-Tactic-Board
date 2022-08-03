@@ -5,6 +5,10 @@ class Arrow extends Line
 		super(x,y,xx,yy);
 	}
 
+	Arrow(Arrow a) {
+		super(a.getX1(), a.getY1(), a.getX2(), a.getY2());
+	}
+
 
 	void drawLine(){
 		stroke(this.col);

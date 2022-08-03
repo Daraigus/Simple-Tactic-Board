@@ -9,6 +9,12 @@ class HookLine extends Line
 		this.p2 = p2;
 	}
 
+	HookLine(HookLine hl) {
+		super(hl.getX1(), hl.getY1(), hl.getX2(), hl.getY2());
+		this.p1 = hl.getP1();
+		this.p2 = hl.getP2();
+	}
+
     void drawLine(){
 		stroke(this.col);
 		strokeWeight(this.strokeWeight);

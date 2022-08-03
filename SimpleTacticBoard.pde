@@ -46,8 +46,8 @@ UI ui;
 
 PShape moveSVG, undoSVG, redoSVG;
 PShape freeTextSVG, lineSVG, dashLineSVG, arrowSVG, circleSVG, squareSVG, eraserSVG;
-PShape team1SVG, team2SVG, renameSVG;
-PShape cleanSVG, quitSVG;
+PImage team1SVG, team2SVG, renameSVG, quitSVG;
+PShape cleanSVG;
 
 
 void setup() {
@@ -89,6 +89,8 @@ void setup() {
 
 	initPlayerSetup();
 	initUI();
+
+	ui.first().toggle();
 
 }
 
@@ -189,7 +191,7 @@ void initUI() {
 	ui.addToUI(new ButtonM(leftX + spaceBetweenElements*16, height-65, "Rename", renameSVG));
 	ui.addToUI(new ButtonM(leftX + spaceBetweenElements*19, height-65, "Clean", cleanSVG));
 
-	ui.addToUI(new ButtonM(width-26, 25, "X"));
+	ui.addToUI(new ButtonM(width-26, 25, "X", quitSVG));
 }
 
 void initData(){
@@ -207,13 +209,13 @@ void initData(){
 	squareSVG = loadShape("square.svg");
 	eraserSVG = loadShape("eraser.svg");
 
-	team1SVG = loadShape("team1.svg");
-	team2SVG = loadShape("team2.svg");
-	renameSVG = loadShape("rename.svg");
+	team1SVG = loadImage("team1.png");
+	team2SVG = loadImage("team2.png");
+	renameSVG = loadImage("rename.png");
 
 	cleanSVG = loadShape("clean.svg");
 
-	// quitSVG = loadShape("quit.svg");
+	quitSVG = loadImage("quit.png");
 	
 }
 

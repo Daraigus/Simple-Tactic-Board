@@ -16,6 +16,14 @@ class Line
 		this.col = CP.currentColor;
 	}
 
+	Line(Line l) {
+		this.x1 = l.getX1();
+		this.y1 = l.getY1();
+		this.x2 = l.getX2();
+		this.y2 = l.getY2();
+		this.col = l.getColor();
+	}
+
 
 	void drawLine(){
 		stroke(this.col);

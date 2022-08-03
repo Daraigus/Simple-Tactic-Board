@@ -6,9 +6,9 @@ class Button {
     protected color fillCol = color(200);
     protected String label;
     protected boolean toggled;
-    protected boolean hover;
 
     protected PShape icon = null;
+    protected PImage image = null;
 
     Button(int xx, int yy, int ww, int hh, String l){
         this.x = xx;
@@ -17,7 +17,6 @@ class Button {
         this.h = hh;
         this.label = l;
         this.toggled = false;
-        this.hover = false;
     }
 
     Button(int xx, int yy, int ww, int hh, String l, PShape ic){
@@ -27,28 +26,60 @@ class Button {
         this.h = hh;
         this.label = l;
         this.toggled = false;
-        this.hover = false;
         this.icon = ic;
     }
 
-    void drawButton() {
-        rectMode(CENTER);
-        stroke(this.strokeCol);
-        if(toggled) fill(this.fillCol-50);
-        else if(hover) fill(this.fillCol-50);
-        else fill(this.fillCol);
-        strokeWeight(2);
-        rect(this.x, this.y, this.w, this.h);
-        fill(0); // ?
+    Button(int xx, int yy, int ww, int hh, String l, PImage im){
+        this.x = xx;
+        this.y = yy;
+        this.w = ww;
+        this.h = hh;
+        this.label = l;
+        this.toggled = false;
+        this.image = im;
+    }
 
-        if (this.icon != null) {
-            // Affichage icône
-            shape(this.icon, this.x-20, this.y-20, 40,40);
+    void drawButton() {
+        if(this.toggled || this.overButton(mouseX,mouseY)) {
+            rectMode(CENTER);
+            stroke(0);
+            fill(this.fillCol-50);
+            strokeWeight(2);
+            rect(this.x, this.y, this.w, this.h);
+            fill(0); // ?
+
+            if (this.icon != null) {
+                // Affichage icône
+                shape(this.icon, this.x-20, this.y-20, 40,40);
+            } else if (this.image != null) {
+                // Affichage image
+                image(this.image, this.x-20, this.y-20, 40,40);
+            } else {
+                // Affichage texte
+                textAlign(CENTER);
+                textSize(20);
+                text(this.label, this.x, this.y + 10);
+            }
         } else {
-            // Affichage texte
-            textAlign(CENTER);
-            textSize(20);
-            text(this.label, this.x, this.y + 10);
+            rectMode(CENTER);
+            stroke(this.strokeCol);
+            fill(this.fillCol);
+            strokeWeight(2);
+            rect(this.x, this.y, this.w, this.h);
+            fill(0); // ?
+
+            if (this.icon != null) {
+                // Affichage icône
+                shape(this.icon, this.x-20, this.y-20, 40,40);
+            } else if (this.image != null) {
+                // Affichage image
+                image(this.image, this.x-20, this.y-20, 40,40);
+            } else {
+                // Affichage texte
+                textAlign(CENTER);
+                textSize(20);
+                text(this.label, this.x, this.y + 10);
+            }
         }
         
     }
@@ -56,16 +87,14 @@ class Button {
 
 	boolean overButton(float xx, float yy) {
 		if ( xx >= this.x - this.w && xx <= this.x + this.w && yy >= this.y - this.h && yy <= this.y + this.h ) { 
-            this.hover = true;
             return true; 
         } 
-        this.hover = false;
 		return false;
 	}
 
-    void onClick() {
-
-    }
+    // void onClick() {
+    //     this.toggled = !this.toggled;
+    // }
 
 
     public int getX() {
@@ -94,6 +123,10 @@ class Button {
 
     public String getLabel() {
         return this.label;
+    }
+
+    public void toggle() {
+        this.toggled = !this.toggled;
     }
 
     public boolean isToggled() {
