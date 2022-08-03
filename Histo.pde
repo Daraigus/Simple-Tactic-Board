@@ -199,7 +199,7 @@ class Histo {
 
                 case "Rename": // Revert name
                     Player tmp4 = action.getPlayer();
-                    Action a4 = new Action(action.getContent(), tmp4);
+                    Action a4 = new Action(tmp4.getName(), tmp4);
                     this.futureLog(a4);
                     tmp4.setName(action.getContent());
                     break;
@@ -384,8 +384,8 @@ class Histo {
 
                 case "Rename": // Recreate name
                     Player tmp4 = action.getPlayer();
-                    Action a4 = new Action(action.getContent(), tmp4);
-                    this.futureLog(a4);
+                    Action a4 = new Action(tmp4.getName(), tmp4);
+                    this.pastLog(a4);
                     tmp4.setName(action.getContent());
                     break;
             }

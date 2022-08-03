@@ -60,6 +60,7 @@ void keyPressed() {
 				saved = "";
 				edition = false;
 				mouseLocked = false;
+				lockHisto = false;
 				INPUTMODE = false;
 				INPUTPLAYER = false;
 				INPUTTEXT = false;

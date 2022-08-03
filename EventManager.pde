@@ -595,7 +595,7 @@ void runEventManager()
 
 
         /*
-        RENAMING
+        RENAME
         */
         else if (mousePressed && ui.getButtons().get(12).isToggled() && !ui.overUI(mouseX, mouseY)) {
             if(mousePressed) {
