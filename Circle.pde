@@ -34,14 +34,15 @@ class Circle
 
 
 	void drawCircle(){
-		this.findCenter();
         ellipseMode(CORNERS);
 		stroke(this.col);
         fill(this.col2, 128);
 		strokeWeight(4);
 		ellipse(this.x1, this.y1, this.x2, this.y2);
-		ellipseMode(CENTER);
-		ellipse(this.xCenter, this.yCenter, 20, 20);
+
+		// Draw center
+		// ellipseMode(CENTER);
+		// ellipse(this.xCenter, this.yCenter, 20, 20);
 	}
 
 	boolean overCircle(float x, float y) {
@@ -52,9 +53,9 @@ class Circle
 
 	private void findCenter() {
 		if(this.x1 <= this.x2) this.xCenter = ((this.x2-this.x1)/2)+this.x1;
-		else this.xCenter = ((this.x1-this.x2)/2)-this.x1;
+		else if(this.x1 > this.x2) this.xCenter = ((this.x1-this.x2)/2)+this.x2;
 		if(this.y1 <= this.y2) this.yCenter = ((this.y2-this.y1)/2)+this.y1;
-		else this.yCenter = ((this.y1-this.y2)/2)-this.y1;
+		else if (this.y1 > this.y2) this.yCenter = ((this.y1-this.y2)/2)+this.y2;
 	}
 
 	// GETTERS SETTERS

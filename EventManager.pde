@@ -424,7 +424,7 @@ void runEventManager()
                 }
 
                 baseCircleLocked = true;
-                Circle circle = new Circle(mouseX, mouseY, baseCircleX, baseCircleY);
+                Circle circle = new Circle(baseCircleX, baseCircleY, mouseX, mouseY);
                 circle.drawCircle();
 
                 mouseLocked = true;
@@ -777,7 +777,12 @@ void mouseReleased() {
         }
 
 
-
+        /* 
+        CIRCLES CENTERS
+        */
+        for(int i = 0; i < circles.size(); i++) {
+            circles.get(i).findCenter();
+        }
 
         /*
         CONTROL RESET
