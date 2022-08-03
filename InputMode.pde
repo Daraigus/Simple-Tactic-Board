@@ -33,8 +33,12 @@ void runInputMode() {
 
 void keyPressed() {
 
+	if (key == ESC) {
+        key = '\n';  // Prevents killing the window with ESC + leaves INPUTMODE
+    }
+
 	if(INPUTMODE) {
-		// If the return key is pressed, save the String and clear it
+		// If the return key (or ESC) is pressed, save the String and clear it
 		if (key == '\n' ) {
 				if (typing != "") {
 					saved = typing;

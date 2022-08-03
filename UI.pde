@@ -1,6 +1,7 @@
 class UI {
 
     private ArrayList<Button> buttons;
+    public int size;
 
     private int activeButtonID;
 
@@ -36,6 +37,7 @@ class UI {
 
     public void addToUI(Button b) {
         this.buttons.add(b);
+        this.size = this.buttons.size();
     }
 
     public Button get(int i) {
@@ -44,6 +46,10 @@ class UI {
 
     public Button first() {
         return this.buttons.get(0);
+    }
+
+    public ArrayList<Button> getButtons() {
+        return this.buttons;
     }
 
 }

@@ -85,16 +85,12 @@ class Button {
     }
 
 
-	boolean overButton(float xx, float yy) {
-		if ( xx >= this.x - this.w && xx <= this.x + this.w && yy >= this.y - this.h && yy <= this.y + this.h ) { 
+	boolean overButton(int xx, int yy) {
+		if ( xx >= this.x - this.w/2 && xx <= this.x + this.w/2 && yy >= this.y - this.h/2 && yy <= this.y + this.h/2 ) { 
             return true; 
         } 
 		return false;
 	}
-
-    // void onClick() {
-    //     this.toggled = !this.toggled;
-    // }
 
 
     public int getX() {

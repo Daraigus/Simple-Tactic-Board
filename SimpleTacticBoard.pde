@@ -33,6 +33,7 @@ ArrayList<Player> team2;
 
 ArrayList<Line> lines;
 ArrayList<Rect> rects;
+ArrayList<Circle> circles;
 ArrayList<Text> texts;
 
 Ball ball;
@@ -49,6 +50,7 @@ PShape freeTextSVG, lineSVG, dashLineSVG, arrowSVG, circleSVG, squareSVG, eraser
 PImage team1SVG, team2SVG, renameSVG, quitSVG;
 PShape cleanSVG;
 
+Histo histo;
 
 void setup() {
 	frameRate(60);
@@ -92,21 +94,24 @@ void setup() {
 
 	ui.first().toggle();
 
+	histo = new Histo();
+
 }
 
 
 
 void draw() {
 
-	reset();
+	resetBG();
 	field.drawField();
+	drawUI();
 
 	drawRects();
 	drawLines();
 	drawPlayers(CP);
 	ball.drawBall();
 	drawTexts();
-	drawUI();
+	
 
 
 	if(INPUTMODE) {
@@ -118,7 +123,7 @@ void draw() {
 }
 
 
-void reset() {
+void resetBG() {
 	background(CP.BGCOLOR); // Background de reset
 }
 
@@ -306,4 +311,37 @@ void initPlayerCoordinates() {
 	coor2[10][0] = 600; // 11
 	coor2[10][1] = 830;
 
+}
+
+void reset() {
+	// computeCoordinates();
+
+	// team1 = new ArrayList<Player>();
+	// team2 = new ArrayList<Player>();
+
+	// team1JerseyNumbers = new ArrayList<Integer>();
+	// team2JerseyNumbers = new ArrayList<Integer>();
+	// team1FreeJerseyNumbers = new ArrayList<Integer>();
+	// team2FreeJerseyNumbers = new ArrayList<Integer>();
+
+	// lines = new ArrayList<Line>();
+	// rects = new ArrayList<Rect>();
+	// texts = new ArrayList<Text>();
+
+	// ball = new Ball(255, width/2, height/2);
+
+	// INPUTMODE = false;
+	// INPUTPLAYER = false;
+	// INPUTTEXT = false;
+
+	// names = loadStrings("initNames.txt");
+
+	// ui = new UI();
+
+	// initPlayerSetup();
+	// initUI();
+
+	// ui.first().toggle();
+
+	// histo = new Histo();
 }
