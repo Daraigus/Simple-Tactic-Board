@@ -82,7 +82,7 @@ void runEventManager()
         /*
         MOVE
         */
-        else if(mousePressed && ui.getButtons().get(0).isToggled() && !mouseLocked) {
+        else if(mousePressed && !mouseLocked && ui.getButtons().get(0).isToggled()) {
 
             // Did we click on the ball ?
             if(noElementInFocus || ballInFocus) { // No Element focused or ball already
@@ -417,18 +417,16 @@ void runEventManager()
         CIRCLE
         */
         else if (mousePressed && ui.getButtons().get(7).isToggled() && !ui.overUI(mouseX, mouseY)) {
-            if(mousePressed) {
-                if(!baseCircleLocked) {
-                    baseCircleX = mouseX;
-                    baseCircleY = mouseY;
-                }
-
-                baseCircleLocked = true;
-                Circle circle = new Circle(baseCircleX, baseCircleY, mouseX, mouseY);
-                circle.drawCircle();
-
-                mouseLocked = true;
+            if(!baseCircleLocked) {
+                baseCircleX = mouseX;
+                baseCircleY = mouseY;
             }
+
+            baseCircleLocked = true;
+            Circle circle = new Circle(baseCircleX, baseCircleY, mouseX, mouseY);
+            circle.drawCircle();
+
+            mouseLocked = true;
         }
 
 
@@ -805,6 +803,7 @@ void mouseReleased() {
         baseRectLocked = false;
         
         blockRectDeletion = false;
+        blockCircleDeletion = false;
 
         hook = false;
 

@@ -244,7 +244,7 @@ class Histo {
                     }
                     break;
 
-                case "Move2": // Revert to old position but has 2 set of coordinates
+                case "Move2": // Revert to new position but has 2 set of coordinates
 
                     if(action.getType() == "Line") {
                         Line tmp = action.getLine();
@@ -291,98 +291,98 @@ class Histo {
                     }
                     break;
 
-                case "Draw": // Delete
+                case "Draw": // Create again
                     if(action.getType() == "Line") {
                         Line tmp = action.getLine();
                         Action a = new Action("Line", tmp);
                         this.pastLog(a);
-                        lines.remove(tmp);
+                        lines.add(tmp);
                     } else if(action.getType() == "Dash") {
                         DashLine tmp = action.getDashLine();
                         Action a = new Action("Dash", tmp);
                         this.pastLog(a);
-                        lines.remove(tmp);
+                        lines.add(tmp);
                     } else if(action.getType() == "Arrow") {
                         Arrow tmp = action.getArrow();
                         Action a = new Action("Arrow", tmp);
                         this.pastLog(a);
-                        lines.remove(tmp);
+                        lines.add(tmp);
                     } else if(action.getType() == "Rect") {
                         Rect tmp = action.getRect();
                         Action a = new Action("Rect", tmp);
                         this.pastLog(a);
-                        rects.remove(tmp);
+                        rects.add(tmp);
                     } else {
                         Circle tmp = action.getCircle();
                         Action a = new Action("Circle", tmp);
                         this.pastLog(a);
-                        circles.remove(tmp);
+                        circles.add(tmp);
                     }
                     break;
 
-                case "Hook": // Delete
+                case "Hook": // Create again
                     HookLine tmp = action.getHookLine();
                     Action a = new Action("Hook", action.getPlayer(), action.getPlayer2(), tmp);
                     this.pastLog(a);
-                    lines.remove(tmp);
+                    lines.add(tmp);
                     break;
 
-                case "Text": // Delete
+                case "Text": // Create again
                     Text tmp2 = action.getText();
                     Action a2 = new Action(tmp2);
                     this.pastLog(a2);
-                    texts.remove(tmp2);
+                    texts.add(tmp2);
                     break;
 
-                case "Erase": // Create
+                case "Erase": // Erase
                     if(action.getType() == "Line") {
                         Line tmp5 = action.getLine();
                         Action a5 = new Action(tmp5, 5);
                         this.pastLog(a5);
-                        lines.add(tmp5);
+                        lines.remove(tmp5);
                     } else if(action.getType() == "Dash") {
                         DashLine tmp5 = action.getDashLine();
                         Action a5 = new Action(tmp5, 5);
                         this.pastLog(a5);
-                        lines.add(tmp5);
+                        lines.remove(tmp5);
                     } else if(action.getType() == "Arrow") {
                         Arrow tmp5 = action.getArrow();
                         Action a5 = new Action(tmp5, 5);
                         this.pastLog(a5);
-                        lines.add(tmp5);
+                        lines.remove(tmp5);
                     } else if(action.getType() == "Rect") {
                         Rect tmp5 = action.getRect();
                         Action a5 = new Action(tmp5, 5);
                         this.pastLog(a5);
-                        rects.add(tmp5);
+                        rects.remove(tmp5);
                     } else if(action.getType() == "Player") {
                         Player tmp5 = action.getPlayer();
                         Action a5 = new Action(tmp5, 5);
                         this.pastLog(a5);
-                        if (tmp5.getTeam() == 1) team1.add(tmp5);
-                        else team2.add(tmp5);
+                        if (tmp5.getTeam() == 1) team1.remove(tmp5);
+                        else team2.remove(tmp5);
                     } else if(action.getType() == "Text") {
                         Text tmp5 = action.getText();
                         Action a5 = new Action(tmp5, 5);
                         this.pastLog(a5);
-                        texts.add(tmp5);
+                        texts.remove(tmp5);
                     } else {
                         Circle tmp5 = action.getCircle();
                         Action a5 = new Action(tmp5, 5);
                         this.pastLog(a5);
-                        circles.add(tmp5);
+                        circles.remove(tmp5);
                     }
                     break;
 
-                case "Player": // Delete from team
+                case "Player": // Create again
                     Player tmp3 = action.getPlayer();
                     Action a3 = new Action(tmp3);
                     this.pastLog(a3);
-                    if(tmp3.getTeam() == 1) team1.remove(tmp3);
-                    else team2.remove(tmp3);
+                    if(tmp3.getTeam() == 1) team1.add(tmp3);
+                    else team2.add(tmp3);
                     break;
 
-                case "Rename": // Revert name
+                case "Rename": // Recreate name
                     Player tmp4 = action.getPlayer();
                     Action a4 = new Action(action.getContent(), tmp4);
                     this.futureLog(a4);
