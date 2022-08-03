@@ -34,7 +34,7 @@ class Player
     this.col = p.getColor();
 
     this.name = p.getName();
-    this.team = p.getName();
+    this.team = p.getTeam();
     this.number = p.getNumber();
 
     this.x = p.getX();

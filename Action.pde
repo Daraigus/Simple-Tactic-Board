@@ -26,8 +26,7 @@ class Action {
     private Circle circle2 = null;
 
     // Text
-    private String contenu;
-    private String type;
+    private String text;
 
     // Color
     private color col;
@@ -39,81 +38,67 @@ class Action {
         this.y = yy;
 
         if(o instanceof Player) {
-            this.player = new Player(o);
+            this.player = new Player((Player)o);
         } else if(o instanceof Ball) {
-            this.ball = new Ball(o);
+            this.ball = new Ball((Ball)o);
         } else if(o instanceof Line) {
-            this.line = new Line(o);
+            this.line = new Line((Line)o);
         } else if(o instanceof DashLine) {
-            this.dashLine = new DashLine(o);
+            this.dashLine = new DashLine((DashLine)o);
         } else if(o instanceof Arrow) {
-            this.arrow = new Arrow(o);
+            this.arrow = new Arrow((Arrow)o);
         } else if(o instanceof HookLine) {
-            this.hookLine = new HookLine(o);
+            this.hookLine = new HookLine((HookLine)o);
         } else if(o instanceof Rect) {
-            this.rect = new Rect(o);
+            this.rect = new Rect((Rect)o);
         } else if(o instanceof Circle) {
-            this.circle = new Circle(o);
+            this.circle = new Circle((Circle)o);
         }
     }
 
-    // Free Text
-    Action(String a, int xx, int yy, String c, color col) {
-        this.action = a;
-        this.x = xx;
-        this.y = yy;
-        this.contenu = contenu;
-        this.col = col;
-    }
-
-    // Draw
+    // Free Text or draw
     Action(String a, int xx, int yy, String t, color col) {
         this.action = a;
         this.x = xx;
         this.y = yy;
-        this.type = t;
+        this.text = t; // Either text or type of Object to draw
         this.col = col;
     }
+
 
     // Draw Hook
     Action(String a, String t, Object o1, Object o2) {
         this.action = a;
-        this.type = t;
+        this.text = t; // Type of Object to hook
 
         if(o1 instanceof Player) {
-            this.player = new Player(o1);
-            this.player2 = new Player(o2);
+            this.player = new Player((Player)o1);
+            this.player2 = new Player((Player)o2);
         } else if(o1 instanceof Ball) {
-            this.ball = new Ball(o1);
-            this.ball2 = new Ball(o2);
+            this.ball = new Ball((Ball)o1);
+            this.ball2 = new Ball((Ball)o2);
         } else if(o1 instanceof Line) {
-            this.line = new Line(o1);
-            this.line2 = new Line(o2);
+            this.line = new Line((Line)o1);
+            this.line2 = new Line((Line)o2);
         } else if(o1 instanceof DashLine) {
-            this.dashLine = new DashLine(o1);
-            this.dashLine2 = new DashLine(o2);
+            this.dashLine = new DashLine((DashLine)o1);
+            this.dashLine2 = new DashLine((DashLine)o2);
         } else if(o1 instanceof Arrow) {
-            this.arrow = new Arrow(o1);
-            this.arrow2 = new Arrow(o2);
+            this.arrow = new Arrow((Arrow)o1);
+            this.arrow2 = new Arrow((Arrow)o2);
         } else if(o1 instanceof HookLine) {
-            this.hookLine = new HookLine(o1);
-            this.hookLine2 = new HookLine(o2);
+            this.hookLine = new HookLine((HookLine)o1);
+            this.hookLine2 = new HookLine((HookLine)o2);
         } else if(o1 instanceof Rect) {
-            this.rect = new Rect(o1);
-            this.rect2 = new Rect(o2);
+            this.rect = new Rect((Rect)o1);
+            this.rect2 = new Rect((Rect)o2);
         } else if(o1 instanceof Circle) {
-            this.circle = new Circle(o1);
-            this.circle2 = new Circle(o2);
+            this.circle = new Circle((Circle)o1);
+            this.circle2 = new Circle((Circle)o2);
         }
     }
 
-    // Player
-    Action(String a, Player p) {
-        this.action = a;
-        this.player = new Player(p);
-    }
-
-    // Rename
+    // Player or rename
     Action(String a, Player p) {
         this.action = a;
         this.player = new Player(p);
