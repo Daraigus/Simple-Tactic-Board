@@ -1,5 +1,4 @@
 import java.util.Collections;
-import java.util.Random;
 import garciadelcastillo.dashedlines.*;
 
 final int ratio = 13;

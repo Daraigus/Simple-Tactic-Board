@@ -749,7 +749,7 @@ void mouseReleased() {
         */
         else if (ui.getButtons().get(7).isToggled() && !ui.overUI(mouseX, mouseY)) {
 
-            if(Math.abs(baseCircleX-mouseX) > 100 && Math.abs(baseCircleY - mouseY) > 100) {
+            if(Math.abs(baseCircleX-mouseX) > 50 && Math.abs(baseCircleY - mouseY) > 50) {
                 circles.add(new Circle(baseCircleX, baseCircleY, mouseX, mouseY));
                 if (!lockHisto) {
                     Action a = new Action("Circle", circles.get(circles.size()-1));
@@ -767,7 +767,7 @@ void mouseReleased() {
         */
         else if (ui.getButtons().get(8).isToggled() && !ui.overUI(mouseX, mouseY)) {
 
-            if(Math.abs(baseRectX-mouseX) > 100 && Math.abs(baseRectY - mouseY) > 100) {
+            if(Math.abs(baseRectX-mouseX) > 50 && Math.abs(baseRectY - mouseY) > 50) {
                 Rect tmp = new Rect(baseRectX, baseRectY, mouseX, mouseY);
                 rects.add(tmp);
                 if (!lockHisto) {
@@ -890,4 +890,3 @@ void computeNextJerseyNumber(int team) {
         }
     }
 }
-

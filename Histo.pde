@@ -9,7 +9,7 @@ class Histo {
     }
 
     public void add(Action a) {
-        a.print();
+        // a.print();
         this.pastLog(a);
         this.future.clear();
     }
@@ -32,7 +32,7 @@ class Histo {
     public void undo() {
 
         if(this.past.size() != 0) {
-            System.out.print("UNDO : ");
+            // System.out.print("UNDO : ");
 
             Action action = this.past.get(this.past.size()-1);
             action.print();
@@ -215,7 +215,7 @@ class Histo {
     public void redo() {
 
         if(this.future.size() != 0) {
-            System.out.print("REDO : ");
+            // System.out.print("REDO : ");
 
             Action action = this.future.get(this.future.size()-1);
             action.print();
@@ -287,7 +287,7 @@ class Histo {
                         tmp.setX2(action.getX2());
                         tmp.setY2(action.getY2());
                     } else {
-                        System.out.print(action.getType() + " AAAAAAAA \n");
+                        // System.out.print(action.getType() + " AAAAAAAA \n");
                     }
                     break;
 

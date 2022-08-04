@@ -94,51 +94,51 @@ void keyPressed() {
 			}
 			return;
 		} 
-		if (keyCode == '1' || keyCode == '&') {
-			ui.getButtons().get(0).toggle(); // Toggle button ON
-			ui.getButtons().get(toggledButtonID).toggle(); // Toggle previous button OFF
-			toggledButtonID = 0;      
-		} else if (keyCode == '2' || keyCode == 'é') {
-			ui.getButtons().get(3).toggle(); // Toggle button ON
-			ui.getButtons().get(toggledButtonID).toggle(); // Toggle previous button OFF
-			toggledButtonID = 3;      
-		} else if (keyCode == '3' || keyCode == '"') {
-			ui.getButtons().get(4).toggle(); // Toggle button ON
-			ui.getButtons().get(toggledButtonID).toggle(); // Toggle previous button OFF
-			toggledButtonID = 4;      
-		} else if (keyCode == '4' || keyCode == '\'') {
-			ui.getButtons().get(5).toggle(); // Toggle button ON
-			ui.getButtons().get(toggledButtonID).toggle(); // Toggle previous button OFF
-			toggledButtonID = 5;      
-		} else if (keyCode == '5' || keyCode == '(') {
-			ui.getButtons().get(6).toggle(); // Toggle button ON
-			ui.getButtons().get(toggledButtonID).toggle(); // Toggle previous button OFF
-			toggledButtonID = 6;      
-		} else if (keyCode == '6' || keyCode == '-') {
-			ui.getButtons().get(7).toggle(); // Toggle button ON
-			ui.getButtons().get(toggledButtonID).toggle(); // Toggle previous button OFF
-			toggledButtonID = 7;      
-		} else if (keyCode == '7' || keyCode == 'è') {
-			ui.getButtons().get(8).toggle(); // Toggle button ON
-			ui.getButtons().get(toggledButtonID).toggle(); // Toggle previous button OFF
-			toggledButtonID = 8;      
-		} else if (keyCode == '8' || keyCode == '_') {
-			ui.getButtons().get(9).toggle(); // Toggle button ON
-			ui.getButtons().get(toggledButtonID).toggle(); // Toggle previous button OFF
-			toggledButtonID = 9;      
-		} else if (keyCode == '9' || keyCode == 'ç') {
-			ui.getButtons().get(10).toggle(); // Toggle button ON
-			ui.getButtons().get(toggledButtonID).toggle(); // Toggle previous button OFF
-			toggledButtonID = 10;      
-		} else if (keyCode == '0' || keyCode == 'à') {
-			ui.getButtons().get(11).toggle(); // Toggle button ON
-			ui.getButtons().get(toggledButtonID).toggle(); // Toggle previous button OFF
-			toggledButtonID = 11;      
-		} else if (keyCode == ')' || keyCode == '°') {
-			ui.getButtons().get(12).toggle(); // Toggle button ON
-			ui.getButtons().get(toggledButtonID).toggle(); // Toggle previous button OFF
-			toggledButtonID = 12;      
-		}
+		// if (keyCode == '1' || keyCode == '&') {
+		// 	ui.getButtons().get(0).toggle(); // Toggle button ON
+		// 	ui.getButtons().get(toggledButtonID).toggle(); // Toggle previous button OFF
+		// 	toggledButtonID = 0;      
+		// } else if (keyCode == '2' || keyCode == 'é') {
+		// 	ui.getButtons().get(3).toggle(); // Toggle button ON
+		// 	ui.getButtons().get(toggledButtonID).toggle(); // Toggle previous button OFF
+		// 	toggledButtonID = 3;      
+		// } else if (keyCode == '3' || keyCode == '"') {
+		// 	ui.getButtons().get(4).toggle(); // Toggle button ON
+		// 	ui.getButtons().get(toggledButtonID).toggle(); // Toggle previous button OFF
+		// 	toggledButtonID = 4;      
+		// } else if (keyCode == '4' || keyCode == '\'') {
+		// 	ui.getButtons().get(5).toggle(); // Toggle button ON
+		// 	ui.getButtons().get(toggledButtonID).toggle(); // Toggle previous button OFF
+		// 	toggledButtonID = 5;      
+		// } else if (keyCode == '5' || keyCode == '(') {
+		// 	ui.getButtons().get(6).toggle(); // Toggle button ON
+		// 	ui.getButtons().get(toggledButtonID).toggle(); // Toggle previous button OFF
+		// 	toggledButtonID = 6;      
+		// } else if (keyCode == '6' || keyCode == '-') {
+		// 	ui.getButtons().get(7).toggle(); // Toggle button ON
+		// 	ui.getButtons().get(toggledButtonID).toggle(); // Toggle previous button OFF
+		// 	toggledButtonID = 7;      
+		// } else if (keyCode == '7' || keyCode == 'è') {
+		// 	ui.getButtons().get(8).toggle(); // Toggle button ON
+		// 	ui.getButtons().get(toggledButtonID).toggle(); // Toggle previous button OFF
+		// 	toggledButtonID = 8;      
+		// } else if (keyCode == '8' || keyCode == '_') {
+		// 	ui.getButtons().get(9).toggle(); // Toggle button ON
+		// 	ui.getButtons().get(toggledButtonID).toggle(); // Toggle previous button OFF
+		// 	toggledButtonID = 9;      
+		// } else if (keyCode == '9' || keyCode == 'ç') {
+		// 	ui.getButtons().get(10).toggle(); // Toggle button ON
+		// 	ui.getButtons().get(toggledButtonID).toggle(); // Toggle previous button OFF
+		// 	toggledButtonID = 10;      
+		// } else if (keyCode == '0' || keyCode == 'à') {
+		// 	ui.getButtons().get(11).toggle(); // Toggle button ON
+		// 	ui.getButtons().get(toggledButtonID).toggle(); // Toggle previous button OFF
+		// 	toggledButtonID = 11;      
+		// } else if (keyCode == ')' || keyCode == '°') {
+		// 	ui.getButtons().get(12).toggle(); // Toggle button ON
+		// 	ui.getButtons().get(toggledButtonID).toggle(); // Toggle previous button OFF
+		// 	toggledButtonID = 12;      
+		// }
 	}
 
 }
