@@ -88,15 +88,36 @@ void runEventManager()
         /*
         COLOR CHANGING
         */
-        else if(mousePressed && !mouseLocked && !busy && CP.overColorPicker(mouseX, mouseY)) {
+        if(mousePressed && !mouseLocked && !busy && CP.overColorPicker(mouseX, mouseY)) {
             CP.computeNextColor();
             mouseLocked = true;
         }
 
         /*
+        UNDO
+        */
+        if(mousePressed && !lockUndo && ui.overUI(mouseX, mouseY) && !busy) {
+            if (ui.getButtons().get(1).overButton(mouseX,mouseY)) {
+                histo.undo();
+                lockUndo = true;
+            }
+        }
+
+
+        /*
+        REDO
+        */
+        if(mousePressed && !lockRedo && ui.overUI(mouseX, mouseY) && !busy) {
+            if (ui.getButtons().get(2).overButton(mouseX,mouseY)) {
+                histo.redo();
+                lockRedo = true;
+            }
+        }
+
+        /*
         MOVE
         */
-        else if(mousePressed && !mouseLocked && ui.getButtons().get(0).isToggled()) {
+        else if(mousePressed && !mouseLocked && ui.getButtons().get(0).isToggled() && !ui.overUI(mouseX,mouseY)) {
 
             // Did we click on the ball ?
             if(noElementInFocus || ballInFocus) { // No Element focused or ball already
@@ -348,28 +369,6 @@ void runEventManager()
 
 
         /*
-        UNDO
-        */
-        else if(mousePressed && !lockUndo && ui.overUI(mouseX, mouseY)) {
-            if (ui.getButtons().get(1).overButton(mouseX,mouseY)) {
-                histo.undo();
-                lockUndo = true;
-            }
-        }
-
-
-        /*
-        REDO
-        */
-        else if(mousePressed && !lockRedo && ui.overUI(mouseX, mouseY)) {
-            if (ui.getButtons().get(2).overButton(mouseX,mouseY)) {
-                histo.redo();
-                lockRedo = true;
-            }
-        }
-
-
-        /*
         FREE TEXT
         */
         else if(mousePressed && field.isInside(mouseX,mouseY) && ui.getButtons().get(3).isToggled()) {
@@ -385,6 +384,7 @@ void runEventManager()
                 saved = "";
                 INPUTTEXT = true;
                 INPUTMODE = true;
+                busy = true;
             } 
         }
 
@@ -424,6 +424,7 @@ void runEventManager()
             line.drawLine();
 
             mouseLocked = true;
+            busy = true;
         }
 
 
@@ -442,6 +443,7 @@ void runEventManager()
             dashLine.drawLine();
 
             mouseLocked = true;
+            busy = true;
         }
 
 
@@ -460,6 +462,7 @@ void runEventManager()
             arrow.drawLine();
 
             mouseLocked = true;
+            busy = true;
         }      
 
 
@@ -478,6 +481,7 @@ void runEventManager()
             circle.drawCircle();
 
             mouseLocked = true;
+            busy = true;
         }
 
 
@@ -496,6 +500,7 @@ void runEventManager()
             rect.drawRect();
 
             mouseLocked = true;
+            busy = true;
         }
 
 
@@ -588,6 +593,7 @@ void runEventManager()
                     }
                 }
             }
+            busy = true;
         }
 
 
