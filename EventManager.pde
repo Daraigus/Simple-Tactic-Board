@@ -69,7 +69,7 @@ void runEventManager()
         /*
         BUTTON TOGGLING
         */
-        if(mousePressed && !mouseLocked && ui.overUI(mouseX, mouseY)) {
+        if(mousePressed && !mouseLocked && !busy && ui.overUI(mouseX, mouseY) && !CP.overColorPicker(mouseX, mouseY)) {
             int i = 0;
             boolean found = false;
             while(i < ui.size && !found) {
@@ -88,7 +88,7 @@ void runEventManager()
         /*
         COLOR CHANGING
         */
-        if(mousePressed && !mouseLocked && CP.overColorPicker(mouseX, mouseY)) {
+        else if(mousePressed && !mouseLocked && !busy && CP.overColorPicker(mouseX, mouseY)) {
             CP.computeNextColor();
             mouseLocked = true;
         }
@@ -106,9 +106,9 @@ void runEventManager()
                         histo.add(a);
                         lockHisto = true;
                     }
-                    busy = true;
                     ball.setX(mouseX);
                     ball.setY(mouseY);
+                    busy = true;
                 }
                 if(ball.overBall(mouseX, mouseY)) {
                     if (!lockHisto) {
@@ -120,6 +120,7 @@ void runEventManager()
                     ball.setY(mouseY);
                     noElementInFocus = false;
                     ballInFocus = true;
+                    busy = true;
                 }
             }
 
@@ -349,7 +350,7 @@ void runEventManager()
         /*
         UNDO
         */
-        if(mousePressed && !lockUndo && ui.overUI(mouseX, mouseY)) {
+        else if(mousePressed && !lockUndo && ui.overUI(mouseX, mouseY)) {
             if (ui.getButtons().get(1).overButton(mouseX,mouseY)) {
                 histo.undo();
                 lockUndo = true;
@@ -360,7 +361,7 @@ void runEventManager()
         /*
         REDO
         */
-        if(mousePressed && !lockRedo && ui.overUI(mouseX, mouseY)) {
+        else if(mousePressed && !lockRedo && ui.overUI(mouseX, mouseY)) {
             if (ui.getButtons().get(2).overButton(mouseX,mouseY)) {
                 histo.redo();
                 lockRedo = true;
@@ -717,27 +718,33 @@ void mouseReleased() {
         /*
         SAVE LINE
         */
-        if (ui.getButtons().get(4).isToggled() && !ui.overUI(mouseX, mouseY)) {
+        if (ui.getButtons().get(4).isToggled() && !ui.overUI(mouseX, mouseY) && baseLineLocked) {
 
             if(hook) {
+                boolean found = false;
 
                 for(int i = 0; i < team1.size(); i++) {
                     if(team1.get(i).overPlayer(mouseX, mouseY)) {
                         hookLineBase2 = team1.get(i);
+                        found = true;
                     } 
                 }
                 for(int i = 0; i < team2.size(); i++) {
                     if(team2.get(i).overPlayer(mouseX, mouseY)) {
                         hookLineBase2 = team2.get(i);
+                        found = true;
                     }
                 }
 
-                lines.add(new HookLine(hookLineBase1, hookLineBase2));
-                if (!lockHisto) {
-                    Action a = new Action("Hook", hookLineBase1, hookLineBase2, lines.get(lines.size()-1));
-                    histo.add(a);
-                    lockHisto = true;
+                if(found) {
+                    lines.add(new HookLine(hookLineBase1, hookLineBase2));
+                    if (!lockHisto) {
+                        Action a = new Action("Hook", hookLineBase1, hookLineBase2, lines.get(lines.size()-1));
+                        histo.add(a);
+                        lockHisto = true;
+                    }
                 }
+                
 
                 mouseLocked = true;
 
@@ -763,7 +770,7 @@ void mouseReleased() {
         /*
         SAVE DASHLINE
         */
-        else if (ui.getButtons().get(5).isToggled() && !ui.overUI(mouseX, mouseY)) {
+        else if (ui.getButtons().get(5).isToggled() && !ui.overUI(mouseX, mouseY) && baseLineLocked) {
             if(Math.abs(baseLineX-mouseX) > 20 || Math.abs(baseLineY-mouseY) > 20) {
                 int[] test = dynamicCoordinates(mouseX,mouseY);
                 DashLine tmp = new DashLine(baseLineX, baseLineY, test[0], test[1]);
@@ -782,7 +789,7 @@ void mouseReleased() {
         /*
         SAVE ARROW
         */
-        else if (ui.getButtons().get(6).isToggled() && !ui.overUI(mouseX, mouseY)) {
+        else if (ui.getButtons().get(6).isToggled() && !ui.overUI(mouseX, mouseY) && baseLineLocked) {
             if(Math.abs(baseLineX-mouseX) > 20 || Math.abs(baseLineY-mouseY) > 20) {
                 int[] test = dynamicCoordinates(mouseX,mouseY);
                 Arrow tmp = new Arrow(baseLineX, baseLineY, test[0], test[1]);
@@ -801,7 +808,7 @@ void mouseReleased() {
         /*
         SAVE CIRCLE
         */
-        else if (ui.getButtons().get(7).isToggled() && !ui.overUI(mouseX, mouseY)) {
+        else if (ui.getButtons().get(7).isToggled() && !ui.overUI(mouseX, mouseY) && baseCircleLocked) {
 
             if(Math.abs(baseCircleX-mouseX) > 50 && Math.abs(baseCircleY - mouseY) > 50) {
                 int[] test = dynamicCoordinates(mouseX,mouseY);
@@ -820,7 +827,7 @@ void mouseReleased() {
         /*
         SAVE RECT
         */
-        else if (ui.getButtons().get(8).isToggled() && !ui.overUI(mouseX, mouseY)) {
+        else if (ui.getButtons().get(8).isToggled() && !ui.overUI(mouseX, mouseY) && baseRectLocked) {
 
             if(Math.abs(baseRectX-mouseX) > 50 && Math.abs(baseRectY - mouseY) > 50) {
                 int[] test = dynamicCoordinates(mouseX,mouseY);
@@ -866,6 +873,9 @@ void mouseReleased() {
         spotTaken = false;
         busy = false;
 
+        hookLineBase1 = null;
+        hookLineBase2 = null;
+
         // Unlocks Histo
         lockHisto = false;
         lockUndo = false;
@@ -879,6 +889,8 @@ void mouseReleased() {
         circleInFocusID = -1;
         rectInFocusID = -1;
         textInFocusID = -1;
+        baseLineX = -1;
+        baseLineY = -1;
         memoryX1 = -1;
         memoryY1 = -1;
         memoryX2 = -1;

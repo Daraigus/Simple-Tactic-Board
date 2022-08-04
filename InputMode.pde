@@ -77,6 +77,9 @@ void keyPressed() {
 				shiftDown = true;
 		} else if (!controlDown) {
 			typing = typing + key;
+			if(typing.length() > 50) {
+				typing = "T'abuses";
+			}
 		} else {}
 	} else {
 		// Remember if CTRL or SHIFT are pressed or not

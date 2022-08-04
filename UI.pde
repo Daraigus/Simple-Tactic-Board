@@ -15,6 +15,7 @@ class UI {
         for(int i = 0; i < buttons.size(); i++) {
             if (buttons.get(i).overButton(xx,yy)) return true;
         }
+        if (CP.overColorPicker(xx,yy)) return true;
         return false;
     }
 
