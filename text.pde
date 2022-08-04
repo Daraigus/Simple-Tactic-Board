@@ -22,13 +22,13 @@ class Text
     public void drawText() {
         fill(this.col);
         textAlign(CENTER);
-        textSize(25);
+        textSize(25*heightScaling);
         text(this.txt.toUpperCase(), this.x, this.y);
     }
 
     public boolean overText(int xx, int yy) {
-        if (dist(xx, yy, this.x, this.y) < 30) return true;
-        else if (xx >= this.x - ((this.txt.length()/2)*20) && xx <= this.x + ((this.txt.length()/2)*20) && yy >= this.y - 10 && yy <= this.y + 10) return true;
+        if (dist(xx, yy, this.x, this.y) < (30*heightScaling)) return true;
+        else if (xx >= this.x - ((this.txt.length()/2)*(20*widthScaling)) && xx <= this.x + ((this.txt.length()/2)*(20*widthScaling)) && yy >= this.y - (10*heightScaling) && yy <= this.y + (10*heightScaling)) return true;
         return false;
     }
 

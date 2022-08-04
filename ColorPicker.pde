@@ -56,7 +56,7 @@ class ColorPicker {
         rectMode(CENTER);
         stroke(this.strokeCol);
         fill(this.currentColor);
-		strokeWeight(2);
+		strokeWeight(2*heightScaling);
 		rect(this.x, this.y, this.w, this.h);
     }
 

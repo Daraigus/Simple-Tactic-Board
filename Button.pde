@@ -13,8 +13,8 @@ class Button {
     Button(int xx, int yy, int ww, int hh, String l){
         this.x = xx;
         this.y = yy;
-        this.w = ww;
-        this.h = hh;
+        this.w = (int)(ww*widthScaling);
+        this.h = (int)(hh*heightScaling);
         this.label = l;
         this.toggled = false;
     }
@@ -22,8 +22,8 @@ class Button {
     Button(int xx, int yy, int ww, int hh, String l, PShape ic){
         this.x = xx;
         this.y = yy;
-        this.w = ww;
-        this.h = hh;
+        this.w = (int)(ww*widthScaling);
+        this.h = (int)(hh*heightScaling);
         this.label = l;
         this.toggled = false;
         this.icon = ic;
@@ -32,8 +32,8 @@ class Button {
     Button(int xx, int yy, int ww, int hh, String l, PImage im){
         this.x = xx;
         this.y = yy;
-        this.w = ww;
-        this.h = hh;
+        this.w = (int)(ww*widthScaling);
+        this.h = (int)(hh*heightScaling);
         this.label = l;
         this.toggled = false;
         this.image = im;
@@ -46,14 +46,14 @@ class Button {
             fill(this.fillCol-50);
             strokeWeight(2);
             rect(this.x, this.y, this.w, this.h);
-            fill(0); // ?
+            fill(0);
 
             if (this.icon != null) {
                 // Affichage icône
-                shape(this.icon, this.x-20, this.y-20, 40,40);
+                shape(this.icon, this.x-(20*widthScaling), this.y-(20*heightScaling), 40*widthScaling,40*heightScaling);
             } else if (this.image != null) {
                 // Affichage image
-                image(this.image, this.x-20, this.y-20, 40,40);
+                image(this.image, this.x-(20*widthScaling), this.y-(20*heightScaling), 40*widthScaling,40*heightScaling);
             } else {
                 // Affichage texte
                 textAlign(CENTER);
@@ -70,15 +70,15 @@ class Button {
 
             if (this.icon != null) {
                 // Affichage icône
-                shape(this.icon, this.x-20, this.y-20, 40,40);
+                shape(this.icon, this.x-(20*widthScaling), this.y-(20*heightScaling), 40*widthScaling,40*heightScaling);
             } else if (this.image != null) {
                 // Affichage image
-                image(this.image, this.x-20, this.y-20, 40,40);
+                image(this.image, this.x-(20*widthScaling), this.y-(20*heightScaling), 40*widthScaling,40*heightScaling);
             } else {
                 // Affichage texte
                 textAlign(CENTER);
                 textSize(20);
-                text(this.label, this.x, this.y + 10);
+                text(this.label, this.x, this.y + (10*heightScaling));
             }
         }
         

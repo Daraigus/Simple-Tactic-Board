@@ -18,8 +18,8 @@ class Arrow extends Line
 			translate(this.x2, this.y2);
 			float a = atan2(this.x1-this.x2, this.y2-this.y1);
 			rotate(a);
-			line(0, 0, -20, -20);
-			line(0, 0, 20, -20);
+			line(0, 0, -20*widthScaling, -20*heightScaling);
+			line(0, 0, 20*widthScaling, -20*heightScaling);
 		popMatrix();
 	}
 

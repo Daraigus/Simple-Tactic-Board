@@ -5,7 +5,7 @@ String typing = "";
 // Variable to store saved text when return is hit
 String saved = "";
 
-int indent = 25;
+int indent = (int)(25*heightScaling);
 
 boolean controlDown = false;
 boolean shiftDown = false;

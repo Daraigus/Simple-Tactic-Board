@@ -159,7 +159,6 @@ void runEventManager()
             } 
             if(noElementInFocus || elementInFocusIsPlayerTeam2) { // Pas d'élément focus ou team2
                 if(elementInFocusIsPlayerTeam2) { // si team 2
-                    System.out.print(elementInFocusID + "\n");
                     Player p = team2.get(elementInFocusID);
                     if (!lockHisto) {
                         Action a = new Action(p.getX(), p.getY(), "Player", p);

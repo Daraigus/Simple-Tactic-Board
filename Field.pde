@@ -63,16 +63,16 @@ class Field {
 
     strokeWeight(3);
     ellipseMode(CENTER);
-    circle((this.x1 + this.x2)/2, (this.y1 + this.y2)/2, ratio*(9.15*2)); // Middle Circle
+    circle((this.x1 + this.x2)/2, (this.y1 + this.y2)/2, ratio*((9.15*2)*heightScaling)); // Middle Circle
 
-    rect(this.x1, (this.y1+this.y2)/2 - (ratio*40.3)/2, ratio*16.5, ratio*40.3); // Left penalty area
-    rect(this.x2, (this.y1+this.y2)/2 - (ratio*40.3)/2, -ratio*16.5, ratio*40.3); // Right penalty area
+    rect(this.x1, (this.y1+this.y2)/2 - (ratio*(40.3*heightScaling))/2, ratio*(16.5*widthScaling), ratio*(40.3*heightScaling)); // Left penalty area
+    rect(this.x2, (this.y1+this.y2)/2 - (ratio*(40.3*heightScaling))/2, -ratio*(16.5*widthScaling), ratio*(40.3*heightScaling)); // Right penalty area
 
-    rect(this.x1, (this.y1+this.y2)/2 - ((ratio*18.3)/2), ratio*5.5, ratio*18.3); // Left box area
-    rect(this.x2, (this.y1+this.y2)/2 - ((ratio*18.3)/2), -ratio*5.5, ratio*18.3); // Right box area
+    rect(this.x1, (this.y1+this.y2)/2 - ((ratio*(18.3*heightScaling))/2), ratio*(5.5*widthScaling), ratio*(18.3*heightScaling)); // Left box area
+    rect(this.x2, (this.y1+this.y2)/2 - ((ratio*(18.3*heightScaling))/2), -ratio*(5.5*widthScaling), ratio*(18.3*heightScaling)); // Right box area
 
-    rect(this.x1, (this.y1+this.y2)/2 - ((ratio*7.3)/2), -ratio*2.4, ratio*7.3); // Left Goal
-    rect(this.x2, (this.y1+this.y2)/2 - ((ratio*7.3)/2), ratio*2.4, ratio*7.3); // Right Goal
+    rect(this.x1, (this.y1+this.y2)/2 - ((ratio*(7.3*heightScaling))/2), -ratio*(2.4*widthScaling), ratio*(7.3*heightScaling)); // Left Goal
+    rect(this.x2, (this.y1+this.y2)/2 - ((ratio*(7.3*heightScaling))/2), ratio*(2.4*widthScaling), ratio*(7.3*heightScaling)); // Right Goal
   }
 
   public boolean isInside(float xx, float yy) {

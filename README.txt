@@ -1,4 +1,4 @@
-FRENCH :
+FRANCAIS :
 
 Lancer le .exe -> l'application se lance en plein écran
 Pour quitter : ALT + F4 ou croix en haut à droite
@@ -26,17 +26,17 @@ ENGLISH :
 
 Start SimpleTacticsBoard.exe -> app starts in fullscreen
 To quit : ALT + F4 or click on the X in the upper right corner
-You can reset everything by clicking on the bin in the bottom right, can't undo
+You can reset everything by clicking on the bin in the bottom right, you can not undo a reset
 Simple traits can hook to players and move with them, provided you start and end them on players
 
 SETUP :
 You can setup names of players before starting the app with data/initNames.txt
-If you're unsure about your modifications, you can revert them by copying the content of data/initNamesBACK.txt
+If you are unsure about your modifications, you can revert them by copying the content of data/initNamesBACK.txt
 
 SHORCUTS :
 1, 2, 3, ... -> tools
 CTRL + Z -> undo
-MAJ + CTRL + Z -> redo
+SHIFT + CTRL + Z -> redo
 SPACE -> cycle colors
 
 BUGS :

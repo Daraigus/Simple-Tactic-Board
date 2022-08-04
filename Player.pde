@@ -1,8 +1,8 @@
 class Player
 {
 
-  private final float ratio = 35;
-  final private float tokenRadius = 1.2*this.ratio;
+  private final float ratio = 35*heightScaling;
+  private float tokenRadius = 1.2*this.ratio;
 
   private int x,y;
 
@@ -47,20 +47,20 @@ class Player
     // Contour blanc et noir
     ellipseMode(CENTER);
     fill(CP.WHITE);
-    strokeWeight(3);
+    strokeWeight(3*widthScaling);
     stroke(this.col);
     circle(this.x, this.y, tokenRadius);
 
     // Player Name
     fill(CP.WHITE);
     textAlign(CENTER);
-    textSize(25);
+    textSize(25*heightScaling);
     text(this.name.toUpperCase(), this.x, this.y + tokenRadius);
 
     // Jersey Number
     fill(this.col);
-    textSize(30);
-    text(this.number, this.x, this.y+10);
+    textSize(30*heightScaling);
+    text(this.number, this.x, this.y+(10*widthScaling));
   }
 
   public void movePlayer(int x, int y) {

@@ -1,8 +1,8 @@
 class Circle
 {
 
-	private final float ratio = 35;
-	final private float tokenRadius = 1.5*this.ratio;
+	private final float ratio = 35*heightScaling;
+	final private float tokenRadius = (1.5*this.ratio)*heightScaling;
 
 	private float x1,y1,x2,y2;
 	private float xCenter, yCenter;

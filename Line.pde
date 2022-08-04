@@ -1,7 +1,7 @@
 class Line
 {
 
-	protected int strokeWeight = 6;
+	protected int strokeWeight = (int)(6*heightScaling);
 
 	protected int x1,y1,x2,y2;
 

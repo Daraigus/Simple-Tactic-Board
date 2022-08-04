@@ -1,25 +1,23 @@
 
+float fieldTopLeftCornerX;
+float fieldTopLeftCornerY;
 
-float fieldTopLeftCornerX = (width - (ratio*largeurTerrain))/2;
-float fieldTopLeftCornerY = (height - (ratio*hauteurTerrain))/2;
-
-float fieldBottomRightCornerX = (ratio*largeurTerrain) + (width-(ratio*largeurTerrain))/2;
-float fieldBottomRightCornerY = (ratio*hauteurTerrain) + (height-(ratio*hauteurTerrain))/2;
-
-
-float leftGoalTopPostX = fieldTopLeftCornerX;
-float leftGoalTopPostY = (fieldTopLeftCornerY+fieldBottomRightCornerY)/2 - ((ratio*7.3)/2);
-
-float leftGoalBottomPostX = fieldTopLeftCornerX;
-float leftGoalBottomPostY = (fieldTopLeftCornerY+fieldBottomRightCornerY)/2 + ((ratio*7.3)/2);
+float fieldBottomRightCornerX;
+float fieldBottomRightCornerY;
 
 
-float rightGoalTopPostX = fieldBottomRightCornerX;
-float rightGoalTopPostY = (fieldTopLeftCornerY+fieldBottomRightCornerY)/2 - ((ratio*7.3)/2);
+float leftGoalTopPostX;
+float leftGoalTopPostY;
 
-float rightGoalBottomPostX = fieldBottomRightCornerX;
-float rightGoalBottomPostY = (fieldTopLeftCornerY+fieldBottomRightCornerY)/2 + ((ratio*7.3)/2);
+float leftGoalBottomPostX;
+float leftGoalBottomPostY;
 
+
+float rightGoalTopPostX;
+float rightGoalTopPostY;
+
+float rightGoalBottomPostX;
+float rightGoalBottomPostY;
 
 void computeCoordinates() {
   
@@ -43,4 +41,13 @@ void computeCoordinates() {
   rightGoalBottomPostX = fieldBottomRightCornerX;
   rightGoalBottomPostY = (fieldTopLeftCornerY+fieldBottomRightCornerY)/2 + ((ratio*7.3)/2);
     
+}
+
+void initScaling(float width, float height) {
+  // System.out.print(width + " " + height + "\n");
+	widthScaling = width/1920;
+	heightScaling = height/1080;
+  largeurTerrain = 105*widthScaling;
+  hauteurTerrain = 68*heightScaling;
+	// System.out.print(widthScaling + " " + heightScaling + "\n");
 }
