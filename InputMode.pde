@@ -67,6 +67,7 @@ void keyPressed() {
 				INPUTMODE = false;
 				INPUTPLAYER = false;
 				INPUTTEXT = false;
+				busy = false;
 		} else if (key == BACKSPACE) {
 			if (typing.length()>0) typing = typing.substring(0,typing.length()-1);
 			else typing = saved;

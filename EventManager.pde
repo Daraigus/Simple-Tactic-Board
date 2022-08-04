@@ -392,7 +392,7 @@ void runEventManager()
         /*
         LINE
         */
-        else if(mousePressed && (field.isInside(mouseX,mouseY) || baseLineLocked) && ui.getButtons().get(4).isToggled() && !ui.overUI(mouseX, mouseY)) {
+        else if(mousePressed && (field.isInside(mouseX,mouseY) || baseLineLocked) && ui.getButtons().get(4).isToggled()) {
 
             int i = 0;
             int j = 0;
@@ -413,7 +413,7 @@ void runEventManager()
                 j++;
             }
 
-            if(!baseLineLocked) {
+            if(!baseLineLocked && !ui.overUI(mouseX, mouseY)) {
                 baseLineX = mouseX;
                 baseLineY = mouseY;
             }
@@ -431,8 +431,8 @@ void runEventManager()
         /*
         DASHLINE
         */
-        else if (mousePressed && (field.isInside(mouseX,mouseY) || baseLineLocked) && ui.getButtons().get(5).isToggled() && !ui.overUI(mouseX, mouseY)) {
-            if(!baseLineLocked) {
+        else if (mousePressed && (field.isInside(mouseX,mouseY) || baseLineLocked) && ui.getButtons().get(5).isToggled()) {
+            if(!baseLineLocked && !ui.overUI(mouseX, mouseY)) {
                 baseLineX = mouseX;
                 baseLineY = mouseY;
             }
@@ -450,8 +450,8 @@ void runEventManager()
         /*
         ARROW
         */
-        else if (mousePressed && (field.isInside(mouseX,mouseY) || baseLineLocked) && ui.getButtons().get(6).isToggled() && !ui.overUI(mouseX, mouseY)) {
-            if(!baseLineLocked) {
+        else if (mousePressed && (field.isInside(mouseX,mouseY) || baseLineLocked) && ui.getButtons().get(6).isToggled()) {
+            if(!baseLineLocked && !ui.overUI(mouseX, mouseY)) {
                 baseLineX = mouseX;
                 baseLineY = mouseY;
             }
@@ -469,8 +469,8 @@ void runEventManager()
         /*
         CIRCLE
         */
-        else if (mousePressed && (field.isInside(mouseX,mouseY) || baseCircleLocked) && ui.getButtons().get(7).isToggled() && !ui.overUI(mouseX, mouseY)) {
-            if(!baseCircleLocked) {
+        else if (mousePressed && (field.isInside(mouseX,mouseY) || baseCircleLocked) && ui.getButtons().get(7).isToggled()) {
+            if(!baseCircleLocked && !ui.overUI(mouseX, mouseY)) {
                 baseCircleX = mouseX;
                 baseCircleY = mouseY;
             }
@@ -488,8 +488,8 @@ void runEventManager()
         /*
         RECT
         */
-        else if (mousePressed && (field.isInside(mouseX,mouseY) || baseRectLocked) && ui.getButtons().get(8).isToggled() && !ui.overUI(mouseX, mouseY)) {
-            if(!baseRectLocked) {
+        else if (mousePressed && (field.isInside(mouseX,mouseY) || baseRectLocked) && ui.getButtons().get(8).isToggled()) {
+            if(!baseRectLocked && !ui.overUI(mouseX, mouseY)) {
                 baseRectX = mouseX;
                 baseRectY = mouseY;
             }
@@ -700,14 +700,14 @@ void runEventManager()
         /*
         RESET
         */
-        if(mousePressed && !mouseLocked && ui.get(13).overButton(mouseX, mouseY)) {
+        if(mousePressed && !mouseLocked && ui.get(13).overButton(mouseX, mouseY) && !busy) {
             reset();
         }
 
         /*
         EXIT
         */
-        if(mousePressed && !mouseLocked && ui.get(14).overButton(mouseX, mouseY)) {
+        if(mousePressed && !mouseLocked && ui.get(14).overButton(mouseX, mouseY) && !busy) {
             exit();
         } 
 
