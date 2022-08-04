@@ -324,6 +324,9 @@ void initPlayerCoordinates() {
 
 void reset() {
 
+	ball.setX(width/2);
+	ball.setY(height/2);
+
 	team1 = new ArrayList<Player>();
 	team2 = new ArrayList<Player>();
 

@@ -60,6 +60,10 @@ void runEventManager()
     if(!INPUTMODE) 
     {
 
+        // if(field.isInside(mouseX,mouseY)) { // Dans le terrain
+        //     System.out.print("IN\n");
+        // } else if(mouseX <= fieldTopLeftCornerX && mouseY <= fieldBottomRightCornerY && mouseY >= fieldTopLeftCornerY) System.out.print("OUT\n");
+
         /*
         BUTTON TOGGLING
         */
@@ -77,6 +81,14 @@ void runEventManager()
                 }
                 i++;
             }
+        }
+
+        /*
+        COLOR CHANGING
+        */
+        if(mousePressed && !mouseLocked && CP.overColorPicker(mouseX, mouseY)) {
+            CP.computeNextColor();
+            mouseLocked = true;
         }
 
         /*
@@ -326,7 +338,7 @@ void runEventManager()
         /*
         FREE TEXT
         */
-        else if(mousePressed && ui.getButtons().get(3).isToggled()) {
+        else if(mousePressed && field.isInside(mouseX,mouseY) && ui.getButtons().get(3).isToggled()) {
             if(!ui.overUI(mouseX, mouseY)) {
                 texts.add(new Text(mouseX, mouseY, ""));
                 if (!lockHisto) {
@@ -346,7 +358,7 @@ void runEventManager()
         /*
         LINE
         */
-        else if(mousePressed && ui.getButtons().get(4).isToggled() && !ui.overUI(mouseX, mouseY)) {
+        else if(mousePressed && (field.isInside(mouseX,mouseY) || baseLineLocked) && ui.getButtons().get(4).isToggled() && !ui.overUI(mouseX, mouseY)) {
 
             int i = 0;
             int j = 0;
@@ -372,7 +384,9 @@ void runEventManager()
                 baseLineY = mouseY;
             }
             baseLineLocked = true;
-            Line line = new Line(baseLineX, baseLineY, mouseX, mouseY);
+
+            int[] test = dynamicCoordinates(mouseX,mouseY);
+            Line line = new Line(baseLineX, baseLineY, test[0], test[1]);;
             line.drawLine();
 
             mouseLocked = true;
@@ -382,14 +396,15 @@ void runEventManager()
         /*
         DASHLINE
         */
-        else if (mousePressed && ui.getButtons().get(5).isToggled() && !ui.overUI(mouseX, mouseY)) {
+        else if (mousePressed && (field.isInside(mouseX,mouseY) || baseLineLocked) && ui.getButtons().get(5).isToggled() && !ui.overUI(mouseX, mouseY)) {
             if(!baseLineLocked) {
                 baseLineX = mouseX;
                 baseLineY = mouseY;
             }
 
             baseLineLocked = true;
-            DashLine dashLine = new DashLine(baseLineX, baseLineY, mouseX, mouseY);
+            int[] test = dynamicCoordinates(mouseX,mouseY);
+            DashLine dashLine = new DashLine(baseLineX, baseLineY, test[0], test[1]);
             dashLine.drawLine();
 
             mouseLocked = true;
@@ -399,14 +414,15 @@ void runEventManager()
         /*
         ARROW
         */
-        else if (mousePressed && ui.getButtons().get(6).isToggled() && !ui.overUI(mouseX, mouseY)) {
+        else if (mousePressed && (field.isInside(mouseX,mouseY) || baseLineLocked) && ui.getButtons().get(6).isToggled() && !ui.overUI(mouseX, mouseY)) {
             if(!baseLineLocked) {
                 baseLineX = mouseX;
                 baseLineY = mouseY;
             }
 
             baseLineLocked = true;
-            Arrow arrow = new Arrow(baseLineX, baseLineY, mouseX, mouseY);
+            int[] test = dynamicCoordinates(mouseX,mouseY);
+            Arrow arrow = new Arrow(baseLineX, baseLineY, test[0], test[1]);
             arrow.drawLine();
 
             mouseLocked = true;
@@ -416,14 +432,15 @@ void runEventManager()
         /*
         CIRCLE
         */
-        else if (mousePressed && ui.getButtons().get(7).isToggled() && !ui.overUI(mouseX, mouseY)) {
+        else if (mousePressed && (field.isInside(mouseX,mouseY) || baseCircleLocked) && ui.getButtons().get(7).isToggled() && !ui.overUI(mouseX, mouseY)) {
             if(!baseCircleLocked) {
                 baseCircleX = mouseX;
                 baseCircleY = mouseY;
             }
 
             baseCircleLocked = true;
-            Circle circle = new Circle(baseCircleX, baseCircleY, mouseX, mouseY);
+            int[] test = dynamicCoordinates(mouseX,mouseY);
+            Circle circle = new Circle(baseCircleX, baseCircleY, test[0], test[1]);
             circle.drawCircle();
 
             mouseLocked = true;
@@ -433,14 +450,15 @@ void runEventManager()
         /*
         RECT
         */
-        else if (mousePressed && ui.getButtons().get(8).isToggled() && !ui.overUI(mouseX, mouseY)) {
+        else if (mousePressed && (field.isInside(mouseX,mouseY) || baseRectLocked) && ui.getButtons().get(8).isToggled() && !ui.overUI(mouseX, mouseY)) {
             if(!baseRectLocked) {
                 baseRectX = mouseX;
                 baseRectY = mouseY;
             }
 
             baseRectLocked = true;
-            Rect rect = new Rect(baseRectX, baseRectY, mouseX, mouseY);
+            int[] test = dynamicCoordinates(mouseX,mouseY);
+            Rect rect = new Rect(baseRectX, baseRectY, test[0], test[1]);
             rect.drawRect();
 
             mouseLocked = true;
@@ -450,7 +468,7 @@ void runEventManager()
         /*
         ERASE
         */
-        if(mousePressed && ui.getButtons().get(9).isToggled() && !ui.overUI(mouseX, mouseY)) {
+        if(mousePressed && field.isInside(mouseX,mouseY) && ui.getButtons().get(9).isToggled() && !ui.overUI(mouseX, mouseY)) {
 
             // Did we click on a player ?
             for(int i = 0; i < team1.size(); i++) { // Team 1
@@ -692,7 +710,8 @@ void mouseReleased() {
 
             } else {
                 if(Math.abs(baseLineX-mouseX) > 20 || Math.abs(baseLineY-mouseY) > 20) {
-                    lines.add(new Line(baseLineX, baseLineY, mouseX, mouseY));
+                    int[] test = dynamicCoordinates(mouseX,mouseY);
+                    lines.add(new Line(baseLineX, baseLineY, test[0], test[1]));
                     if (!lockHisto) {
                         Action a = new Action("Line", lines.get(lines.size()-1));
                         histo.add(a);
@@ -713,7 +732,8 @@ void mouseReleased() {
         */
         else if (ui.getButtons().get(5).isToggled() && !ui.overUI(mouseX, mouseY)) {
             if(Math.abs(baseLineX-mouseX) > 20 || Math.abs(baseLineY-mouseY) > 20) {
-                DashLine tmp = new DashLine(baseLineX, baseLineY, mouseX, mouseY);
+                int[] test = dynamicCoordinates(mouseX,mouseY);
+                DashLine tmp = new DashLine(baseLineX, baseLineY, test[0], test[1]);
                 lines.add(tmp);
                 if (!lockHisto) {
                     Action a = new Action("Dash", tmp);
@@ -731,7 +751,8 @@ void mouseReleased() {
         */
         else if (ui.getButtons().get(6).isToggled() && !ui.overUI(mouseX, mouseY)) {
             if(Math.abs(baseLineX-mouseX) > 20 || Math.abs(baseLineY-mouseY) > 20) {
-                Arrow tmp = new Arrow(baseLineX, baseLineY, mouseX, mouseY);
+                int[] test = dynamicCoordinates(mouseX,mouseY);
+                Arrow tmp = new Arrow(baseLineX, baseLineY, test[0], test[1]);
                 lines.add(tmp);
                 if (!lockHisto) {
                     Action a = new Action("Arrow", tmp);
@@ -750,7 +771,8 @@ void mouseReleased() {
         else if (ui.getButtons().get(7).isToggled() && !ui.overUI(mouseX, mouseY)) {
 
             if(Math.abs(baseCircleX-mouseX) > 50 && Math.abs(baseCircleY - mouseY) > 50) {
-                circles.add(new Circle(baseCircleX, baseCircleY, mouseX, mouseY));
+                int[] test = dynamicCoordinates(mouseX,mouseY);
+                circles.add(new Circle(baseCircleX, baseCircleY, test[0], test[1]));
                 if (!lockHisto) {
                     Action a = new Action("Circle", circles.get(circles.size()-1));
                     histo.add(a);
@@ -768,7 +790,8 @@ void mouseReleased() {
         else if (ui.getButtons().get(8).isToggled() && !ui.overUI(mouseX, mouseY)) {
 
             if(Math.abs(baseRectX-mouseX) > 50 && Math.abs(baseRectY - mouseY) > 50) {
-                Rect tmp = new Rect(baseRectX, baseRectY, mouseX, mouseY);
+                int[] test = dynamicCoordinates(mouseX,mouseY);
+                Rect tmp = new Rect(baseRectX, baseRectY, test[0], test[1]);
                 rects.add(tmp);
                 if (!lockHisto) {
                     Action a = new Action("Rect", tmp);
@@ -889,4 +912,55 @@ void computeNextJerseyNumber(int team) {
             break;
         }
     }
+}
+
+int[] dynamicCoordinates(int xx, int yy) {
+    int[] res = new int[2];
+    if(field.isInside(xx,yy)) { // Dans le terrain                
+        res[0] = xx;
+        res[1] = yy;
+        return res;
+    } 
+    else if(xx <= fieldTopLeftCornerX && yy <= fieldBottomRightCornerY && yy >= fieldTopLeftCornerY) { // Gauche
+        res[0] = (int)fieldTopLeftCornerX;
+        res[1] = yy;
+        return res;
+    } 
+    else if(xx <= fieldTopLeftCornerX && yy <= fieldTopLeftCornerY) { // Haut Gauche
+        res[0] = (int)fieldTopLeftCornerX;
+        res[1] = (int)fieldTopLeftCornerY;
+        return res;
+    } 
+    else if(xx <= fieldTopLeftCornerX && yy >= fieldBottomRightCornerY) { // Bas Gauche                
+        res[0] = (int)fieldTopLeftCornerX;
+        res[1] = (int)fieldBottomRightCornerY;
+        return res;
+    } 
+    else if(xx >= fieldTopLeftCornerX && xx <= fieldBottomRightCornerX && yy <= fieldTopLeftCornerY) { // Haut                
+        res[0] = xx;
+        res[1] = (int)fieldTopLeftCornerY;
+        return res;
+    } 
+    else if(xx >= fieldTopLeftCornerX && xx <= fieldBottomRightCornerX && yy >= fieldBottomRightCornerY) { // Bas                
+        res[0] = xx;
+        res[1] = (int)fieldBottomRightCornerY;
+        return res;
+    }  
+    else if(xx >= fieldBottomRightCornerX && yy >= fieldTopLeftCornerY && yy <= fieldBottomRightCornerY) { // Droite                
+        res[0] = (int)fieldBottomRightCornerX;
+        res[1] = yy;
+        return res;
+    }  
+    else if(xx >= fieldBottomRightCornerX && yy <= fieldTopLeftCornerY) { // Haut Droite                
+        res[0] = (int)fieldBottomRightCornerX;
+        res[1] = (int)fieldTopLeftCornerY;
+        return res;
+    }  
+    else if(xx >= fieldBottomRightCornerX && yy >= fieldBottomRightCornerY) { // Bas Droite                
+        res[0] = (int)fieldBottomRightCornerX;
+        res[1] = (int)fieldBottomRightCornerY;
+        return res;
+    }
+
+    return res;
 }

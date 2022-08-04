@@ -1,9 +1,9 @@
 class Field {
 
-  private float x1 = (width - (ratio*largeurTerrain))/2;
-  private float y1 = (height - (ratio*hauteurTerrain))/2;
-  private float x2 = (ratio*largeurTerrain) + (width-(ratio*largeurTerrain))/2;
-  private float y2 = (ratio*hauteurTerrain) + (height-(ratio*hauteurTerrain))/2;
+  private float x1 = fieldTopLeftCornerX;
+  private float y1 = fieldTopLeftCornerY;
+  private float x2 = fieldBottomRightCornerX;
+  private float y2 = fieldBottomRightCornerY;
 
   private float fieldLength;
   private float fieldWidth;
@@ -76,7 +76,7 @@ class Field {
   }
 
   public boolean isInside(float xx, float yy) {
-    if (xx >= x1 || xx <= x2 || yy >= y1 || yy <= y2)
+    if (xx >= x1 && xx <= x2 && yy >= y1 && yy <= y2)
       return true;
     return false;
   }

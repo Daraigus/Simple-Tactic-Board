@@ -40,7 +40,7 @@ class Button {
     }
 
     void drawButton() {
-        if(this.toggled || this.overButton(mouseX,mouseY)) {
+        if(this.toggled || (this.overButton(mouseX,mouseY) && !mouseLocked)) {
             rectMode(CENTER);
             stroke(0);
             fill(this.fillCol-50);
