@@ -27,7 +27,9 @@ class Text
     }
 
     public boolean overText(int xx, int yy) {
-        return dist(xx, yy, this.x, this.y) < 20;
+        if (dist(xx, yy, this.x, this.y) < 30) return true;
+        else if (xx >= this.x - ((this.txt.length()/2)*20) && xx <= this.x + ((this.txt.length()/2)*20) && yy >= this.y - 10 && yy <= this.y + 10) return true;
+        return false;
     }
 
     // GETTERS SETTERS

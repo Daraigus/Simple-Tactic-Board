@@ -54,6 +54,8 @@ boolean lockHisto = false;
 boolean lockUndo = false;
 boolean lockRedo = false;
 
+boolean busy = false;
+
 
 void runEventManager() 
 {
@@ -104,6 +106,7 @@ void runEventManager()
                         histo.add(a);
                         lockHisto = true;
                     }
+                    busy = true;
                     ball.setX(mouseX);
                     ball.setY(mouseY);
                 }
@@ -131,8 +134,10 @@ void runEventManager()
                     }
                     p.setX(mouseX);
                     p.setY(mouseY);
+                    busy = true;
                 } else { // si rien de focus
-                    for(int i = 0; i < team1.size(); i++) {
+                    int i = 0;
+                    while(i < team2.size()) {
                         Player p = team1.get(i);
                         if(p.overPlayer(mouseX, mouseY)) {
                             if (!lockHisto) {
@@ -145,12 +150,16 @@ void runEventManager()
                             noElementInFocus = false;
                             elementInFocusIsPlayerTeam1 = true;
                             elementInFocusID = i;
+                            busy = true;
+                            i = 90000000;
                         }
+                        i++;
                     }
                 }
             } 
             if(noElementInFocus || elementInFocusIsPlayerTeam2) { // Pas d'élément focus ou team2
                 if(elementInFocusIsPlayerTeam2) { // si team 2
+                    System.out.print(elementInFocusID + "\n");
                     Player p = team2.get(elementInFocusID);
                     if (!lockHisto) {
                         Action a = new Action(p.getX(), p.getY(), "Player", p);
@@ -159,8 +168,10 @@ void runEventManager()
                     }
                     p.setX(mouseX);
                     p.setY(mouseY);
+                    busy = true;
                 } else {
-                    for(int i = 0; i < team2.size(); i++) {
+                    int i = 0;
+                    while(i < team2.size()) {
                         Player p = team2.get(i);
                         if(p.overPlayer(mouseX, mouseY)) {
                             if (!lockHisto) {
@@ -173,7 +184,10 @@ void runEventManager()
                             noElementInFocus = false;
                             elementInFocusIsPlayerTeam2 = true;
                             elementInFocusID = i;
+                            busy = true;
+                            i = 90000000;
                         }
+                        i++;
                     }
                 }
             }
@@ -194,8 +208,10 @@ void runEventManager()
                     memoryMouseX = mouseX;
                     memoryMouseY = mouseY;
                     noElementInFocus = false;
+                    busy = true;
                 } else {
-                    for(int i = 0; i < lines.size(); i++) {
+                    int i = 0;
+                    while(i < lines.size()) {
                         Line line = lines.get(i);
                         if (line.overLine(mouseX, mouseY) && !(line instanceof HookLine)) {
                             if (!lockHisto) {
@@ -207,7 +223,10 @@ void runEventManager()
                             memoryMouseX = mouseX;
                             memoryMouseY = mouseY;
                             noElementInFocus = false;
+                            busy = true;
+                            i = 9000000;
                         }
+                        i++;
                     }
                 }
             }
@@ -225,8 +244,10 @@ void runEventManager()
                     memoryMouseX = mouseX;
                     memoryMouseY = mouseY;
                     noElementInFocus = false;
+                    busy = true;
                 } else {
-                    for(int i = 0; i < texts.size(); i++) {
+                    int i = 0;
+                    while(i < texts.size()) {
                         if (texts.get(i).overText(mouseX, mouseY)) {
                             if (!lockHisto) {
                                 Action a = new Action(texts.get(i).getX(), texts.get(i).getY(), "Text", texts.get(i));
@@ -237,7 +258,10 @@ void runEventManager()
                             memoryMouseX = mouseX;
                             memoryMouseY = mouseY;
                             noElementInFocus = false;
+                            busy = true;
                         }
+                        i = 900000;
+                        i++;
                     }
                 }
             }
@@ -258,8 +282,10 @@ void runEventManager()
                     memoryMouseX = mouseX;
                     memoryMouseY = mouseY;
                     noElementInFocus = false;
+                    busy = true;
                 } else {
-                    for(int i = 0; i < rects.size(); i++) {
+                    int i = 0;
+                    while(i < rects.size()) {
                         if (rects.get(i).overRect(mouseX, mouseY)) {
                             if (!lockHisto) {
                                 Action a = new Action((int)rects.get(i).getX1(), (int)rects.get(i).getY1(),
@@ -271,7 +297,10 @@ void runEventManager()
                             memoryMouseX = mouseX;
                             memoryMouseY = mouseY;
                             noElementInFocus = false;
+                            busy = true;
+                            i = 900000;
                         }
+                        i++;
                     }
                 }
             }
@@ -292,8 +321,10 @@ void runEventManager()
                     memoryMouseX = mouseX;
                     memoryMouseY = mouseY;
                     noElementInFocus = false;
+                    busy = true;
                 } else {
-                    for(int i = 0; i < circles.size(); i++) {
+                    int i = 0;
+                    while(i < circles.size()) {
                         if (circles.get(i).overCircle(mouseX, mouseY)) {
                             if (!lockHisto) {
                                 Action a = new Action((int)circles.get(i).getX1(), (int)circles.get(i).getY1(),
@@ -305,7 +336,10 @@ void runEventManager()
                             memoryMouseX = mouseX;
                             memoryMouseY = mouseY;
                             noElementInFocus = false;
+                            busy = true;
+                            i = 900000;
                         }
+                        i++;
                     }
                 }
             }
@@ -374,7 +408,7 @@ void runEventManager()
             while(j < team2.size() && !hook && !baseLineLocked) {
                 if(team2.get(j).overPlayer(mouseX, mouseY)) {
                     hook = true;
-                    hookLineBase1 = team2.get(i);
+                    hookLineBase1 = team2.get(j);
                 }
                 j++;
             }
@@ -829,6 +863,9 @@ void mouseReleased() {
         blockCircleDeletion = false;
 
         hook = false;
+
+        spotTaken = false;
+        busy = false;
 
         // Unlocks Histo
         lockHisto = false;

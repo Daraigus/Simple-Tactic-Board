@@ -68,13 +68,16 @@ void keyPressed() {
 				INPUTPLAYER = false;
 				INPUTTEXT = false;
 		} else if (key == BACKSPACE) {
-				if (typing.length()>0) typing = typing.substring(0,typing.length()-1);
-				else typing = saved;
-			} else if (key == CODED) { // Ignore shift/control/tab
-				typing = typing.toUpperCase();
-			} else {
+			if (typing.length()>0) typing = typing.substring(0,typing.length()-1);
+			else typing = saved;
+		} else if (key == CODED) { // Ignore shift/control/tab
+			if (keyCode == CONTROL)
+				controlDown = true;
+			if (keyCode == SHIFT)
+				shiftDown = true;
+		} else if (!controlDown) {
 			typing = typing + key;
-		}
+		} else {}
 	} else {
 		// Remember if CTRL or SHIFT are pressed or not
 		if (key == CODED) {
@@ -85,7 +88,7 @@ void keyPressed() {
 			return;
 		}
 		// Check if we pressed CTRL+Z or CTRL+SHIFT+Z
-		if (controlDown) {
+		if (controlDown && !mouseLocked && !busy) {
 			if (keyCode == 'Z') {
 				if (shiftDown)
 					histo.redo();

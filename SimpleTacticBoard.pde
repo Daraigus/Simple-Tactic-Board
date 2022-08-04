@@ -135,13 +135,13 @@ void drawUI() {
 
 void drawPlayers(ColorPicker CP) {
 	if(!team1.isEmpty()) {
-		for(int i = 0; i < team1.size(); i++) {
+		for(int i = team1.size()-1; i >= 0; i--) {
 			team1.get(i).drawPlayer(CP);
 		}
 	}
 
 	if(!team2.isEmpty()) {
-		for(int i = 0; i < team2.size(); i++) {
+		for(int i = team2.size()-1; i >= 0; i--) {
 			team2.get(i).drawPlayer(CP);
 		}
 	}
@@ -149,7 +149,7 @@ void drawPlayers(ColorPicker CP) {
 
 void drawLines() {
 	if(!lines.isEmpty()) {
-		for(int i = 0; i < lines.size(); i++) {
+		for(int i = lines.size()-1; i >= 0; i--) {
 			lines.get(i).drawLine();
 		}
 	}
@@ -157,7 +157,7 @@ void drawLines() {
 
 void drawRects() {
 	if(!rects.isEmpty()) {
-		for(int i = 0; i < rects.size(); i++) {
+		for(int i = rects.size()-1; i >= 0; i--) {
 			rects.get(i).drawRect();
 		}
 	}
@@ -165,7 +165,7 @@ void drawRects() {
 
 void drawCircles() {
 	if(!circles.isEmpty()) {
-		for(int i = 0; i < circles.size(); i++) {
+		for(int i = circles.size()-1; i >= 0; i--) {
 			circles.get(i).drawCircle();
 		}
 	}
@@ -173,7 +173,7 @@ void drawCircles() {
 
 void drawTexts() {
 	if(!texts.isEmpty()) {
-		for(int i = 0; i < texts.size(); i++) {
+		for(int i = texts.size()-1; i >= 0; i--) {
 			texts.get(i).drawText();
 		}
 	}
