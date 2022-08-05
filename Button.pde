@@ -109,6 +109,14 @@ class Button {
         return this.w;
     }
 
+    public void setX(int xx) {
+        this.x = xx;
+    }
+
+    public void setY(int yy) {
+        this.y = yy;
+    }
+
     public void setW(int ww) {
         this.w = ww;
     }

@@ -1,7 +1,7 @@
 class Ball 
 {
   
-  final private float tokenRadius = 1.5*ratio;
+  final private float tokenRadius = 1.5*ratio*heightScaling;
   
   private float x,y;
 

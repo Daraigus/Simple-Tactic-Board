@@ -25,6 +25,39 @@ void pentagon(float x, float y, float radius) {
   polygon(x, y, radius, 5);
 }
 
+/***
+* A method to produce a rounded rectangle. 	
+**/
+void roundedRect(int left, int top, int width, int height, int roundness)
+{
+  beginShape();               
+  vertex(left + roundness, top);
+  vertex(left + width - roundness, top);
+  bezierVertex(left + width - roundness, top,
+                left + width, top,
+                left + width, top + roundness);
+                          
+  vertex(left + width, top + roundness);
+  vertex(left + width, top + height - roundness);
+  bezierVertex(left + width, top + height - roundness,
+                left + width, top + height,
+                left + width - roundness, top + height);
+        
+  vertex(left + width - roundness, top + height);
+  vertex(left + roundness, top + height);        
+  bezierVertex(left + roundness, top + height,
+                left, top + height,
+                left, top + height - roundness);
+        
+  vertex(left, top + height - roundness);
+  vertex(left, top + roundness);
+  bezierVertex(left, top + roundness,
+                left, top,
+                left + roundness, top);        
+  endShape();
+}
+
+
 
 
 // TESTS POSITION SOURIS

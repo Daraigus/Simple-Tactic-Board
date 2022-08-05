@@ -59,6 +59,7 @@ boolean busy = false;
 
 void runEventManager() 
 {
+    
     if(!INPUTMODE) 
     {
 
@@ -73,7 +74,7 @@ void runEventManager()
             int i = 0;
             boolean found = false;
             while(i < ui.size && !found) {
-                if (i != 1 && i != 2 && i!= 13 && i != 14) {
+                if (i != 1 && i != 2 && i!= 13 && i != 14 && i != 15) {
                     if (ui.getButtons().get(i).overButton(mouseX,mouseY) && toggledButtonID != i) {
                         ui.getButtons().get(i).toggle(); // Toggle button ON
                         ui.getButtons().get(toggledButtonID).toggle(); // Toggle previous button OFF
@@ -83,6 +84,15 @@ void runEventManager()
                 }
                 i++;
             }
+        }
+
+        /*
+        HELPMODE TOGGLE
+        */
+        if(mousePressed && !mouseLocked && !busy && ui.get(15).overButton(mouseX, mouseY)) {
+            HELPMODE = !HELPMODE;
+            if (HELPMODE) ui.get(15).setX((int)(240*widthScaling));
+            else ui.get(15).setX(0);
         }
 
         /*
@@ -216,16 +226,33 @@ void runEventManager()
             // Did we click on a line ?
             if(noElementInFocus || lineInFocusID != -1) { // Pas d'élément focus ou ligne
                 if(lineInFocusID != -1) { // If the line is already in focus
-                    Line line = lines.get(lineInFocusID);
-                    if (!lockHisto) {
-                        Action a = new Action(line.getX1(), line.getY1(), line.getX2(), line.getY2(), "Line", line);
-                        histo.add(a);
-                        lockHisto = true;
+                    
+                    if(lines.get(lineInFocusID) instanceof DashLine) {
+                        if (!lockHisto) {
+                            Action a = new Action(line.getX1(), line.getY1(), line.getX2(), line.getY2(), "Dash", line);
+                            histo.add(a);
+                            lockHisto = true;
+                        }
+                    } else if(lines.get(lineInFocusID) instanceof Arrow) {
+                        if (!lockHisto) {
+                            Action a = new Action(line.getX1(), line.getY1(), line.getX2(), line.getY2(), "Arrow", line);
+                            histo.add(a);
+                            lockHisto = true;
+                        }
+                    } else {
+                        if (!lockHisto) {
+                            Action a = new Action(line.getX1(), line.getY1(), line.getX2(), line.getY2(), "Line", line);
+                            histo.add(a);
+                            lockHisto = true;
+                        }
                     }
+                    
+                    Line line = lines.get(lineInFocusID);
                     line.setX1(line.getX1() + (mouseX - memoryMouseX));
                     line.setY1(line.getY1() + (mouseY - memoryMouseY));
                     line.setX2(line.getX2() + (mouseX - memoryMouseX));
                     line.setY2(line.getY2() + (mouseY - memoryMouseY));
+
                     memoryMouseX = mouseX;
                     memoryMouseY = mouseY;
                     noElementInFocus = false;
@@ -235,11 +262,26 @@ void runEventManager()
                     while(i < lines.size()) {
                         Line line = lines.get(i);
                         if (line.overLine(mouseX, mouseY) && !(line instanceof HookLine)) {
-                            if (!lockHisto) {
-                                Action a = new Action(line.getX1(), line.getY1(), line.getX2(), line.getY2(), "Line", line);
-                                histo.add(a);
-                                lockHisto = true;
+                            if(lines.get(i) instanceof DashLine) {
+                                if (!lockHisto) {
+                                    Action a = new Action(line.getX1(), line.getY1(), line.getX2(), line.getY2(), "Dash", line);
+                                    histo.add(a);
+                                    lockHisto = true;
+                                }
+                            } else if(lines.get(i) instanceof Arrow) {
+                                if (!lockHisto) {
+                                    Action a = new Action(line.getX1(), line.getY1(), line.getX2(), line.getY2(), "Arrow", line);
+                                    histo.add(a);
+                                    lockHisto = true;
+                                }
+                            } else {
+                                if (!lockHisto) {
+                                    Action a = new Action(line.getX1(), line.getY1(), line.getX2(), line.getY2(), "Line", line);
+                                    histo.add(a);
+                                    lockHisto = true;
+                                }
                             }
+
                             lineInFocusID = i;
                             memoryMouseX = mouseX;
                             memoryMouseY = mouseY;
@@ -280,8 +322,8 @@ void runEventManager()
                             memoryMouseY = mouseY;
                             noElementInFocus = false;
                             busy = true;
+                            i = 900000;
                         }
-                        i = 900000;
                         i++;
                     }
                 }
@@ -732,13 +774,13 @@ void mouseReleased() {
                 for(int i = 0; i < team1.size(); i++) {
                     if(team1.get(i).overPlayer(mouseX, mouseY)) {
                         hookLineBase2 = team1.get(i);
-                        found = true;
+                        if(hookLineBase2 != hookLineBase1) found = true;
                     } 
                 }
                 for(int i = 0; i < team2.size(); i++) {
                     if(team2.get(i).overPlayer(mouseX, mouseY)) {
                         hookLineBase2 = team2.get(i);
-                        found = true;
+                        if(hookLineBase2 != hookLineBase1) found = true;
                     }
                 }
 

@@ -11,6 +11,7 @@ boolean INPUTMODE;
 boolean INPUTPLAYER;
 boolean INPUTTEXT;
 
+boolean HELPMODE;
 
 Field field;
 
@@ -40,10 +41,12 @@ String[] names;
 
 ColorPicker CP = new ColorPicker();
 UI ui;
+ToolTip tooltip;
+String LANGUAGE;
 
 PShape moveSVG, undoSVG, redoSVG;
 PShape freeTextSVG, lineSVG, dashLineSVG, arrowSVG, circleSVG, squareSVG, eraserSVG;
-PImage team1SVG, team2SVG, renameSVG, quitSVG;
+PImage team1SVG, team2SVG, renameSVG, quitSVG, helpSVG;
 PShape cleanSVG;
 
 Histo histo;
@@ -53,6 +56,7 @@ float widthScaling, heightScaling;
 void setup() {
 	frameRate(60);
 	fullScreen();
+	// size(1280,720);
 
 	initData(); // Init les SVG du dossier data
 
@@ -60,6 +64,8 @@ void setup() {
 
 	background(255);
 	fill(0);
+
+	LANGUAGE = "French";
 
 	initScaling(width, height);
 	computeCoordinates();
@@ -84,9 +90,12 @@ void setup() {
 	INPUTPLAYER = false;
 	INPUTTEXT = false;
 
+	HELPMODE = false;
+
 	names = loadStrings("initNames.txt");
 
 	ui = new UI();
+	tooltip = new ToolTip();
 
 	initPlayerSetup();
 	initUI();
@@ -103,6 +112,8 @@ void draw() {
 
 	resetBG();
 	field.drawField();
+
+	computeTexts();
 	drawUI();
 
 	drawRects();
@@ -128,6 +139,7 @@ void resetBG() {
 }
 
 void drawUI() {
+	if (HELPMODE) tooltip.drawToolTip();
 	CP.drawColorPicker();
 	ui.drawUI();
 }
@@ -179,8 +191,9 @@ void drawTexts() {
 }
 
 void initUI() {
-	int spaceBetweenElements = (int)(70*widthScaling);
-	int leftX = (int)(295*widthScaling);
+	int spaceBetweenElements = (int)(75*widthScaling);
+	// int leftX = (int)(295*widthScaling);
+	int leftX = (int)((fieldTopLeftCornerX+25)*widthScaling);
 
 	ui.addToUI(new ButtonM(leftX, (int)(height-(65*heightScaling)), "Move", moveSVG));
 
@@ -202,9 +215,12 @@ void initUI() {
 	ui.addToUI(new ButtonM(leftX + spaceBetweenElements*14, (int)(height-(65*heightScaling)), "Team1", team1SVG));
 	ui.addToUI(new ButtonM(leftX + spaceBetweenElements*15, (int)(height-(65*heightScaling)), "Team2", team2SVG));
 	ui.addToUI(new ButtonM(leftX + spaceBetweenElements*16, (int)(height-(65*heightScaling)), "Rename", renameSVG));
-	ui.addToUI(new ButtonM(leftX + spaceBetweenElements*19, (int)(height-(65*heightScaling)), "Clean", cleanSVG));
+	
+	ui.addToUI(new ButtonM((int)((fieldBottomRightCornerX-25)*widthScaling), (int)(height-(65*heightScaling)), "Clean", cleanSVG));
 
 	ui.addToUI(new ButtonM((int)(width-(30*widthScaling)), (int)(30*heightScaling), "X", quitSVG));
+
+	ui.addToUI(new ButtonM(0, (int)(650*heightScaling), "Help", helpSVG));
 }
 
 void initData(){
@@ -229,6 +245,8 @@ void initData(){
 	cleanSVG = loadShape("clean.svg");
 
 	quitSVG = loadImage("quit.png");
+
+	helpSVG = loadImage("help2.png");
 	
 }
 

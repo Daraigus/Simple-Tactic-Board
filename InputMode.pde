@@ -31,6 +31,22 @@ void runInputMode() {
 		texts.get(textToEditID).getX(), 
 		texts.get(textToEditID).getY()-indent);
   	}
+
+	/*
+	HELP
+	*/
+	if(mousePressed && ui.get(15).overButton(mouseX, mouseY)) {
+        HELPMODE = !HELPMODE;
+        if (HELPMODE) ui.get(15).setX((int)(240*widthScaling));
+        else ui.get(15).setX(0);
+    }
+
+	/*
+	EXIT
+	*/
+	if(mousePressed && ui.get(14).overButton(mouseX, mouseY)) {
+		exit();
+	} 
   
 }
 
@@ -144,7 +160,7 @@ void keyPressed() {
 			ui.getButtons().get(11).toggle(); // Toggle button ON
 			ui.getButtons().get(toggledButtonID).toggle(); // Toggle previous button OFF
 			toggledButtonID = 11;      
-		} else if (keyCode == ')' || keyCode == '°') {
+		} else if (key == '°' || key == ')') {
 			ui.getButtons().get(12).toggle(); // Toggle button ON
 			ui.getButtons().get(toggledButtonID).toggle(); // Toggle previous button OFF
 			toggledButtonID = 12;      
