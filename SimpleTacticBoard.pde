@@ -49,16 +49,31 @@ PShape freeTextSVG, lineSVG, dashLineSVG, arrowSVG, circleSVG, squareSVG, eraser
 PImage team1SVG, team2SVG, renameSVG, quitSVG, helpSVG;
 PShape cleanSVG;
 
+PImage LOGO;
+
 Histo histo;
 
 float widthScaling, heightScaling;
 
+//previous width/height
+float pWidth, pHeight;
+
 void setup() {
 	frameRate(60);
 	fullScreen();
+	// size(3840,2160);
+	// size(2560,1440);
+	// size(1920,1080);
 	// size(1280,720);
+	// size(800,600);
 
 	initData(); // Init les SVG du dossier data
+	
+	surface.setResizable(true);
+	surface.setTitle("Simple Tactics Board");
+	// surface.setIcon(LOGO); // Not ready yet
+
+	
 
 	dash = new DashedLines(this);
 
@@ -109,6 +124,8 @@ void setup() {
 
 
 void draw() {
+	
+  	// updateWindowResized();
 
 	resetBG();
 	field.drawField();
@@ -193,7 +210,7 @@ void drawTexts() {
 void initUI() {
 	int spaceBetweenElements = (int)(75*widthScaling);
 	// int leftX = (int)(295*widthScaling);
-	int leftX = (int)((fieldTopLeftCornerX+25)*widthScaling);
+	int leftX = (int)(fieldTopLeftCornerX+(25*widthScaling));
 
 	ui.addToUI(new ButtonM(leftX, (int)(height-(65*heightScaling)), "Move", moveSVG));
 
@@ -216,7 +233,7 @@ void initUI() {
 	ui.addToUI(new ButtonM(leftX + spaceBetweenElements*15, (int)(height-(65*heightScaling)), "Team2", team2SVG));
 	ui.addToUI(new ButtonM(leftX + spaceBetweenElements*16, (int)(height-(65*heightScaling)), "Rename", renameSVG));
 	
-	ui.addToUI(new ButtonM((int)((fieldBottomRightCornerX-25)*widthScaling), (int)(height-(65*heightScaling)), "Clean", cleanSVG));
+	ui.addToUI(new ButtonM((int)(fieldBottomRightCornerX-(25*widthScaling)), (int)(height-(65*heightScaling)), "Clean", cleanSVG));
 
 	ui.addToUI(new ButtonM((int)(width-(30*widthScaling)), (int)(30*heightScaling), "X", quitSVG));
 
@@ -224,6 +241,8 @@ void initUI() {
 }
 
 void initData(){
+
+	LOGO = loadImage("logo.png");
 
 	moveSVG = loadShape("move.svg");
 
@@ -364,4 +383,47 @@ void reset() {
 	initPlayerSetup();
 
 	histo.clear();
+}
+
+void updateWindowResized() {
+  	if (width != pWidth || height != pHeight) {
+		pWidth = width;
+		pHeight = height;
+		windowResized();
+	}
+}
+
+//called when the window was resized 
+void windowResized() {
+	initScaling(width, height);
+	computeCoordinates();
+	field = new Field(11);
+
+	ui = new UI();
+	tooltip = new ToolTip();
+
+	initUI();
+
+	reset();
+ 	// initScaling(width, height);
+	// computeCoordinates();
+	// field = new Field(11);
+
+	// ball = new Ball(255, width/2, height/2);
+
+	// ui = new UI();
+	// tooltip = new ToolTip();
+
+	// initUI();
+
+	// // Updating all objects' coordinates
+	// for(int i = 0; i < team1.size(); i++){
+	// 	team1.get(i).setX((int)(team1.get(i).getX()*widthScaling));
+	// 	team1.get(i).setY((int)(team1.get(i).getY()*heightScaling));
+	// }
+
+	// for(int i = 0; i < team2.size(); i++){
+	// 	team2.get(i).setX((int)(team2.get(i).getX()*widthScaling));
+	// 	team2.get(i).setY((int)(team2.get(i).getY()*heightScaling));
+	// }
 }

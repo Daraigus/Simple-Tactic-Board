@@ -20,7 +20,7 @@ class ToolTip{
 		this.x1 = (int)(10*widthScaling);
 		this.y1 = (int)(623*heightScaling);
         this.x2 = (int)(267*widthScaling);
-		this.y2 = (int)(fieldBottomRightCornerY*heightScaling);
+		this.y2 = (int)(fieldBottomRightCornerY);
 	}
 
     void drawToolTip() {
@@ -37,7 +37,7 @@ class ToolTip{
         textAlign(CENTER);
         text(tooltipTitle,this.x1+rectWidthMargin, this.y1+((int)(25*heightScaling))-(this.fontSize/2), this.x2-rectWidthMargin-((int)(50*widthScaling)), this.y1+((int)(50*heightScaling)));
         textAlign(LEFT);
-        textLeading(20);
+        textLeading(20*heightScaling);
         text(tooltipText+"\n"+tooltipShortcut,this.x1+rectWidthMargin, this.y1+rectHeightMargin+((int)(50*heightScaling)), this.x2-rectWidthMargin, this.y2-rectHeightMargin);
 	}
 
@@ -45,7 +45,7 @@ class ToolTip{
 		rectMode(CORNERS);
 		stroke(this.col);
         fill(this.col2, 170);
-		strokeWeight(4*heightScaling);
+		strokeWeight((int)(3*heightScaling));
 		rect(this.x1, this.y1, this.x2, this.y2);
 	}
 
