@@ -17,7 +17,6 @@ ESPACE -> changer couleur des objets à créer
 
 BUGS :
 Si (quand) vous en trouvez, contactez moi directement par le même réseau que celui utilisé pour vous donner cette appli.
-Un canal public d'échange sera créé quand la distribution publique de STB aura commencé.
 N'hésitez pas à me partager vos suggestions ! :)
 
 
@@ -41,5 +40,4 @@ SPACE -> cycle colors
 
 BUGS :
 If and when you find one, please contact me directly on the same platform as used when access was given to you. 
-A public way of contacting me will be created when STB will start public distribution.
-Do not hesitate to share suggestions ! :)
+Feel free to share suggestions ! :)

@@ -174,8 +174,14 @@ class Histo {
                         Player tmp5 = action.getPlayer();
                         Action a5 = new Action(tmp5, 5);
                         this.futureLog(a5);
-                        if (tmp5.getTeam() == 1) team1.add(tmp5);
-                        else team2.add(tmp5);
+                        if (tmp5.getTeam() == 1) {
+                            computeNextJerseyNumber(1);
+                            team1.add(tmp5);
+                        } 
+                        else {
+                            computeNextJerseyNumber(2);
+                            team2.add(tmp5);
+                        }
                     } else if(action.getType() == "Text") {
                         Text tmp5 = action.getText();
                         Action a5 = new Action(tmp5, 5);
@@ -193,8 +199,13 @@ class Histo {
                     Player tmp3 = action.getPlayer();
                     Action a3 = new Action(tmp3);
                     this.futureLog(a3);
-                    if(tmp3.getTeam() == 1) team1.remove(tmp3);
-                    else team2.remove(tmp3);
+                    if(tmp3.getTeam() == 1) { 
+                        team1FreeJerseyNumbers.add(tmp3.getNumber());
+                        team1.remove(tmp3);
+                    } else { 
+                        team2FreeJerseyNumbers.add(tmp3.getNumber());
+                        team2.remove(tmp3);
+                    }
                     break;
 
                 case "Rename": // Revert name

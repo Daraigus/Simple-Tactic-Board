@@ -156,8 +156,8 @@ void runEventManager()
             }
 
             // Did we click on a player ?
-            if(noElementInFocus || elementInFocusIsPlayerTeam1) { // Pas d'élément focus ou team1
-                if(elementInFocusIsPlayerTeam1) { // si team 1
+            if(noElementInFocus || elementInFocusIsPlayerTeam1) { // No element in focus
+                if(elementInFocusIsPlayerTeam1) {
                     Player p = team1.get(elementInFocusID);
                     if (!lockHisto) {
                         Action a = new Action(p.getX(), p.getY(), "Player", p);
@@ -167,9 +167,9 @@ void runEventManager()
                     p.setX(mouseX);
                     p.setY(mouseY);
                     busy = true;
-                } else { // si rien de focus
+                } else {
                     int i = 0;
-                    while(i < team2.size()) {
+                    while(i < team1.size()) {
                         Player p = team1.get(i);
                         if(p.overPlayer(mouseX, mouseY)) {
                             if (!lockHisto) {
@@ -224,7 +224,7 @@ void runEventManager()
             }
 
             // Did we click on a line ?
-            if(noElementInFocus || lineInFocusID != -1) { // Pas d'élément focus ou ligne
+            if(noElementInFocus || lineInFocusID != -1) { // No Element in focus
                 if(lineInFocusID != -1) { // If the line is already in focus
                     
                     if(lines.get(lineInFocusID) instanceof DashLine) {
@@ -413,7 +413,7 @@ void runEventManager()
         /*
         FREE TEXT
         */
-        else if(mousePressed && field.isInside(mouseX,mouseY) && ui.getButtons().get(3).isToggled()) {
+        else if(mousePressed /* && field.isInside(mouseX,mouseY) */ && ui.getButtons().get(3).isToggled()) {
             if(!ui.overUI(mouseX, mouseY)) {
                 texts.add(new Text(mouseX, mouseY, ""));
                 if (!lockHisto) {
@@ -549,7 +549,7 @@ void runEventManager()
         /*
         ERASE
         */
-        if(mousePressed && field.isInside(mouseX,mouseY) && ui.getButtons().get(9).isToggled() && !ui.overUI(mouseX, mouseY)) {
+        if(mousePressed /* && field.isInside(mouseX,mouseY) */ && ui.getButtons().get(9).isToggled() && !ui.overUI(mouseX, mouseY)) {
 
             // Did we click on a player ?
             for(int i = 0; i < team1.size(); i++) { // Team 1
@@ -1010,6 +1010,7 @@ void computeNextJerseyNumber(int team) {
     }
 }
 
+// Calculates interpolation for placing end of segment or shape at most on the edges of the playing field
 int[] dynamicCoordinates(int xx, int yy) {
     int[] res = new int[2];
     if(field.isInside(xx,yy)) { // Dans le terrain                
